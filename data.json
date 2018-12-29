@@ -1,0 +1,106 @@
+{
+    "dataBs":[
+        {
+            "desa":"Celuak",
+            "dusun":"Bajangan, Usa",
+            "kabupaten":"Bangka Tengah",
+            "kecamatan":"Simpang Katis",
+            "noBs":"113B",
+            "provinsi":"19",
+            "rt_rw":"RT06, RW07",
+            "stratifikasi":"Perkotaan",
+            "idBs":2,
+            "jumlahRuta":0
+        },
+        {
+            "desa":"Bangka Kota",
+            "dusun":"Kajian, Romadhon",
+            "kabupaten":"Bangka Selatan",
+            "kecamatan":"Simpang Rimba",
+            "noBs":"124B",
+            "provinsi":"19",
+            "rt_rw":"RT 07 / RW 05",
+            "stratifikasi":"Perkotaan",
+            "idBs":3,
+            "jumlahRuta":0
+        }
+    ],
+    "dataRt":[
+        {
+            "alamat":"Bongos 2, Gadingsari",
+            "bf":"123",
+            "bs":"124",
+            "jumlahArt23":"2",
+            "jumlahArtBalita":"0",
+            "jumlahArtKerja":"3",
+            "latitude":"-6.22837359",
+            "longitude":"106.86644448",
+            "namaKrt":"Karjiman",
+            "noSegmen":"S627",
+            "noUrutRuta":"1",
+            "idBs":2,
+            "idrt":3,
+            "type":1
+        },
+        {
+            "alamat":"Krajan",
+            "bf":"523",
+            "bs":"855",
+            "jumlahArt23":"2",
+            "jumlahArtBalita":"1",
+            "jumlahArtKerja":"3",
+            "latitude":"-6.22837359",
+            "longitude":"106.86644448",
+            "namaKrt":"Sumanto",
+            "noSegmen":"S167",
+            "noUrutRuta":"2",
+            "idBs":2,
+            "idrt":4,
+            "type":1
+        },
+        {
+            "alamat":"Kalimundu",
+            "bf":"234",
+            "bs":"255",
+            "jumlahArt23":"",
+            "jumlahArtBalita":"",
+            "jumlahArtKerja":"",
+            "latitude":"-6.22837359",
+            "longitude":"106.86644448",
+            "namaKrt":"",
+            "noSegmen":"S617",
+            "noUrutRuta":"1",
+            "idBs":3,
+            "idrt":5,
+            "type":2
+        }
+    ],
+    "dataSt":[
+        {
+            "idBs":2,
+            "idRt":3
+        },
+        {
+            "idBs":2,
+            "idRt":4
+        }
+    ],
+    "time":"Jan 2, 2017 11:35:00 AM",
+    "uploader":"14.8189"
+}
+
+$arr = [];
+                foreach ($que_satu as $row1) {
+                    
+                    $var = [];          
+                    foreach ($que_kedua as $row2) {
+                        $que = $this->db->query("SELECT COUNT($variabel_pertama) as jumlah FROM $kuesioner_modul WHERE $variabel_pertama='$row1->var1' AND $variabel_kedua='$row2->var2'");
+                        $que = $que->row();
+                        
+                        $var['var1'] = $row1->var1;
+                        $var['var2'] = $row2->var2;
+                        $var['jumlah'] = $que->jumlah;
+                        array_push($arr, $var);
+                    }
+                }
+                return $arr;

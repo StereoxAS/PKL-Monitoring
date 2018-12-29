@@ -1,0 +1,12 @@
+$.ajax({
+    url: '',
+    type: 'GET',
+    dataType: 'json',
+    success: function(result) {
+
+    }
+});
+
+return result_array kalo dia buat data autocomplete
+
+$( "input[name*='man']" )

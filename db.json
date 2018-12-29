@@ -1,0 +1,17 @@
+{
+  "posts": [
+    { "id": 1, "title": "json-server", "author": "typicode" }
+  ],
+
+  "comments": [
+    { "id": 1, "body": "some comment", "postId": 1 }
+  ],
+
+  "pcl" : [
+    { "id": 1, "nama": "Muhammad Luqman", "lat": -4.7110513, "lng": 106.4405772},
+    { "id": 2, "nama": "Rahadi Jalu", "lat": -3.7210513, "lng": 106.4405972},
+    { "id": 3, "nama": "Nur Imron Suyuti", "lat": -1.7310513, "lng": 106.4405672},
+    { "id": 4, "nama": "Wahyu Rahmaditama Putera", "lat": -2.7410513, "lng": 106.4405852},
+    { "id": 5, "nama": "Geri Yesa Ermawan", "lat": -2.7910513, "lng": 106.4401872}
+  ]
+}

@@ -1,0 +1,12 @@
+sudo yum update
+sudo yum -y install net-tools
+sudo yum install httpd
+sudo yum install wget
+sudo yum install nano
+cd /etc/sysconfig/network-scripts/
+wget http://repo.mysql.com/mysql-community-release-el7-5.noarch.rpm
+sudo rpm -ivh mysql-community-release-el7-5.noarch.rpm
+yum update
+sudo chkconfig httpd on
+sudo chkconfig mysqld on
+sudo yum install php php-mysql

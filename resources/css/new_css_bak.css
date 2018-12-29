@@ -1,0 +1,71 @@
+@font-face {
+	font-family: 'moonlight';
+	src: url('Moon light.otf') format("opentype");;
+}
+@font-face {
+	font-family: 'moonbold';
+	src: url('Moon Bold.otf') format("opentype");;
+}
+
+.page-header{
+	color: #4A9095;
+	font-weight: 500pt;
+  border-bottom: 1px solid #98c9cd;
+}
+.navbar-default{
+background-color: #EFFFFF;
+color: #4A9095;
+font-family: moonlight;
+font-size: 9pt;
+font-weight: bold;
+}
+.nav > li >a{
+	color:#4A9095;
+}
+.nav > li > a:hover{
+	background-color: #FFFFFF;
+}
+.sidebar ul li a.active{
+	background-color: #00b3b3;
+	color :#FFFFFF;
+}
+/*#page-wrapper{
+	background-color: #ffffff;
+}*/
+.navbar{
+	background-color: #00cccc;
+	font-family: moonlight;
+}
+
+.panel-default>.panel-heading{
+	background-color: #efffff;
+	color :#4A9095;
+	font-weight: 500pt;
+
+}
+.navbar>.nav>.dropdown>.dropdown-toggle{
+	color: #FFFFFF;
+}
+.navbar>.navbar-header>.navbar-brand{
+	font-family: moonbold;
+	color: #FFFFFF;
+}
+.page-header{
+	font-size: 14pt;
+}
+body {
+	background-color: #EFFFFF;
+	/*font-family: moonlight;*/
+}
+#wrapper{
+	background-color: #EFFFFF;
+}
+#page-wrapper {
+	background-color: #FFFFFF;
+}
+.vcenter {
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
+}
+/*warna garis = #e6e6e6;*/

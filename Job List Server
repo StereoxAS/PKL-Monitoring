@@ -1,0 +1,61 @@
+TODO UMUM :
+1.  Fungsi auto complete di search bar C:\xampp\htdocs\PKL\application\views\frames\nav.php : 29
+    1.1 Pake gabungan bisa NIM bisa nama aja, contoh : Muhammad Luqman | 14.8261
+2.  (Minor Bug) Kalo navigasinya di klik, karena load halaman jadi yang fitur collapsenya agak aneh
+3.  (Minor Bug) Chart di progres agregat ukurannya gak fix sama tabelnya
+4.  (Rapihin) page_end_script_progres_pencacahan
+
+TODO DASHBOARD :
+1.  Fungsi retrive persentase pencacahan dan listing
+2.  (Optional) Fungsi forecast tentang kira2 kalo detik ini pencacahannya udah segini, dalam sisa hari ini, hari besok, dan seterusnya targetnya berapa?
+3.  (Optional) Fungsi buat ngirim notifikasi terkait informasi yang perlu diketahui setiap pcl
+
+OPTIONAL TODO INFORMASI LISTING :
+1.  Fungsi counter berapa yang sudah di listing per wilayah, lengkap sampai detail blok sensus
+
+TODO INFORMASI PENCACAHAN :
+1.  Fungsi auto complete nama unit cacah
+2.  Fungsi load kecamatan, kelurahan, blok sensus dari pilihan ?
+3.  Fungsi auto complete nama pcl
+4.  Fungsi load kecamatan, kelurahan, blok sensus dari pilihan ?
+
+TODO PROGRESS PENCACAHAN :
+AGGREGAT
+0.  (Optional) : Kalo nanti jadi 8 kuesioner
+    0.1 Mungkin ditambahin lagi > nya jadi agregat per modulnya dengan tampilan yang sama
+        0.1.1   Bisa ditambahkan parameter di function progres_agregat nya untuk nentuin dia itu umum, atau per modul
+    0.2 Tetep kaya yang udah ada, cuma di chartnya ada indikator per modul nya juga
+        0.2.1   Bisa dari barnya
+        0.2.2   Bisa jadi informasi tambahan pas hover di bar nya
+1.  Kode buat apa ?
+2.  Fungsi ajax call untuk ngecek progress dari setiap kabupaten secara real time
+    2.1 Untuk data pertama kali baiknya dari load viewnya atau load viewnya kosong dulu baru pake ajax call nya?
+3.  Fungsi mainpulasi chart berdasarkan hasil ajax call
+4.  Fungsi manipulasi tabel berdasarkan hasil ajax call
+    4.1 Kalo bisa urutannya juga berubah - ubah secara real time
+5.  (Optional) : Kalo mau yang kabupaten jadi link dan mengarah ke halaman wilayah
+WILAYAH
+6.  Fungsi ajax call untuk lihat progress dari masukan wilayah yang dipilih
+    6.1 Kalo kabupaten doang, maka chartnya detail per kecamatan, kalo sampe kecamatan, maka chartnya detail per kelurahan, dst
+    6.2 Tambahan informasi agregat per wilayah nya ketika ajax call nya dipanggil karena chartnya untuk detail dari wilayah yang dipilih
+        6.2.1   (Optional) Bisa tambahin chart baru atau semacam card aja dan chartnya di bawahnya
+    6.3 Kalo sampe blok sensus, mungkin chartnya diganti stylenya jadi yang lingkaran aja karena single value
+ANALISIS REAL TIME
+7.  (Optional) Tambahan informasi judul modul atau informasi lainnya tentang modul itu
+    7.1 Informasi diambil dari database
+8.  Fungsi menampilkan data variabel
+    8.1 Variabel nya mungkin ambil semua dari <table nama kuesioner_core> aja, cuma mungkin ditandain mana yang penting mana yang engga
+    8.2 Chart yang dibentuk tergantung tipe variabelnya, kuantitatif dan kualitatif berbeda
+9.  Fungsi interpretasi
+10. (Optional) Fungsi untuk melihat isi kuesioner yang udah di submit, mungkin membantu mungkin juga gak dibutuhkan
+
+TODO MONITORING MASALAH LAPANGAN :
+1.  Fungsi buat retrive list masalah lapangan
+2.  Fungsi buat ganti status masalah yang ada berdasarkan parameter tertentu (di server)
+2.  (Optional) Dibuat semacam kategori masalah biar gampang trackingnya
+3.  (Optional) Dibuat semacam chart persentase yang udah selesai sama belum
+4.  (Optional) Di dalam detail juga ada map dimana yang punya masalah itu berada, kalo solusi yang tracking pencacah udah ketemu sepertinya kurang lebih sama fungsinya
+
+QUESTION :
+1.  Search bar nama yang diatas itu buat apa? apa bedanya sama yang di pencacah lapangan?
+2.  Fungsi cari lewat blok sensus yang di Informasi Pencacahan > Unit Cacah dan Informasi Pencacahan > PCL itu gimana detailnya?

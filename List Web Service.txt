@@ -1,0 +1,25 @@
+1. get_list_kabupaten()
+
+2. get_list_kecamatan($id_kabupaten)
+
+3. get_list_kelurahandesa($id_kabupaten, $id_kecamatan)
+
+4. get_list_bloksensus($id_kabupaten, $id_kecamatan, $id_kelurahandesa)
+
+5. get_agregat($kuesioner, $wilayah1 = NULL, $wilayah2 = NULL, $wilayah3 = NULL, $wilayah4 = NULL)
+
+6. get_list_modul()
+
+7. get_list_variabel($modul)
+
+8. get_variabel($modul, $variabel)
+
+9. get_list_unit_cacah($wilayah1 = NULL, $wilayah2 = NULL, $wilayah3 = NULL, $wilayah4 = NULL)
+
+10.get_unit_cacah($nama)
+
+11.get_monitoring()
+
+12.set_monitoring_status($id, $status)
+
+13.sent_get_location($id)
