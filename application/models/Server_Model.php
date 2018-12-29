@@ -161,7 +161,7 @@ class Server_Model extends CI_Model {
             return $que->result();
         }
         
-         function get_kecamatan_model(){
+        function get_kecamatan_model(){
             $kakakoko = filter_input(INPUT_POST, 'kabkot_id');
             $db_jarlap = $this->load->database('pkl58_monitoring', TRUE);
             $db_jarlap->select("*");

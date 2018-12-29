@@ -27,8 +27,7 @@
 							<tr>
 								<th>NIM</th>
 								<th>Kabupaten/Kota</th>
-								<th>Kecamatan</th>
-								<th>Kelurahan/Desa</th>
+                                                                <th>Kecamatan</th>
 								<th>Tercacah</th>
 							</tr>
 						</thead>
