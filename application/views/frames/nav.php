@@ -57,7 +57,7 @@
                             <a href="<?php echo base_url('pkl/')?>">Progress KSA (R1)</a>
                         </li>
                         <li>
-                            <a href="<?php echo base_url('pkl/')?>">Progress Ubinan (R2)</a>
+                            <a href="<?php echo base_url('pkl/progres_ubinan')?>">Progress Ubinan (R2)</a>
                         </li>
                         <li>
                             <a href="<?php echo base_url('pkl/progres_listing')?>">Progress Listing (R3)</a>
