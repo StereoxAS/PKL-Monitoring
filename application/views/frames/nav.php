@@ -54,7 +54,7 @@
                     <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Progress<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a href="<?php echo base_url('pkl/')?>">Progress KSA (R1)</a>
+                            <a href="<?php echo base_url('pkl/progress_ksa')?>">Progress KSA (R1)</a>
                         </li>
                         <li>
                             <a href="<?php echo base_url('pkl/progres_ubinan')?>">Progress Ubinan (R2)</a>
