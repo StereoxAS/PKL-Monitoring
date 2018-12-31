@@ -23,17 +23,17 @@
                 <!-- /.panel-heading -->
                 <div class="panel-body">
                     <!-- Nav tabs -->
-                    <ul class="nav nav-tabs">
+                    <!-- <ul class="nav nav-tabs">
                         <li class="active"><a href="#aggregat" data-toggle="tab"  style="color: black;">Agregat</a>
                         </li>
                         <li class ="inactive"><a href="#detail" data-toggle="tab" style="color: black;">Detail</a>
                         </li>
-                    </ul>
+                    </ul> -->
 
                     <!-- Tabs Panes -->
-                    <div class="tab-content">
+                   <!--  <div class="tab-content"> -->
 						<!-- tab aggregat -->
-                        <div class="tab-pane fade in active" id="aggregat">
+                        <!-- <div class="tab-pane fade in active" id="aggregat">
 							<br>
 							<?php $kabupaten = array("01", "03", "05", "04", "02", "06", "71"); ?>
 							<?php foreach ($kabupaten as $kab): ?>
@@ -67,9 +67,9 @@
 									</div>
 	                            </div>
 							<?php endforeach; ?>
-                        </div>
+                        </div> -->
                         <!-- /.aggregat -->
-                        <div class="tab-pane fade" id="detail">
+                        <!-- <div class="tab-pane fade" id="detail"> -->
 							<br>
                         	<table width="100%" class="table table-striped table-bordered table-hover" id="tabel_progress_cacah">
 		                		<thead>

@@ -186,6 +186,20 @@ class Pkl extends CI_Controller {
 		$this->load->view('frames/page_end_script_progres_cacah', $data);
 		$this->load->view('frames/page_end');
 	}
+        
+        // MENU PROGRES UBINAN
+        function progres_ubinan($id_kabupaten = NULL){
+                $data['autocomplete_nav'] = $this->set_autocomplete('pcl');
+                $this->load->view('frames/page_head');
+                $this->load->view('frames/nav', $data);
+         
+                $this->load->view('contents/page_progres_ubinan');
+         
+                $this->load->view('frames/wrapper_end');
+                $this->load->view('frames/page_end_js');
+//                $this->load->view('frames/page_end_script_progres_ubinan');
+                $this->load->view('frames/page_end');
+        }
 
 	function analisis_realtime(){
 		$data['autocomplete_nav'] = $this->set_autocomplete('pcl');

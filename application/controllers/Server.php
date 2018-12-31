@@ -176,6 +176,15 @@ class Server extends CI_Controller {
         $result = array('data' => $data);
         echo json_encode($result); exit();
     }
+    
+    function get_detail_ubinan($wilayah1 = NULL){
+        header('Content-Type: application/json');
+        // wilayah1 : NULL > tidak ada filter kabupaten di agregat tiap BS
+
+        $data = $this->Server_Model->get_detail_ubinan($wilayah1);
+        $result = array('data' => $data);
+        echo json_encode($result); exit();
+    }
 
     function get_list_modul() { // Database pertama -> konversi nanti
         header('Content-Type: application/json');

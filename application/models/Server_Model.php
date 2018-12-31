@@ -384,6 +384,12 @@ class Server_Model extends CI_Model {
 
 		return $que->result();
 	}
+        
+//        function get_detail_ubinan(){
+//                $que = $this->db->query("
+//		"
+//                );
+///        }
 
 	function get_agregat_listing() {
         $que = $this->db->query("
