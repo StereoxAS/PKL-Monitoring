@@ -157,6 +157,7 @@ class Pkl extends CI_Controller {
          
                 $this->load->view('frames/wrapper_end');
                 $this->load->view('frames/page_end_js');
+//                $this->load->view('frames/page_end_script_progres_ubinan');
                 $this->load->view('frames/page_end');
         }
 
