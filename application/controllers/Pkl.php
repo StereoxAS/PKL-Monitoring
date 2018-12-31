@@ -217,6 +217,8 @@ class Pkl extends CI_Controller {
 	// MENU MONITORING MASALAH
 	function monitoring_masalah(){
 		$data['autocomplete_nav'] = $this->set_autocomplete('pcl');
+		$data['masalah1'] = $this->Server_Model->get_list_masalah();
+	
 		$this->load->view('frames/page_head');
 		$this->load->view('frames/nav', $data);
 

@@ -473,7 +473,7 @@ class Server_Model extends CI_Model {
 
 	// MENU MONITORING MASALAH
     function get_list_masalah() {
-		$db_jarlap = $this->load->database('pkl_sipadu_real', TRUE);
+		/*$db_jarlap = $this->load->database('pkl_sipadu_real', TRUE);
 		$db_jarlap->select('dp.*, kp.kategori, sm1.nama as nama_penanya, sm2.nama nama_kortim, sp.status');
 		$db_jarlap->from('sipadu_daftar_pertanyaan dp');
 
@@ -483,7 +483,15 @@ class Server_Model extends CI_Model {
         $db_jarlap->join('sipadu_status_pertanyaan sp', "sp.id = dp.status");
 
         $que = $db_jarlap->get();
-        return $que->result();
+        return $que->result();*/
+         
+		$db_jarlap = $this->load->database('pkl58_sikoko', TRUE);
+		 $SQL1="
+            SELECT b.kategori,a.pertanyaan,a.jawaban, a.timestamp,c.status  FROM sipadu_daftar_pertanyaan a, sipadu_kategori_pertanyaan b, sipadu_status_pertanyaan c WHERE a.kategori=b.id AND a.status=c.id ORDER BY a.kategori DESC
+            ";
+        $Q = $db_jarlap->query($SQL1);
+        return $Q->result();
+
     }
 function get_list_all() {
 		$db_jarlap = $this->load->database('pkl_sipadu_real', TRUE);
