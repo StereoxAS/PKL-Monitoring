@@ -12,28 +12,32 @@
     var interv;
     var interv2;
 
-    $(document).ready(function() {
+    $(document).ready(function() 
+	{
 		$('.btn').tooltip();
         interv2 = setInterval(get_reload, 3000);
 
-        table = $('#tabel_progress_listing').DataTable({
-            ajax: '<?php echo base_url() ?>' + 'server/get_detail_listing', // CHANGE ME
+        table = $('#tabel_progress_ksa').DataTable(
+		{
+            ajax: '<?php echo base_url() ?>' + 'server/get_detail_ksa', // CHANGE ME
 			displayLength: 25,
-			oLanguage: {
-				oPaginate: {
-					sFirst: "Pertama",
-					sLast: "Terakhir",
-					sNext: "Berikutnya",
-					sPrevious: "Sebelumnya",
+			oLanguage: 
+			{
+				oPaginate: 
+				{
+					sFirst		: "Pertama",
+					sLast		: "Terakhir",
+					sNext		: "Berikutnya",
+					sPrevious	: "Sebelumnya",
 				},
-				sSearch: "Cari",
-				sInfo: "Menampilkan _START_ sampai _END_ dari _TOTAL_ hasil",
-				sInfoEmpty: "Tidak ada hasil ditemukan",
-				sZeroRecords: "Tidak ada hasil ditemukan",
-				sLengthMenu: "Menampilkan _MENU_ hasil",
-				sInfoFiltered: " (hasil filter dari _MAX_ hasil)",
-				sEmptyTable: "Tidak ada data tersedia",
-				sLoadingRecords: "Memuat data ..."
+				sSearch			: "Cari",
+				sInfo			: "Menampilkan _START_ sampai _END_ dari _TOTAL_ hasil",
+				sInfoEmpty		: "Tidak ada hasil ditemukan",
+				sZeroRecords	: "Tidak ada hasil ditemukan",
+				sLengthMenu		: "Menampilkan _MENU_ hasil",
+				sInfoFiltered	: " (hasil filter dari _MAX_ hasil)",
+				sEmptyTable		: "Tidak ada data tersedia",
+				sLoadingRecords	: "Memuat data ..."
 			},
             columns: [
                 {"data": "kode_bs"},
@@ -43,10 +47,14 @@
                 {"data": "nama_desa"},
                 {
                     "data": "jumlah",
-                    render:function (data, type, full, meta) {
-                        if (data == null) {
+                    render:function (data, type, full, meta) 
+					{
+                        if (data == null) 
+						{
                             return 0;
-                        }else{
+                        }
+						else
+						{
                             return data;
                         }
                     }
