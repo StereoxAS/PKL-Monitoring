@@ -25,10 +25,12 @@
 					<table width="100%" class="table table-striped table-bordered table-hover" id="tabel_progress_listing">
 						<thead>
 							<tr>
-								<th>NIM</th>
+                                                                <th>Segmen</th>
+                                                                <th>NIM</th>
 								<th>Kabupaten/Kota</th>
                                                                 <th>Kecamatan</th>
-								<th>Tercacah</th>
+								<th>Terubin</th>
+                                                                <th>Progres</th>
 							</tr>
 						</thead>
 					</table>
