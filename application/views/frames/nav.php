@@ -95,7 +95,7 @@
                     <a href="<?php echo base_url('pkl/monitoring_masalah')?>"><i class="fa fa-desktop fa-fw"></i> Monitoring Masalah Lapangan</a>
                 </li>
                 <li>
-                    <a href="<?php echo base_url('index.php/pkl/monitoring_masalah')?>"><i class="glyphicon glyphicon-off"></i> Logout</a>
+                     <a href="<?php echo base_url('pkl/logout')?>"><i class="glyphicon glyphicon-off"></i> Logout</a>
                 </li>
             </ul>
         </div>
