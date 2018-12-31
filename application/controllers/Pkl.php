@@ -245,13 +245,13 @@ class Pkl extends CI_Controller {
 	}
 	
 	// MENU KSA (NEW)
-	function monitoring_ksa($id_kabupaten = NULL){
+	function progress_ksa($id_kabupaten = NULL){
 		$data['autocomplete_nav'] = $this->set_autocomplete('pcl');
 		$data['id_kabupaten'] = $id_kabupaten; // id_kabupaten apabila halaman dipanggil dari progres agregat listing
 		$this->load->view('frames/page_head');
 		$this->load->view('frames/nav', $data);
 
-		$this->load->view('contents/page_progres_listing_table');
+		$this->load->view('contents/page_progress_ksa');
 
 		$this->load->view('frames/wrapper_end');
 		$this->load->view('frames/page_end_js');

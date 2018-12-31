@@ -16,7 +16,7 @@
 		$('.btn').tooltip();
         interv2 = setInterval(get_reload, 3000);
 
-        table = $('#tabel_progress_ksa').DataTable({
+        table = $('#tabel_progress_listing').DataTable({
             ajax: '<?php echo base_url() ?>' + 'server/get_detail_listing', // CHANGE ME
 			displayLength: 25,
 			oLanguage: {
