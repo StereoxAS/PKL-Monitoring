@@ -131,24 +131,32 @@ class Server_Model extends CI_Model {
 		return $que->result_array();
 	}
         
-        function get_embed_kabkott($idembeddd){
+        function get_embed_kabkott($embed_kabkot){
             
             $db_jarlap = $this->load->database('pkl58_monitoring', TRUE);
-            $column_embed = 'embed_kabkot';
-            $db_jarlap->select("$column_embed");
+            $db_jarlap->select("embed_kabkot");
             $db_jarlap->from("kabkot");
-            $db_jarlap->where("id_kabkot = $idembeddd");
+            $db_jarlap->where("id_kabkot = $embed_kabkot");
             $que = $db_jarlap->get();
             return $que->result();
         }
         
-        function get_embed_kecamatann($idembeddd){
+        function get_embed_kecamatann($embed_kecamatan){
             
             $db_jarlap = $this->load->database('pkl58_monitoring', TRUE);
-            $column_embed = 'embed_kecamatan';
-            $db_jarlap->select("$column_embed");
+            $db_jarlap->select("embed_kecamatan");
             $db_jarlap->from("kecamatan");
-            $db_jarlap->where("id_kecamatan = $idembeddd");
+            $db_jarlap->where("id_kecamatan = $embed_kecamatan");
+            $que = $db_jarlap->get();
+            return $que->result();
+        }
+        
+        function get_embed_kecamatan_kabkot($new_embed_kecamatan_kabkot){
+            
+            $db_jarlap = $this->load->database('pkl58_monitoring', TRUE);
+            $db_jarlap->select("embed_kecamatan");
+            $db_jarlap->from("kecamatan");
+            $db_jarlap->where("id_kecamatan = $new_embed_kecamatan_kabkot");
             $que = $db_jarlap->get();
             return $que->result();
         }
@@ -161,8 +169,17 @@ class Server_Model extends CI_Model {
             return $que->result();
         }
         
-         function get_kecamatan_model(){
-            $kakakoko = filter_input(INPUT_POST, 'kabkot_id');
+        function get_tablenamakabkot($kabkot_id){
+            $db_jarlap = $this->load->database('pkl58_monitoring', TRUE);
+            $db_jarlap->select("nama_kabkot");
+            $db_jarlap->from("kabkot");
+            $db_jarlap->where("id_kabkot = $kabkot_id");
+            $que = $db_jarlap->get();
+            return $que->result();
+        }
+        
+         function get_kecamatan_model($kakakoko){
+            
             $db_jarlap = $this->load->database('pkl58_monitoring', TRUE);
             $db_jarlap->select("*");
             $db_jarlap->from("kecamatan");
@@ -362,8 +379,8 @@ class Server_Model extends CI_Model {
 		INNER JOIN dummy_kode_kecamatan dkc ON dkc.id = dkb.kecamatan AND dkc.kabupaten = dkb.kabupaten
 		INNER JOIN dummy_kode_kabupaten dkk ON dkk.id = dkb.kabupaten WHERE dkk.id <> '99' ) t1
 		LEFT OUTER JOIN
-		(SELECT COUNT(*) as jumlah, kodeBs FROM backup_datart GROUP BY kodeBs ) t2
-		ON t1.kode_bs = t2.kodeBs");
+		(SELECT COUNT(*) as jumlah, bs FROM backup_datart GROUP BY bs ) t2
+		ON t1.kode_bs = t2.bs");
 
 		return $que->result();
 	}
