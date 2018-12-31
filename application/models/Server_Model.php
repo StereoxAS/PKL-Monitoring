@@ -374,11 +374,13 @@ class Server_Model extends CI_Model {
 		return $que1->result();
 	}
         
-//        function get_detail_ubinan(){
-//                $que = $this->db->query("
-//		"
-//                );
-///        }
+            function get_detail_ubinan(){
+                $que = $this->load->database('pkl58_monitoring', TRUE)->query("
+                SELECT u1.segmen, u1.nim, u1.id_kabupaten, u1.nama_kabupaten, u1.id_kecamatan, u1.nama_kecamatan 
+                FROM dummy_ubinan u1
+                ");
+                return $que->result();
+        }
 
 	function get_agregat_listing() {
         $que = $this->db->query("
