@@ -371,6 +371,7 @@ class Server_Model extends CI_Model {
 		SELECT t1.nim, t1.kode_bs, t1.kode_desa, t1.nama_desa, t1.kode_kecamatan, t1.nama_kecamatan, t1.kode_kabupaten, t1.nama_kabupaten, t1.jumlah
 		FROM detail_listing t1
 		");
+		return $que1->result();
 	}
 
 	function get_agregat_listing() {
