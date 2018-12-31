@@ -74,6 +74,12 @@
                             <a href="<?php echo base_url('pkl/search_unit_cacah')?>">Daftar Unit Cacah</a>
                         </li>
                         <li>
+                            <a href="<?php echo base_url('pkl/search_unit_cacah')?>">Daftar Unit KSA</a>
+                        </li>
+                        <li>
+                            <a href="<?php echo base_url('pkl/search_unit_cacah')?>">Daftar Unit Ubinan</a>
+                        </li>
+                        <li>
                             <a href="<?php echo base_url('pkl/search_pcl')?>">Daftar PCL</a>
                         </li>
                         
@@ -87,6 +93,9 @@
                 </li>
                 <li>
                     <a href="<?php echo base_url('pkl/monitoring_masalah')?>"><i class="fa fa-desktop fa-fw"></i> Monitoring Masalah Lapangan</a>
+                </li>
+                <li>
+                    <a href="<?php echo base_url('index.php/pkl/monitoring_masalah')?>"><i class="glyphicon glyphicon-off"></i> Logout</a>
                 </li>
             </ul>
         </div>
