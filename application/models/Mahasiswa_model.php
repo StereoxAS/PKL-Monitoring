@@ -411,7 +411,6 @@ public function cekkode($nim,$kode){
     return $db_jarlap->get_where('mahasiswa', array('nim' => $nim,'kodeLupaPass' => $kode))->num_rows();
 }
 
-		// Tambahan luqman
 public function change_monitoring_status($nim, $status) {
  $data = array(
     'status_monitoring' => $status,

@@ -54,7 +54,7 @@
                     <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Progress<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a href="<?php echo base_url('pkl/')?>">Progress KSA (R1)</a>
+                            <a href="<?php echo base_url('pkl/progress_ksa')?>">Progress KSA (R1)</a>
                         </li>
                         <li>
                             <a href="<?php echo base_url('pkl/progres_ubinan')?>">Progress Ubinan (R2)</a>
@@ -74,6 +74,12 @@
                             <a href="<?php echo base_url('pkl/search_unit_cacah')?>">Daftar Unit Cacah</a>
                         </li>
                         <li>
+                            <a href="<?php echo base_url('pkl/search_unit_cacah')?>">Daftar Unit KSA</a>
+                        </li>
+                        <li>
+                            <a href="<?php echo base_url('pkl/search_unit_cacah')?>">Daftar Unit Ubinan</a>
+                        </li>
+                        <li>
                             <a href="<?php echo base_url('pkl/search_pcl')?>">Daftar PCL</a>
                         </li>
                         
@@ -87,6 +93,9 @@
                 </li>
                 <li>
                     <a href="<?php echo base_url('pkl/monitoring_masalah')?>"><i class="fa fa-desktop fa-fw"></i> Monitoring Masalah Lapangan</a>
+                </li>
+                <li>
+                     <a href="<?php echo base_url('pkl/logout')?>"><i class="glyphicon glyphicon-off"></i> Logout</a>
                 </li>
             </ul>
         </div>

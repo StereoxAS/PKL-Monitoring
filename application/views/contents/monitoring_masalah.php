@@ -46,6 +46,19 @@
                                 <th>Waktu</th>
 								<th>Detail</th>
                             </tr>
+
+                             <tbody>
+            <?php
+                foreach($masalah1 as $msl){
+        ?>
+                <tr>
+            <td><?php echo $msl->kategori; ?></td>
+            <td><?php echo $user->pertanyaan; ?></td>
+            <td><?php echo $user->Jawaban; ?></td>
+            <td><?php echo $user->Waktu; ?></td>
+        </tr>
+           <?php } ?>
+    </tbody>
                         </thead>
                     </table>
                     </div>
