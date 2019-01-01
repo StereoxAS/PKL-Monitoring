@@ -29,8 +29,7 @@
 								<th>NIM</th>
 								<th>Kecamatan</th>
 								<th>Desa</th>
-								<th>Progress List</th>
-								<th>Persentase</th>
+								<th>Status Segmen</th>
 							</tr>
 						</thead>
 					</table>

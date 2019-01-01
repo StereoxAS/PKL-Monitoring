@@ -40,22 +40,22 @@
 				sLoadingRecords	: "Memuat data ..."
 			},
             columns: [
-                {"data": "kode_bs"},
                 {"data": "nim"},
-                {"data": "nama_kabupaten"},
-                {"data": "nama_kecamatan"},
+                {"data": "nama"},
+                {"data": "nama_kec"},
                 {"data": "nama_desa"},
+                // {"data": "id_status"},
                 {
-                    "data": "jumlah",
+                    "data": "id_status",
                     render:function (data, type, full, meta) 
 					{
-                        if (data == null) 
+                        if (data == 0 || data == null) 
 						{
-                            return 0;
+                            return "Belum Disetujui";
                         }
 						else
 						{
-                            return data;
+                            return "Disetujui";
                         }
                     }
                 },
