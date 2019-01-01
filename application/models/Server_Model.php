@@ -384,12 +384,6 @@ class Server_Model extends CI_Model {
 
 		return $que->result();
 	}
-        
-//        function get_detail_ubinan(){
-//                $que = $this->db->query("
-//		"
-//                );
-///        }
 
 	function get_agregat_listing() {
         $que = $this->db->query("
@@ -487,7 +481,9 @@ class Server_Model extends CI_Model {
          
 		$db_jarlap = $this->load->database('pkl58_sikoko', TRUE);
 		 $SQL1="
-            SELECT b.kategori,a.pertanyaan,a.jawaban, a.timestamp,c.status  FROM sipadu_daftar_pertanyaan a, sipadu_kategori_pertanyaan b, sipadu_status_pertanyaan c WHERE a.kategori=b.id AND a.status=c.id ORDER BY a.kategori DESC
+            SELECT a.id, a.nim, b.kategori, a.wilayah, a.pertanyaan, a.golongan, c.nama as nama_penanya, a.timestamp, a.jawaban, d.nama as nama_kortim
+FROM sipadu_daftar_pertanyaan a, sipadu_kategori_pertanyaan b, sipadu_mahasiswa c, sipadu_mahasiswa d
+WHERE a.nim = c.nim AND a.kategori = b.id AND a.status = '3' AND a.kategori = '5' AND a.nim_kortim = d.nim ORDER BY a.jawaban, a.timestamp DESC
             ";
         $Q = $db_jarlap->query($SQL1);
         return $Q->result();
@@ -1017,7 +1013,7 @@ WHERE a.nim = c.nim AND a.kategori = b.id AND a.status = '3' AND (a.kategori = '
 					sm.nim <> st.nim_koor
 			) t2 ON t1.nim = t2.nim
 			LEFT OUTER JOIN (
-				SELECT
+			SELECT
 					COUNT(DISTINCT(n.unique_id_instance)) as jumlah,
 					n.nim,
 					ks.BLOK1_GROUP1_B1_6 as nama_bs,
@@ -1046,7 +1042,7 @@ WHERE a.nim = c.nim AND a.kategori = b.id AND a.status = '3' AND (a.kategori = '
 
     function get_tabel_unit_cacah(){
 
-    	$que = $this->db->query("
+    	$que = $this->db->database('pkl58_monitoring', TRUE)->query("
 		SELECT t1.nim, t1.kode_bs, t1.nama_bs, t1.nama_desa, t1.nama_kecamatan, t1.nama_kabupaten, t2.*
 		FROM
 		(SELECT dkb.id as kode_bs, dkb.nama as nama_bs, dkd.id as kode_desa, dkd.nama as nama_desa, dkc.id as kode_kecamatan, dkc.nama as nama_kecamatan, dkk.id as kode_kabupaten, dkk.nama as nama_kabupaten, dkb.nim
@@ -1059,8 +1055,16 @@ WHERE a.nim = c.nim AND a.kategori = b.id AND a.status = '3' AND (a.kategori = '
 		INNER JOIN backup_datast dst ON dst.kodeRuta = drt.kodeRuta AND dst.kodeBs = drt.kodeBs) t2
 		ON t1.kode_bs = t2.kodeBs
 		");
-    	$que = $que->result_array();
-    	return $que;
+//    	$que = $que->result_array();
+    	return $que->result;
+    }
+    
+    function get_tabel_unit_ubinan(){
+        $que = $this->db->database('pkl58_monitoring', TRUE)->query("
+                    SELECT u2.id_segmen, u2.id_subsegmen, u2.nim
+                    FROM dummy_unit_ubinan u2
+                ");
+        return $que->result;
     }
 	
 	function get_detail_ksa()
@@ -1076,4 +1080,12 @@ WHERE a.nim = c.nim AND a.kategori = b.id AND a.status = '3' AND (a.kategori = '
 
 		return $queKSA->result();
 	}
+        
+        function get_detail_ubinan(){
+                $que = $this->load->database('pkl58_monitoring', TRUE)->query("
+                SELECT u1.segmen, u1.nim, u1.id_kabupaten, u1.nama_kabupaten, u1.id_kecamatan, u1.nama_kecamatan 
+                FROM dummy_ubinan u1
+                ");
+                return $que->result();
+        }
 }

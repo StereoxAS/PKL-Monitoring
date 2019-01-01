@@ -172,6 +172,20 @@ class Pkl extends CI_Controller {
 		$this->load->view('frames/page_end_script_search_pcl', $data);
 		$this->load->view('frames/page_end');
 	}
+        
+        function search_unit_ubinan($nim = NULL){
+                $data['autocomplete_nav'] = $this->set_autocomplete('pcl');
+
+		$this->load->view('frames/page_head');
+		$this->load->view('frames/nav', $data);
+
+		$this->load->view('contents/page_search_unit_ubinan');
+
+		$this->load->view('frames/wrapper_end');
+		$this->load->view('frames/page_end_js');
+		$this->load->view('frames/page_end_script_search_unit_ubinan', $data);
+		$this->load->view('frames/page_end');
+        }
 
 	// MENU PROGRESS PENCACAHAN
 	function progres_cacah($id_kabupaten = NULL){
@@ -197,7 +211,7 @@ class Pkl extends CI_Controller {
          
                 $this->load->view('frames/wrapper_end');
                 $this->load->view('frames/page_end_js');
-//                $this->load->view('frames/page_end_script_progres_ubinan');
+                $this->load->view('frames/page_end_script_progres_ubinan', $data);
                 $this->load->view('frames/page_end');
         }
 
