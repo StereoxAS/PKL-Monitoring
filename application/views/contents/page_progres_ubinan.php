@@ -27,8 +27,8 @@
 							<tr>
                                                                 <th>Segmen</th>
                                                                 <th>NIM</th>
-								<th>Kabupaten/Kota</th>
                                                                 <th>Kecamatan</th>
+                                                                <th>Desa</th>
 								<th>Terubin</th>
                                                                 <th>Progres</th>
 							</tr>
