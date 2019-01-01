@@ -482,6 +482,13 @@ function get_list_masalah_narasumber($kode=0) { // Database kedua
         $result = array('data' => $data);
         echo json_encode($result); exit();
     }
+    
+    public function get_tabel_unit_ubinan(){
+        header('Content-Type: application/json');
+        $data = $this->Server_Model->get_tabel_unit_ubinan();
+        $result = array('data' => $data);
+        echo json_encode($result); exit();
+    }
 
 
 

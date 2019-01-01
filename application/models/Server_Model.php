@@ -384,14 +384,6 @@ class Server_Model extends CI_Model {
 
 		return $que->result();
 	}
-        
-            function get_detail_ubinan(){
-                $que = $this->load->database('pkl58_monitoring', TRUE)->query("
-                SELECT u1.segmen, u1.nim, u1.id_kabupaten, u1.nama_kabupaten, u1.id_kecamatan, u1.nama_kecamatan 
-                FROM dummy_ubinan u1
-                ");
-                return $que->result();
-        }
 
 	function get_agregat_listing() {
         $que = $this->db->query("
@@ -1019,7 +1011,7 @@ WHERE a.nim = c.nim AND a.kategori = b.id AND a.status = '3' AND (a.kategori = '
 					sm.nim <> st.nim_koor
 			) t2 ON t1.nim = t2.nim
 			LEFT OUTER JOIN (
-				SELECT
+			SELECT
 					COUNT(DISTINCT(n.unique_id_instance)) as jumlah,
 					n.nim,
 					ks.BLOK1_GROUP1_B1_6 as nama_bs,
@@ -1048,7 +1040,7 @@ WHERE a.nim = c.nim AND a.kategori = b.id AND a.status = '3' AND (a.kategori = '
 
     function get_tabel_unit_cacah(){
 
-    	$que = $this->db->query("
+    	$que = $this->db->database('pkl58_monitoring', TRUE)->query("
 		SELECT t1.nim, t1.kode_bs, t1.nama_bs, t1.nama_desa, t1.nama_kecamatan, t1.nama_kabupaten, t2.*
 		FROM
 		(SELECT dkb.id as kode_bs, dkb.nama as nama_bs, dkd.id as kode_desa, dkd.nama as nama_desa, dkc.id as kode_kecamatan, dkc.nama as nama_kecamatan, dkk.id as kode_kabupaten, dkk.nama as nama_kabupaten, dkb.nim
@@ -1061,8 +1053,16 @@ WHERE a.nim = c.nim AND a.kategori = b.id AND a.status = '3' AND (a.kategori = '
 		INNER JOIN backup_datast dst ON dst.kodeRuta = drt.kodeRuta AND dst.kodeBs = drt.kodeBs) t2
 		ON t1.kode_bs = t2.kodeBs
 		");
-    	$que = $que->result_array();
-    	return $que;
+//    	$que = $que->result_array();
+    	return $que->result;
+    }
+    
+    function get_tabel_unit_ubinan(){
+        $que = $this->db->database('pkl58_monitoring', TRUE)->query("
+                    SELECT u2.id_segmen, u2.id_subsegmen, u2.nim
+                    FROM dummy_unit_ubinan u2
+                ");
+        return $que->result;
     }
 	
 	function get_detail_ksa()
@@ -1091,4 +1091,12 @@ WHERE a.nim = c.nim AND a.kategori = b.id AND a.status = '3' AND (a.kategori = '
 
 		return $queKSA->result();
 	}
+        
+        function get_detail_ubinan(){
+                $que = $this->load->database('pkl58_monitoring', TRUE)->query("
+                SELECT u1.segmen, u1.nim, u1.id_kabupaten, u1.nama_kabupaten, u1.id_kecamatan, u1.nama_kecamatan 
+                FROM dummy_ubinan u1
+                ");
+                return $que->result();
+        }
 }
