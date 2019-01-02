@@ -162,10 +162,11 @@ class Pkl extends CI_Controller {
 		$data['autocomplete_nav'] = $this->set_autocomplete('pcl');
 		$data['nim'] = $nim;
 		$data['coba']=$this->Server_Model->get_autocomplete_pcl();
+		//print_r($data['coba']);
 
 		$this->load->view('frames/page_head');
 		$this->load->view('frames/nav', $data);
-
+	//	print_r($data);
 		$this->load->view('contents/page_search_pcl');
 
 		$this->load->view('frames/wrapper_end');

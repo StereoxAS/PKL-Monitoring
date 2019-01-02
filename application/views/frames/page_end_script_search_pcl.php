@@ -84,7 +84,7 @@
         $(document).ready(function() {
 			$('.btn').tooltip();
             // Inisiasi map
-			init_map();
+			//init_map();
 
             table = $('#tabel_pcl').DataTable({
                 ajax: '<?php echo base_url() ?>' + 'server/get_tabel_pcl', // CHANGE ME

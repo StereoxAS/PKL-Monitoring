@@ -27,9 +27,11 @@
 						<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 						<strong>Timeout!</strong> Pencarian PCL gagal dilakukan
 					</div>
+					<!--
                 	<div class="panel panel-default">
 						<div id="gmap" style="width: 100%; height: 400px;"></div>
 					</div>
+				-->
                     <div class="tab-content">
 						<br>
                         	<table width="100%" class="table table-striped table-bordered table-hover" id="tabel_pcl">
@@ -38,15 +40,31 @@
 	                				<th rowspan="2" style="vertical-align: middle">NIM </th>
                                     <th rowspan="2" style="vertical-align: middle">PCL</th>
 	                				<th rowspan="2" style="vertical-align: middle">Kortim</th>
-	                				<!-- <th rowspan="2" style="vertical-align: middle">Wilayah</th> -->
-	                				<!-- <th rowspan="2" style="vertical-align: middle">Progress</th> -->
-	                				<!-- <th class="text-center" colspan="2">Tracking</th> -->
+	                				 <th rowspan="2" style="vertical-align: middle">Wilayah</th> 
+	                				<th rowspan="2" style="vertical-align: middle">Progress</th>
+	                			 
 	                			</tr>
+								<!--
 								<tr>
+									<th style="vertical-align: middle">KSA</th>
+									<th style="vertical-align: middle">Ubinan</th>
 									<th style="vertical-align: middle">Wilayah</th>
-									<th style="vertical-align: middle">Progress</th>
 								</tr>
+							-->
 	                		</thead>
+	                		<tbody>
+					            <?php
+					                foreach($coba as $msl){
+					        			?>
+						                <tr>
+						            <td><?php echo $msl['nim']; ?></td>
+						            <td><?php echo $msl['nama']; ?></td>
+						            <td></td>
+						            <td></td>
+						            <td></td> 
+						        </tr>
+						           <?php } ?>
+						    </tbody>
 	                	</table>
                     </div>
                 <!-- /.panel-body -->
