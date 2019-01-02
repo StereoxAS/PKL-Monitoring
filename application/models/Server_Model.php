@@ -119,10 +119,11 @@ class Server_Model extends CI_Model {
 	}
 
 	function get_autocomplete_pcl(){
-		$db_jarlap = $this->load->database('pkl_sipadu_real', TRUE);
+		$db_jarlap = $this->load->database('pkl58_sikoko', TRUE);
+
 		$column_nama = 'nama';
 		$column_nim = 'nim';
-		$db_jarlap->select("$column_nama, $column_nim");
+		$db_jarlap->select("nama, nim");
 		$db_jarlap->from("sipadu_mahasiswa sm");
 		$db_jarlap->join("sipadu_timpencacah st", "sm.id_tim = st.id_tim");
 		$db_jarlap->where("sm.nim <> st.nim_koor");
@@ -488,12 +489,6 @@ class Server_Model extends CI_Model {
 
 		return $que->result();
 	}
-        
-//        function get_detail_ubinan(){
-//                $que = $this->db->query("
-//		"
-//                );
-///        }
 
 	function get_agregat_listing() {
         $que = $this->db->query("
@@ -577,7 +572,7 @@ class Server_Model extends CI_Model {
 
 	// MENU MONITORING MASALAH
     function get_list_masalah() {
-		$db_jarlap = $this->load->database('pkl_sipadu_real', TRUE);
+		/*$db_jarlap = $this->load->database('pkl_sipadu_real', TRUE);
 		$db_jarlap->select('dp.*, kp.kategori, sm1.nama as nama_penanya, sm2.nama nama_kortim, sp.status');
 		$db_jarlap->from('sipadu_daftar_pertanyaan dp');
 
@@ -587,10 +582,22 @@ class Server_Model extends CI_Model {
         $db_jarlap->join('sipadu_status_pertanyaan sp', "sp.id = dp.status");
 
         $que = $db_jarlap->get();
-        return $que->result();
+        return $que->result();*/
+         
+		$db_jarlap = $this->load->database('pkl58_sikoko', TRUE);
+		 $SQL1="
+
+            SELECT b.kategori,a.golongan,a.pertanyaan,a.jawaban, a.timestamp,c.status, d.nama as nama_penanya, e.nama as nama_kortim FROM sipadu_daftar_pertanyaan a, sipadu_kategori_pertanyaan b, sipadu_status_pertanyaan c, sipadu_mahasiswa d, sipadu_mahasiswa e WHERE a.kategori=b.id AND a.status=c.id AND a.nim=d.nim AND a.nim_kortim=e.nim ORDER BY a.kategori DESC
+
+           
+            ";
+
+        $Q = $db_jarlap->query($SQL1);
+        return $Q->result_array();
+
     }
 function get_list_all() {
-		$db_jarlap = $this->load->database('pkl_sipadu_real', TRUE);
+		$db_jarlap = $this->load->database('pkl58_sikoko', TRUE);
 		$db_jarlap->select('dp.*, kp.kategori, sm1.nama as nama_penanya, sm2.nama nama_kortim, sp.status');
 		$db_jarlap->from('sipadu_daftar_pertanyaan dp');
 
@@ -1113,7 +1120,7 @@ WHERE a.nim = c.nim AND a.kategori = b.id AND a.status = '3' AND (a.kategori = '
 					sm.nim <> st.nim_koor
 			) t2 ON t1.nim = t2.nim
 			LEFT OUTER JOIN (
-				SELECT
+			SELECT
 					COUNT(DISTINCT(n.unique_id_instance)) as jumlah,
 					n.nim,
 					ks.BLOK1_GROUP1_B1_6 as nama_bs,
@@ -1142,7 +1149,7 @@ WHERE a.nim = c.nim AND a.kategori = b.id AND a.status = '3' AND (a.kategori = '
 
     function get_tabel_unit_cacah(){
 
-    	$que = $this->db->query("
+    	$que = $this->db->database('pkl58_monitoring', TRUE)->query("
 		SELECT t1.nim, t1.kode_bs, t1.nama_bs, t1.nama_desa, t1.nama_kecamatan, t1.nama_kabupaten, t2.*
 		FROM
 		(SELECT dkb.id as kode_bs, dkb.nama as nama_bs, dkd.id as kode_desa, dkd.nama as nama_desa, dkc.id as kode_kecamatan, dkc.nama as nama_kecamatan, dkk.id as kode_kabupaten, dkk.nama as nama_kabupaten, dkb.nim
@@ -1155,8 +1162,37 @@ WHERE a.nim = c.nim AND a.kategori = b.id AND a.status = '3' AND (a.kategori = '
 		INNER JOIN backup_datast dst ON dst.kodeRuta = drt.kodeRuta AND dst.kodeBs = drt.kodeBs) t2
 		ON t1.kode_bs = t2.kodeBs
 		");
-    	$que = $que->result_array();
-    	return $que;
+//    	$que = $que->result_array();
+    	return $que->result;
     }
+    
+    function get_tabel_unit_ubinan(){
+        $que = $this->db->database('pkl58_monitoring', TRUE)->query("
+                    SELECT u2.id_segmen, u2.id_subsegmen, u2.nim
+                    FROM dummy_unit_ubinan u2
+                ");
+        return $que->result;
+    }
+	
+	function get_detail_ksa()
+	{
+		$queKSA = $this->load->database('pkl58_ksa', true)->query("
+		SELECT us.nim, us.nama, seg.id_segmen, kec.nama_kec, des.nama_desa, seg.id_status
+		FROM user us
+		LEFT JOIN segmen seg ON seg.nim_pcl = us.nim
+		LEFT JOIN desa des ON seg.id_desa = des.id_desa
+		LEFT JOIN kecamatan kec ON des.id_kec = kec.id_kec
+		
+		");
 
+		return $queKSA->result();
+	}
+        
+        function get_detail_ubinan(){
+                $que = $this->load->database('pkl58_monitoring', TRUE)->query("
+                SELECT u1.segmen, u1.nim, u1.id_kabupaten, u1.nama_kabupaten, u1.id_kecamatan, u1.nama_kecamatan 
+                FROM dummy_ubinan u1
+                ");
+                return $que->result();
+        }
 }

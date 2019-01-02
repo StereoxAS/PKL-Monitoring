@@ -22,13 +22,13 @@
                 </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">
-					<table width="100%" class="table table-striped table-bordered table-hover" id="tabel_progress_listing">
+					<table width="100%" class="table table-striped table-bordered table-hover" id="tabel_progress_ubinan">
 						<thead>
 							<tr>
                                                                 <th>Segmen</th>
                                                                 <th>NIM</th>
-								<th>Kabupaten/Kota</th>
                                                                 <th>Kecamatan</th>
+                                                                <th>Desa</th>
 								<th>Terubin</th>
                                                                 <th>Progres</th>
 							</tr>

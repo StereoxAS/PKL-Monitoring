@@ -186,10 +186,12 @@ class Pkl extends CI_Controller {
 	function search_pcl($nim = NULL){
 		$data['autocomplete_nav'] = $this->set_autocomplete('pcl');
 		$data['nim'] = $nim;
+		$data['coba']=$this->Server_Model->get_autocomplete_pcl();
+		//print_r($data['coba']);
 
 		$this->load->view('frames/page_head');
 		$this->load->view('frames/nav', $data);
-
+	//	print_r($data);
 		$this->load->view('contents/page_search_pcl');
 
 		$this->load->view('frames/wrapper_end');
@@ -197,6 +199,20 @@ class Pkl extends CI_Controller {
 		$this->load->view('frames/page_end_script_search_pcl', $data);
 		$this->load->view('frames/page_end');
 	}
+        
+        function search_unit_ubinan($nim = NULL){
+                $data['autocomplete_nav'] = $this->set_autocomplete('pcl');
+
+		$this->load->view('frames/page_head');
+		$this->load->view('frames/nav', $data);
+
+		$this->load->view('contents/page_search_unit_ubinan');
+
+		$this->load->view('frames/wrapper_end');
+		$this->load->view('frames/page_end_js');
+		$this->load->view('frames/page_end_script_search_unit_ubinan', $data);
+		$this->load->view('frames/page_end');
+        }
 
 	// MENU PROGRESS PENCACAHAN
 	function progres_cacah($id_kabupaten = NULL){
@@ -222,7 +238,7 @@ class Pkl extends CI_Controller {
          
                 $this->load->view('frames/wrapper_end');
                 $this->load->view('frames/page_end_js');
-//                $this->load->view('frames/page_end_script_progres_ubinan');
+                $this->load->view('frames/page_end_script_progres_ubinan', $data);
                 $this->load->view('frames/page_end');
         }
 
@@ -242,6 +258,8 @@ class Pkl extends CI_Controller {
 	// MENU MONITORING MASALAH
 	function monitoring_masalah(){
 		$data['autocomplete_nav'] = $this->set_autocomplete('pcl');
+		$data['masalah1'] = $this->Server_Model->get_list_masalah();
+	
 		$this->load->view('frames/page_head');
 		$this->load->view('frames/nav', $data);
 
@@ -268,17 +286,17 @@ class Pkl extends CI_Controller {
 	}
 	
 	// MENU KSA (NEW)
-	function monitoring_ksa($id_kabupaten = NULL){
+	function progress_ksa($id_kabupaten = NULL){
 		$data['autocomplete_nav'] = $this->set_autocomplete('pcl');
 		$data['id_kabupaten'] = $id_kabupaten; // id_kabupaten apabila halaman dipanggil dari progres agregat listing
 		$this->load->view('frames/page_head');
 		$this->load->view('frames/nav', $data);
 
-		$this->load->view('contents/page_progres_listing_table');
+		$this->load->view('contents/page_progress_ksa');
 
 		$this->load->view('frames/wrapper_end');
 		$this->load->view('frames/page_end_js');
-		$this->load->view('frames/page_end_script_progres_listing', $data);
+		$this->load->view('frames/page_end_script_progres_ksa', $data);
 		$this->load->view('frames/page_end');
 	}
 
