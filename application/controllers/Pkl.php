@@ -61,48 +61,73 @@ class Pkl extends CI_Controller {
          
          */
         
-        function get_embed_kecamatan_kabkot(){
-            $embed_kecamatan_kabkot=$this->input->get('kabkot_id');
+        function get_embedkecamatanawal_control(){
+            $kabkot_id=$this->input->get('kabkot_id');
            // $embed_kabkot = $this->Server_Model->get_embed_kabkott($idembed);
-            $new_embed_kecamatan_kabkot = ( $embed_kecamatan_kabkot * 10 ) +1;
-            $data_embed_kecamatan_kabkot = $this->Server_Model->get_embed_kecamatan_kabkot($new_embed_kecamatan_kabkot);
+            $kecamatan_id = ( $kabkot_id * 1000 ) +10;
+            $data_embedkecamatanawal = $this->Server_Model->get_embedkecamatanawal_model($kecamatan_id);
             $this->output
                     ->set_content_type('application/json')
-                    ->set_output(json_encode($data_embed_kecamatan_kabkot));
+                    ->set_output(json_encode($data_embedkecamatanawal));
         }
         
-        function get_embed_kecamatan(){
-            $embed_kecamatan=$this->input->get('kecamatan_id');
+        function get_embedkecamatan_control(){
+            $kecamatan_id=$this->input->get('kecamatan_id');
            // $embed_kabkot = $this->Server_Model->get_embed_kabkott($idembed);
-            $data_embed_kecamatan = $this->Server_Model->get_embed_kecamatann($embed_kecamatan);
+            $data_embedkecamatan = $this->Server_Model->get_embedkecamatan_model($kecamatan_id);
             $this->output
                     ->set_content_type('application/json')
-                    ->set_output(json_encode($data_embed_kecamatan));
+                    ->set_output(json_encode($data_embedkecamatan));
         }
         
-        function get_embed_kabkot(){
-            $embed_kabkot=$this->input->get('kabkot_id');
+        function get_embedkabkot_control(){
+            $kabkot_id=$this->input->get('kabkot_id');
            // $embed_kabkot = $this->Server_Model->get_embed_kabkott($idembed);
-            $data_embed_kabkot = $this->Server_Model->get_embed_kabkott($embed_kabkot);
+            $data_embedkabkot = $this->Server_Model->get_embedkabkot_model($kabkot_id);
             $this->output
                     ->set_content_type('application/json')
-                    ->set_output(json_encode($data_embed_kabkot));
+                    ->set_output(json_encode($data_embedkabkot));
         }
         
-        function get_all_kecamatan(){
-            $kakakoko=$this->input->post('kabkot_id');
-            $data_kecamatan = $this->Server_Model->get_kecamatan_model($kakakoko);
+        function get_allkecamatan_control(){
+            $kabkot_id=$this->input->get('kabkot_id');
+            $data_allkecamatan = $this->Server_Model->get_allkecamatan_model($kabkot_id);
             $this->output
                     ->set_content_type('application/json')
-                    ->set_output(json_encode($data_kecamatan));
+                    ->set_output(json_encode($data_allkecamatan));
         }
         
-        function get_tablenamakabkot(){
-            $kabkot_id=$this->input->post('kabkot_id');
-            $data_tablenamakabkot = $this->Server_Model->get_tablenamakabkot($kabkot_id);
+        function get_tablenamakabkot_control(){
+            $kabkot_id=$this->input->get('kabkot_id');
+            $data_tablenamakabkotawal = $this->Server_Model->get_tablenamakabkot_model($kabkot_id);
             $this->output
                     ->set_content_type('application/json')
-                    ->set_output(json_encode($data_tablenamakabkot));
+                    ->set_output(json_encode($data_tablenamakabkotawal));
+        }
+        
+        function get_tablenamakecamatanawal_control(){
+            $kabkot_id=$this->input->get('kabkot_id');
+            $kecamatan_id = ($kabkot_id * 1000) + 10;
+            $data_tablenamakecamatanawal = $this->Server_Model->get_namakecamatanawal_model($kecamatan_id);
+            $this->output
+                    ->set_content_type('application/json')
+                    ->set_output(json_encode($data_tablenamakecamatanawal));
+        }
+        
+        function get_tablenamakecamatan_control(){
+            $kecamatan_id=$this->input->get('kecamatan_id');
+            $data_tablenamakecamatan = $this->Server_Model->get_namakecamatan_model($kecamatan_id);
+            $this->output
+                    ->set_content_type('application/json')
+                    ->set_output(json_encode($data_tablenamakecamatan));
+        }
+        
+        function get_tableksatercacahkabkot_control(){
+            $kabkot_id=$this->input->get('kabkot_id');
+            $data_tableksatercacahkankot = $this->Server_Model->get_tableksatercacahkabkot_model($kabkot_id);
+            $this->output
+                    ->set_content_type('application/json')
+                    ->set_output(json_encode($data_tableksatercacahkabkot));
         }
         
 	function dashboard(){

@@ -40,7 +40,7 @@
                                  
                                <div name="mapKabkot" id="mapKabkot">
                                    
-                               <iframe id="frameKabkot" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d505027.0979627878!2d114.88733692297224!3d-8.54548476551062!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd23b965b12b495%3A0x3030bfbca7cbee0!2sBadung+Regency%2C+Bali!5e0!3m2!1sen!2sid!4v1543864194571" width="470" height="300" frameborder="0" style="border:0" allowfullscreen></iframe>           
+                               <iframe id="frameKabkot" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d252665.33056312407!2d114.54276913839894!3d-8.313153948670598!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd1631a25b65eb5%3A0x3030bfbca7cbf30!2sJembrana+Regency%2C+Bali!5e0!3m2!1sen!2sid!4v1546354871584" width="470" height="300" frameborder="0" style="border:0" allowfullscreen></iframe>
                                </div>
                                 
 
@@ -58,7 +58,7 @@
 					</thead>
 					<tbody>
 					  <tr>
-                                                <td><div id="tableNamakabkot"></div></td>
+                                                <td><div id="tableNamakabkot">Jembrana</div></td>
 						<td><div id="tableKsatercacahkabkot"></div></td>
 						<td><div id="tableProgressksakabkot"></div></td>
                                                 <td><div id="tableUbinantercacahkabkot"></div></td>
@@ -97,14 +97,18 @@
                                 
                                 
                                 <select name="formKecamatan" id="formKecamatan" >
-                                    <option value="11">Abiansemal</option>
+                                    <option value="5101010">Melaya</option>
+                                    <option value="5101020">Negara</option>
+                                    <option value="5101021">Jembrana</option>
+                                    <option value="5101030">Mendoyo</option>
+                                    <option value="5101040">Pekutatan</option>
                                 </select>
                                 
                                 </p>
                                 </div>
 				<!-- <div id="map2"></div> -->
                                 <div name="mapKecamatan" id="mapKecamatan">
-                               <iframe id="frameKecamatan" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d126261.70642815421!2d115.15288390734776!3d-8.53057706979312!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd23c589a2ccd79%3A0x4030bfbca7d2bf0!2sAbiansemal%2C+Badung+Regency%2C+Bali!5e0!3m2!1sen!2sid!4v1543864840639" width="460" height="300" frameborder="0" style="border:0" allowfullscreen></iframe>           
+                               <iframe id="frameKecamatan" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d126353.68633506789!2d114.47202175480734!3d-8.247651422192408!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd1679c2805aa07%3A0x4030bfbca7d2d80!2sMelaya%2C+Jembrana+Regency%2C+Bali!5e0!3m2!1sen!2sid!4v1543865850283" width="460" height="300" frameborder="0" style="border:0" allowfullscreen></iframe>           
                                </div>
                                 
 				<table class="table table-bordered">
@@ -120,7 +124,7 @@
 					</thead>
 					<tbody>
 					  <tr>
-						<td><div id="tableNamakecamatan"></div></td>
+						<td><div id="tableNamakecamatan">Melaya</div></td>
 						<td><div id="tableKsatercacahkecamatan"></div></td>
 						<td><div id="tableProgressksakecamatan"></div></td>
                                                 <td><div id="tableUbinantercacahkecamatan"></div></td>
@@ -252,16 +256,16 @@
     </script>
 -->
 <script src="<?php echo base_url() ?>resources/js/jquery-3.3.1.min.js"> </script>
+                               <!-- Dropdown kecamatan dari formkabkot ok-->
                                <script>
                                 $(document).ready(function(){
                                     $('#formKabkot').change(function(){
                                         var kabkot_id = $(this).val();
-                                        console.log(kabkot_id);
                                         $('#formKecamatan').empty();
                                         $.ajax({
-                                            url: "<?php echo base_url() ?>Pkl/get_all_kecamatan",
-                                            method: "POST", <!-- type -->
-                                            data: {kabkot_id: kabkot_id}, <!-- 'kako_id='+kabkot_id, --> <!-- response -->
+                                            url: "<?php echo base_url() ?>Pkl/get_allkecamatan_control?kabkot_id="+kabkot_id,
+                                            method: "GET",//"POST", <!-- type -->
+                                            //data: {kabkot_id: kabkot_id}, <!-- 'kako_id='+kabkot_id, --> <!-- response -->
                                             success: function(data) {
                                             for(var i = 0; i<data.length ; i++){
                                                 var html = `<option value ="${data[i].id_kecamatan}">${data[i].nama_kecamatan}</option>`;
@@ -271,17 +275,15 @@
                                         });
                                     });
                                 });
-                               
                                 </script>
+                                <!-- Frame kabkot dari formkabkot ok-->
                                  <script>
                                 $(document).ready(function(){
                                     $('#formKabkot').change(function(){
                                         var kabkot_id = $(this).val();
-                                        var embed_kabkot;
-                                        console.log(kabkot_id);
                                         $('#frameKabkot').empty();
                                         $.ajax({
-                                            url: "<?php echo base_url() ?>Pkl/get_embed_kabkot?kabkot_id="+kabkot_id,
+                                            url: "<?php echo base_url() ?>Pkl/get_embedkabkot_control?kabkot_id="+kabkot_id,
                                             method: "GET", <!-- type -->                                                                                   
                                             success: function(data) {
                                                 $('#frameKabkot').attr("src","https://www.google.com/maps/"+data[0].embed_kabkot); <!-- data -->
@@ -290,15 +292,14 @@
                                     });
                                 });
                                 </script>
+                                <!-- frame kecamatan dari formkabkot ok-->
                                 <script>
                                 $(document).ready(function(){
                                     $('#formKabkot').change(function(){
                                         var kabkot_id = $(this).val();
-                                        var embed_kabkot;
-                                        console.log(kabkot_id);
                                         $('#frameKecamatan').empty();
                                         $.ajax({
-                                            url: "<?php echo base_url() ?>Pkl/get_embed_kecamatan_kabkot?kabkot_id="+kabkot_id,
+                                            url: "<?php echo base_url() ?>Pkl/get_embedkecamatanawal_control?kabkot_id="+kabkot_id,
                                             method: "GET", <!-- type -->                                                                                   
                                             success: function(data) {
                                                 $('#frameKecamatan').attr("src","https://www.google.com/maps/"+data[0].embed_kecamatan); <!-- data -->
@@ -307,15 +308,14 @@
                                     });
                                 });
                                 </script>
+                                <!-- frame kecamatan dari formkecamatan ok-->
                                 <script>
                                 $(document).ready(function(){
                                     $('#formKecamatan').change(function(){
                                         var kecamatan_id = $(this).val();
-                                        var embed_kecamatan;
-                                        console.log(kecamatan_id);
                                         $('#frameKecamatan').empty();
                                         $.ajax({
-                                            url: "<?php echo base_url() ?>Pkl/get_embed_kecamatan?kecamatan_id="+kecamatan_id,
+                                            url: "<?php echo base_url() ?>Pkl/get_embedkecamatan_control?kecamatan_id="+kecamatan_id,
                                             method: "GET", <!-- type -->                                                                                   
                                             success: function(data) {
                                                 $('#frameKecamatan').attr("src","https://www.google.com/maps/"+data[0].embed_kecamatan); <!-- data -->
@@ -324,16 +324,65 @@
                                     });
                                 });
                                 </script>
+                                <!-- table nama kabkot awal dari formkabkot ok-->
                                 <script>
                                 $(document).ready(function(){
                                     $('#formKabkot').change(function(){
                                         var kabkot_id = $(this).val();
                                         $('#tableNamakabkot').empty();
                                         $.ajax({
-                                            url: "<?php echo base_url() ?>Pkl/get_tablenamakabkot?kabkot_id="+kabkot_id,
+                                            url: "<?php echo base_url() ?>Pkl/get_tablenamakabkot_control?kabkot_id="+kabkot_id,
                                             method: "GET", <!-- type -->                                                                                   
                                             success: function(data) {
-                                                $('#tableNamakabkot').(data[0].nama_kabkot); <!-- data -->
+                                                $('#tableNamakabkot').append(data[0].nama_kabkot); <!-- data -->
+                                            }
+                                        });
+                                    });
+                                });
+                                </script>
+                               <!-- table nama kecamatan awal dari formkabkot ok-->
+                                <script>
+                                $(document).ready(function(){
+                                    $('#formKabkot').change(function(){
+                                        var kabkot_id = $(this).val();
+                                        $('#tableNamakecamatan').empty();
+                                        $.ajax({
+                                            url: "<?php echo base_url() ?>Pkl/get_tablenamakecamatanawal_control?kabkot_id="+kabkot_id,
+                                            method: "GET", <!-- type -->                                                                                   
+                                            success: function(data) {
+                                                $('#tableNamakecamatan').append(data[0].nama_kecamatan); <!-- data -->
+                                            }
+                                        });
+                                    });
+                                });
+                                </script>
+                                <!-- table nama kecamatan dari formkecamatan -->
+                                <script>
+                                $(document).ready(function(){
+                                    $('#formKecamatan').change(function(){
+                                        var kecamatan_id = $(this).val();
+                                        $('#tableNamakecamatan').empty();
+                                        $.ajax({
+                                            url: "<?php echo base_url() ?>Pkl/get_tablenamakecamatan_control?kecamatan_id="+kecamatan_id,
+                                            method: "GET", <!-- type -->                                                                                   
+                                            success: function(data) {
+                                                $('#tableNamakecamatan').append(data[0].nama_kecamatan); <!-- data -->
+                                            }
+                                        });
+                                    });
+                                });
+                                </script>
+                                 <!-- table Ksa kabkot dari formkabkot -->   
+                                <script>
+                                $(document).ready(function(){
+                                    $('#formKabkot').change(function(){
+                                        var kabkot_id = $(this).val();
+                                        $('#tableKsatercacahkabkot').empty();
+                                        $.ajax({
+                                            url: "<?php echo base_url() ?>Pkl/get_tableksatercacahkabkot_control?kabkot_id="+kabkot_id,
+                                            method: "GET", <!-- type -->                                                                                   
+                                            success: function(data) {
+                                                $('#tableKsatercacahkabkot').append(data[0].nama_kabkot); <!-- data -->
                                             }
                                         });
                                     });
