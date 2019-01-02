@@ -38,13 +38,13 @@
 	                				<th rowspan="2" style="vertical-align: middle">NIM </th>
                                     <th rowspan="2" style="vertical-align: middle">PCL</th>
 	                				<th rowspan="2" style="vertical-align: middle">Kortim</th>
-	                				<th rowspan="2" style="vertical-align: middle">Wilayah</th>
-	                				<th rowspan="2" style="vertical-align: middle">Progress</th>
-	                				<th class="text-center" colspan="2">Tracking</th>
+	                				<!-- <th rowspan="2" style="vertical-align: middle">Wilayah</th> -->
+	                				<!-- <th rowspan="2" style="vertical-align: middle">Progress</th> -->
+	                				<!-- <th class="text-center" colspan="2">Tracking</th> -->
 	                			</tr>
 								<tr>
-									<th style="vertical-align: middle">Unit Tercacah</th>
-									<th style="vertical-align: middle">Lokasi PCL</th>
+									<th style="vertical-align: middle">Wilayah</th>
+									<th style="vertical-align: middle">Progress</th>
 								</tr>
 	                		</thead>
 	                	</table>
