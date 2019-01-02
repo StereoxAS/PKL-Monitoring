@@ -77,7 +77,7 @@
                             <a href="<?php echo base_url('pkl/search_unit_cacah')?>">Daftar Unit KSA</a>
                         </li>
                         <li>
-                            <a href="<?php echo base_url('pkl/search_unit_cacah')?>">Daftar Unit Ubinan</a>
+                            <a href="<?php echo base_url('pkl/search_unit_ubinan')?>">Daftar Unit Ubinan</a>
                         </li>
                         <li>
                             <a href="<?php echo base_url('pkl/search_pcl')?>">Daftar PCL</a>
