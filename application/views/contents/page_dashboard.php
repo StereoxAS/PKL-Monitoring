@@ -225,13 +225,13 @@
 			 
 	              <span id="countDown"></span>
 	                  <ul id="example">
-	                    <li><span class="days">00</span><p class="days_text" style="color: #1DE9B6">Hari</p></li>
+	                    <li><span class="days">00</span><p class="days_text" style="color: #3f3f3f">Hari</p></li>
 	                    <li class="seperator">:</li>
-	                    <li><span class="hours">00</span><p class="hours_text" style="color: #1DE9B6">Jam</p></li>
+	                    <li><span class="hours">00</span><p class="hours_text" style="color: #3f3f3f">Jam</p></li>
 	                    <li class="seperator">:</li>
-	                    <li><span class="minutes">00</span><p class="minutes_text" style="color: #1DE9B6">Menit</p></li>
+	                    <li><span class="minutes">00</span><p class="minutes_text" style="color: #3f3f3f">Menit</p></li>
 	                    <li class="seperator">:</li>
-	                    <li><span class="seconds">00</span><p class="seconds_text" style="color: #1DE9B6">Detik</p></li>
+	                    <li><span class="seconds">00</span><p class="seconds_text" style="color: #3f3f3f">Detik</p></li> <!-- 1de9b6
 	                  </ul>
 	              
 				</div>

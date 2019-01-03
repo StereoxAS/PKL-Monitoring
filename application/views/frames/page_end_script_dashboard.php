@@ -99,7 +99,7 @@
 
 <script type="text/javascript">
     $('#example').countdown({
-        date: '2/19/2018 23:59:59',
+        date: '3/2/2019 23:59:59',
 		offset: +7,
 	    day: 'Hari',
 	    days: 'Hari',

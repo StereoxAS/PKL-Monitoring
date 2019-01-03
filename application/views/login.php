@@ -36,7 +36,7 @@
 						    <?php echo form_input(array('id' => 'password', 'type' => 'password', 'name' => 'password', 'class' => 'form-control', 'placeholder' => 'Masukkan Password')); ?>
 					</div>
 					
-							<?php echo form_submit(array('id' => 'submit', 'class' => 'btn btn-default btn-block', 'value' => 'Login Now')); ?>
+							<?php echo form_submit(array('id' => 'submit', 'class' => 'btn btn-default btn-block', 'value' => 'Login')); ?>
 							
 							</div>
 				<?php echo form_close(); ?>
