@@ -298,33 +298,63 @@ class Server_Model extends CI_Model {
 		// wilayah1 = kabupaten
 		// nim = nim untuk melihat detail cacah by nim di get_extra_content
 		// WHERE n.status_isian = 'Clear' AND n.status = 'Final'
+		
+
+
 		$where1 = ($wilayah1 !== NULL) ? "AND dkb.kabupaten = '$wilayah1'" : ""; // filter kabupaten di select 1
 		$where2 = ($wilayah1 !== NULL) ? "AND ks.BLOK1_B1_2 = '$wilayah1'" : "" ; // filter kabupaten di select 2
 		$wherenim1 = ($nim !== NULL) ? "AND dkb.nim = '$nim'" : "";
 		$wherenim2 = ($nim !== NULL) ? "AND n.nim = '$nim'" : "";
 		$join = ($nim !== NULL) ? "INNER JOIN" : "LEFT OUTER JOIN";
 
-		$que = $this->db->query("
-		SELECT t1.nim, t1.nama_bs, t1.kode_desa, t1.nama_desa, t1.kode_kecamatan, t1.nama_kecamatan, t1.kode_kabupaten, t1.nama_kabupaten, t2.jumlah, t1.beban_cacah, t2.jumlah/t1.beban_cacah as progress
+		// t2.jumlah, t2.jumlah/t1.beban_cacah as progress
+		$que = $this->load->database('pkl58_odk', TRUE)->query("
+		
+		SELECT t1.nim, t1.nama_bs, t1.kode_desa, t1.nama_desa, t1.kode_kecamatan, t1.nama_kecamatan, t1.kode_kabupaten, 
+			   t1.nama_kabupaten, t1.beban_cacah 
 		FROM
-		(SELECT dkb.nim, dkb.nama as nama_bs, dkd.id as kode_desa, dkd.nama as nama_desa, dkc.id as kode_kecamatan, dkc.nama as nama_kecamatan, dkk.id as kode_kabupaten, dkk.nama as nama_kabupaten, dkb.beban_cacah
-		FROM dummy_kode_bloksensus dkb
-		INNER JOIN dummy_kode_kelurahandesa dkd ON dkd.id = dkb.kelurahandesa AND dkd.kecamatan = dkb.kecamatan AND dkd.kabupaten = dkb.kabupaten
-		INNER JOIN dummy_kode_kecamatan dkc ON dkc.id = dkb.kecamatan AND dkc.kabupaten = dkb.kabupaten
-		INNER JOIN dummy_kode_kabupaten dkk ON dkk.id = dkb.kabupaten WHERE 1
-		$where1 $wherenim1) t1
-		$join
-		(SELECT COUNT(DISTINCT(n.unique_id_instance)) as jumlah, n.nim, ks.BLOK1_GROUP1_B1_6 as nama_bs, ks.BLOK1_B1_4 kode_desa, ks.BLOK1_B1_3 as kode_kecamatan, ks.BLOK1_B1_2 as kode_kabupaten
- 		FROM VSENPKL56_15_1_BETA_CORE ks
- 		INNER JOIN pkl_kortimpcl_real.notif n ON n.unique_id_instance = ks._URI
-		WHERE n.status_isian = 'Clear' AND n.status = 'Final' AND n.form_id = 'vsenpkl56_15.1_beta' AND n.nim = ks.METADATA_NIM
-		$where2 $wherenim2
- 		GROUP BY ks.BLOK1_GROUP1_B1_6, ks.METADATA_NIM
- 		) t2
- 		ON t1.kode_kabupaten = t2.kode_kabupaten AND t1.kode_kecamatan = t2.kode_kecamatan AND t1.kode_desa = t2.kode_desa AND t1.nama_bs = t2.nama_bs AND t1.nim = t2.nim
-		WHERE t1.kode_kabupaten <> '99'");
+				(
+				SELECT dkb.nim, dkb.nama as nama_bs, dkd.id as kode_desa, dkd.nama as nama_desa, dkc.id as kode_kecamatan, 
+						dkc.nama as nama_kecamatan, dkk.id as kode_kabupaten, dkk.nama as nama_kabupaten, dkb.beban_cacah
+				FROM dummy_kode_bloksensus dkb
+				INNER JOIN dummy_kode_kelurahandesa dkd 
+				ON dkd.id = dkb.kelurahandesa AND dkd.kecamatan = dkb.kecamatan AND dkd.kabupaten = dkb.kabupaten
+				INNER JOIN dummy_kode_kecamatan dkc 
+				ON dkc.id = dkb.kecamatan AND dkc.kabupaten = dkb.kabupaten
+				INNER JOIN dummy_kode_kabupaten dkk ON dkk.id = dkb.kabupaten 
+				WHERE 1 $where1 $wherenim1) t1
+		WHERE t1.kode_kabupaten <> '99'
+		");
         return $que->result();
 	}
+
+
+
+// $where1 = ($wilayah1 !== NULL) ? "AND dkb.kabupaten = '$wilayah1'" : ""; // filter kabupaten di select 1
+// 		$where2 = ($wilayah1 !== NULL) ? "AND ks.BLOK1_B1_2 = '$wilayah1'" : "" ; // filter kabupaten di select 2
+// 		$wherenim1 = ($nim !== NULL) ? "AND dkb.nim = '$nim'" : "";
+// 		$wherenim2 = ($nim !== NULL) ? "AND n.nim = '$nim'" : "";
+// 		$join = ($nim !== NULL) ? "INNER JOIN" : "LEFT OUTER JOIN";
+
+// 		$que = $this->db->query("
+// 		SELECT t1.nim, t1.nama_bs, t1.kode_desa, t1.nama_desa, t1.kode_kecamatan, t1.nama_kecamatan, t1.kode_kabupaten, t1.nama_kabupaten, t2.jumlah, t1.beban_cacah, t2.jumlah/t1.beban_cacah as progress
+// 		FROM
+// 		(SELECT dkb.nim, dkb.nama as nama_bs, dkd.id as kode_desa, dkd.nama as nama_desa, dkc.id as kode_kecamatan, dkc.nama as nama_kecamatan, dkk.id as kode_kabupaten, dkk.nama as nama_kabupaten, dkb.beban_cacah
+// 		FROM dummy_kode_bloksensus dkb
+// 		INNER JOIN dummy_kode_kelurahandesa dkd ON dkd.id = dkb.kelurahandesa AND dkd.kecamatan = dkb.kecamatan AND dkd.kabupaten = dkb.kabupaten
+// 		INNER JOIN dummy_kode_kecamatan dkc ON dkc.id = dkb.kecamatan AND dkc.kabupaten = dkb.kabupaten
+// 		INNER JOIN dummy_kode_kabupaten dkk ON dkk.id = dkb.kabupaten WHERE 1
+// 		$where1 $wherenim1) t1
+// 		$join
+// 		(SELECT COUNT(DISTINCT(n.unique_id_instance)) as jumlah, n.nim, ks.BLOK1_GROUP1_B1_6 as nama_bs, ks.BLOK1_B1_4 kode_desa, ks.BLOK1_B1_3 as kode_kecamatan, ks.BLOK1_B1_2 as kode_kabupaten
+//  		FROM VSENPKL56_15_1_BETA_CORE ks
+//  		INNER JOIN pkl_kortimpcl_real.notif n ON n.unique_id_instance = ks._URI
+// 		WHERE n.status_isian = 'Clear' AND n.status = 'Final' AND n.form_id = 'vsenpkl56_15.1_beta' AND n.nim = ks.METADATA_NIM
+// 		$where2 $wherenim2
+//  		GROUP BY ks.BLOK1_GROUP1_B1_6, ks.METADATA_NIM
+//  		) t2
+//  		ON t1.kode_kabupaten = t2.kode_kabupaten AND t1.kode_kecamatan = t2.kode_kecamatan AND t1.kode_desa = t2.kode_desa AND t1.nama_bs = t2.nama_bs AND t1.nim = t2.nim
+// 		WHERE t1.kode_kabupaten <> '99'");
 
 	function get_agregat_cacah() {
 		// WHERE n.status_isian = 'Clear' AND n.status = 'Final'
@@ -353,25 +383,33 @@ class Server_Model extends CI_Model {
 	}
 
 	function get_detail_listing(){
-		// $que = $this->db->query("
-		// SELECT t1.nim, t1.kode_bs, t1.kode_desa, t1.nama_desa, t1.kode_kecamatan, t1.nama_kecamatan, t1.kode_kabupaten, t1.nama_kabupaten, t2.jumlah
-		// FROM
-		// (SELECT dkb.id as kode_bs, dkb.nama as nama_bs, dkd.id as kode_desa, dkd.nama as nama_desa, dkc.id as kode_kecamatan, dkc.nama as nama_kecamatan, dkk.id as kode_kabupaten, dkk.nama as nama_kabupaten, dkb.nim
-		// FROM dummy_kode_bloksensus dkb
-		// INNER JOIN dummy_kode_kelurahandesa dkd ON dkd.id = dkb.kelurahandesa AND dkd.kecamatan = dkb.kecamatan AND dkd.kabupaten = dkb.kabupaten
-		// INNER JOIN dummy_kode_kecamatan dkc ON dkc.id = dkb.kecamatan AND dkc.kabupaten = dkb.kabupaten
-		// INNER JOIN dummy_kode_kabupaten dkk ON dkk.id = dkb.kabupaten WHERE dkk.id <> '99' ) t1
-		// LEFT OUTER JOIN
-		// (SELECT COUNT(*) as jumlah, kodeBs FROM backup_datart GROUP BY kodeBs ) t2
-		// ON t1.kode_bs = t2.kodeBs");
+		
+		$que1 = $this->load->database('pkl58_odk', TRUE)->query(" 
 
-		// return $que->result();
+				SELECT t1.nim, t1.kode_bs, t1.kode_desa, t1.nama_desa, t1.kode_kecamatan, t1.nama_kecamatan, t1.kode_kabupaten, 
+					   t1.nama_kabupaten, t2.jumlah, t1.status
+				FROM   (
+						SELECT dkb.id as kode_bs, dkb.nama as nama_bs, dkd.id as kode_desa, dkd.nama as nama_desa, dkc.id as 	  	 kode_kecamatan, dkc.nama as nama_kecamatan, dkk.id as kode_kabupaten, dkk.nama as nama_kabupaten, 
+							   dkb.nim, dkb.status
+						FROM   dummy_kode_bloksensus as dkb 
+							   INNER JOIN dummy_kode_kelurahandesa dkd 
+							   ON dkd.id = dkb.kelurahandesa AND dkd.kecamatan = dkb.kecamatan AND dkd.kabupaten = dkb.kabupaten  
+							   INNER JOIN dummy_kode_kecamatan dkc 
+							   ON dkc.id = dkb.kecamatan AND dkc.kabupaten = dkb.kabupaten	
+							   INNER JOIN dummy_kode_kabupaten dkk 
+							   ON dkk.id = dkb.kabupaten 
+						WHERE dkk.id <> '99' 			   
+						) t1
+ 						LEFT OUTER JOIN
+						(
+						SELECT COUNT(*) as jumlah, kodeBs 
+						FROM backup_datart 
+						GROUP BY kodeBs 
+						) t2
+						ON t1.kode_bs = t2.kodeBs
+			");
 
-		$que1 = $this->load->database('pkl58_monitoring', TRUE)->query("
-		SELECT t1.nim, t1.kode_bs, t1.kode_desa, t1.nama_desa, t1.kode_kecamatan, t1.nama_kecamatan, t1.kode_kabupaten, t1.nama_kabupaten, t1.jumlah
-		FROM detail_listing t1
-		");
-		return $que1->result();
+			return $que1->result();
 	}
         
 //        function get_detail_ubinan(){
