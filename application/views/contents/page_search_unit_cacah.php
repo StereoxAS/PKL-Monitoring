@@ -38,6 +38,7 @@
 	                				<th style="vertical-align: middle" rowspan="2">NIM</th>
 	                				<th style="vertical-align: middle" rowspan="2">Nama KRT</th>
                                                         <th style="vertical-align: middle" rowspan="2">Alamat</th>
+                                                        
                                                         <th colspan="3" class="text-center">ART</th>
 							<th style="vertical-align: middle" rowspan="2">Tracking</th>
 						</tr>
