@@ -119,10 +119,11 @@ class Server_Model extends CI_Model {
 	}
 
 	function get_autocomplete_pcl(){
-		$db_jarlap = $this->load->database('pkl_sipadu_real', TRUE);
+		$db_jarlap = $this->load->database('pkl58_sikoko', TRUE);
+
 		$column_nama = 'nama';
 		$column_nim = 'nim';
-		$db_jarlap->select("$column_nama, $column_nim");
+		$db_jarlap->select("nama, nim");
 		$db_jarlap->from("sipadu_mahasiswa sm");
 		$db_jarlap->join("sipadu_timpencacah st", "sm.id_tim = st.id_tim");
 		$db_jarlap->where("sm.nim <> st.nim_koor");
@@ -131,32 +132,32 @@ class Server_Model extends CI_Model {
 		return $que->result_array();
 	}
         
-        function get_embed_kabkott($embed_kabkot){
+        function get_embedkabkot_model($kabkot_id){
             
             $db_jarlap = $this->load->database('pkl58_monitoring', TRUE);
             $db_jarlap->select("embed_kabkot");
             $db_jarlap->from("kabkot");
-            $db_jarlap->where("id_kabkot = $embed_kabkot");
+            $db_jarlap->where("id_kabkot = $kabkot_id");
             $que = $db_jarlap->get();
             return $que->result();
         }
         
-        function get_embed_kecamatann($embed_kecamatan){
+        function get_embedkecamatan_model($kecamatan_id){
             
             $db_jarlap = $this->load->database('pkl58_monitoring', TRUE);
             $db_jarlap->select("embed_kecamatan");
             $db_jarlap->from("kecamatan");
-            $db_jarlap->where("id_kecamatan = $embed_kecamatan");
+            $db_jarlap->where("id_kecamatan = $kecamatan_id");
             $que = $db_jarlap->get();
             return $que->result();
         }
         
-        function get_embed_kecamatan_kabkot($new_embed_kecamatan_kabkot){
+        function get_embedkecamatanawal_model($kecamatan_id){
             
             $db_jarlap = $this->load->database('pkl58_monitoring', TRUE);
             $db_jarlap->select("embed_kecamatan");
             $db_jarlap->from("kecamatan");
-            $db_jarlap->where("id_kecamatan = $new_embed_kecamatan_kabkot");
+            $db_jarlap->where("id_kecamatan = $kecamatan_id");
             $que = $db_jarlap->get();
             return $que->result();
         }
@@ -169,7 +170,7 @@ class Server_Model extends CI_Model {
             return $que->result();
         }
         
-        function get_tablenamakabkot($kabkot_id){
+        function get_tablenamakabkot_model($kabkot_id){
             $db_jarlap = $this->load->database('pkl58_monitoring', TRUE);
             $db_jarlap->select("nama_kabkot");
             $db_jarlap->from("kabkot");
@@ -178,12 +179,116 @@ class Server_Model extends CI_Model {
             return $que->result();
         }
         
-         function get_kecamatan_model($kakakoko){
+        function get_namakecamatanawal_model($kecamatan_id){
+            $db_jarlap = $this->load->database('pkl58_monitoring', TRUE);
+            $db_jarlap->select("nama_kecamatan");
+            $db_jarlap->from("kecamatan");
+            $db_jarlap->where("id_kecamatan = $kecamatan_id");
+            $que = $db_jarlap->get();
+            return $que->result();
+        }
+        
+        function get_namakecamatan_model($kecamatan_id){
+            $db_jarlap = $this->load->database('pkl58_monitoring', TRUE);
+            $db_jarlap->select("nama_kecamatan");
+            $db_jarlap->from("kecamatan");
+            $db_jarlap->where("id_kecamatan = $kecamatan_id");
+            $que = $db_jarlap->get();
+            return $que->result();
+        }
+        
+        function get_tableksatercacahkabkot_model($kabkot_id){
+            //$db_jarlap = $this->load->database('pkl58_monitoring', TRUE);
+            //$db_jarlap->select("nama_kabkot");
+            //$db_jarlap->from("kabkot");
+            //$db_jarlap->where("id_kabkot = $kabkot_id");
+            //$que = $db_jarlap->get();
+            //return $que->result();
+            
+            $que = $this->load->database('pkl58_monitoring', TRUE)->query("
+		SELECT
+			t1.nim,
+		    t2.nama,
+		    t2.nama_koor as kortim,
+			GROUP_CONCAT(t1.kode_bs) as wilayah_kerja,
+			t1.kode_desa,
+			t1.nama_desa,
+			t1.kode_kecamatan,
+			t1.nama_kecamatan,
+			t1.kode_kabupaten,
+			t1.nama_kabupaten,
+			SUM(t3.jumlah) as jumlah,
+			SUM(t1.beban_cacah) as beban_cacah,
+			SUM(t3.jumlah / t1.beban_cacah) as progress
+		FROM
+			(
+				SELECT
+					dkb.id as kode_bs,
+					dkb.nama as nama_bs,
+					dkd.id as kode_desa,
+					dkd.nama as nama_desa,
+					dkc.id as kode_kecamatan,
+					dkc.nama as nama_kecamatan,
+					dkk.id as kode_kabupaten,
+					dkk.nama as nama_kabupaten,
+					dkb.beban_cacah,
+					dkb.nim
+				FROM
+					dummy_kode_bloksensus dkb
+					INNER JOIN dummy_kode_kelurahandesa dkd ON dkd.id = dkb.kelurahandesa
+					AND dkd.kecamatan = dkb.kecamatan
+					AND dkd.kabupaten = dkb.kabupaten
+					INNER JOIN dummy_kode_kecamatan dkc ON dkc.id = dkb.kecamatan
+					AND dkc.kabupaten = dkb.kabupaten
+					INNER JOIN dummy_kode_kabupaten dkk ON dkk.id = dkb.kabupaten
+			) t1
+			INNER JOIN (
+				SELECT
+					sm.nama,
+					sm.nim,
+					st.nim_koor,
+					sm1.nama as nama_koor
+				FROM
+					`pkl_sipadu_real`.`sipadu_mahasiswa` sm
+					INNER JOIN `pkl_sipadu_real`.`sipadu_timpencacah` st ON sm.id_tim = st.id_tim
+					INNER JOIN `pkl_sipadu_real`.`sipadu_mahasiswa` sm1 ON st.nim_koor = sm1.nim
+				WHERE
+					sm.nim <> st.nim_koor
+			) t2 ON t1.nim = t2.nim
+			LEFT OUTER JOIN (
+				SELECT
+					COUNT(DISTINCT(n.unique_id_instance)) as jumlah,
+					n.nim,
+					ks.BLOK1_GROUP1_B1_6 as nama_bs,
+					ks.BLOK1_B1_4 kode_desa,
+					ks.BLOK1_B1_3 as kode_kecamatan,
+					ks.BLOK1_B1_2 as kode_kabupaten
+		 		FROM
+					pkl_odk_real.VSENPKL56_15_1_BETA_CORE ks
+					INNER JOIN pkl_kortimpcl_real.notif n ON n.unique_id_instance = ks._URI
+				WHERE
+					n.status_isian = 'Clear'
+					AND n.status = 'Final'
+					AND n.form_id = 'vsenpkl56_15.1_beta'
+				GROUP BY
+					ks.BLOK1_GROUP1_B1_6
+			) t3 ON t1.kode_kabupaten = t3.kode_kabupaten
+			AND t1.kode_kecamatan = t3.kode_kecamatan
+			AND t1.kode_desa = t3.kode_desa
+			AND t1.nama_bs = t3.nama_bs
+			AND t1.nim = t3.nim
+		GROUP BY t1.nim");
+
+    	$que = $que->result_array();
+    	return $que;
+        }
+        
+         function get_allkecamatan_model($kabkot_id){
             
             $db_jarlap = $this->load->database('pkl58_monitoring', TRUE);
             $db_jarlap->select("*");
             $db_jarlap->from("kecamatan");
-            $db_jarlap->where(" id_kabkot = $kakakoko ");
+            $db_jarlap->where(" id_kabkot = $kabkot_id ");
             $que = $db_jarlap->get();
             return $que->result();
         }
@@ -481,16 +586,18 @@ class Server_Model extends CI_Model {
          
 		$db_jarlap = $this->load->database('pkl58_sikoko', TRUE);
 		 $SQL1="
-            SELECT a.id, a.nim, b.kategori, a.wilayah, a.pertanyaan, a.golongan, c.nama as nama_penanya, a.timestamp, a.jawaban, d.nama as nama_kortim
-FROM sipadu_daftar_pertanyaan a, sipadu_kategori_pertanyaan b, sipadu_mahasiswa c, sipadu_mahasiswa d
-WHERE a.nim = c.nim AND a.kategori = b.id AND a.status = '3' AND a.kategori = '5' AND a.nim_kortim = d.nim ORDER BY a.jawaban, a.timestamp DESC
+
+            SELECT b.kategori,a.golongan,a.pertanyaan,a.jawaban, a.timestamp,c.status, d.nama as nama_penanya, e.nama as nama_kortim FROM sipadu_daftar_pertanyaan a, sipadu_kategori_pertanyaan b, sipadu_status_pertanyaan c, sipadu_mahasiswa d, sipadu_mahasiswa e WHERE a.kategori=b.id AND a.status=c.id AND a.nim=d.nim AND a.nim_kortim=e.nim ORDER BY a.kategori DESC
+
+           
             ";
+
         $Q = $db_jarlap->query($SQL1);
-        return $Q->result();
+        return $Q->result_array();
 
     }
 function get_list_all() {
-		$db_jarlap = $this->load->database('pkl_sipadu_real', TRUE);
+		$db_jarlap = $this->load->database('pkl58_sikoko', TRUE);
 		$db_jarlap->select('dp.*, kp.kategori, sm1.nama as nama_penanya, sm2.nama nama_kortim, sp.status');
 		$db_jarlap->from('sipadu_daftar_pertanyaan dp');
 

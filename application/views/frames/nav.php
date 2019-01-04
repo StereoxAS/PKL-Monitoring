@@ -9,7 +9,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand visible-md visible-lg visible-sm" href="" style="color: white;"> <img src="<?php echo base_url();?>/resources/images/logo.png" alt="WEB MONITORING PKL STIS 58"></a>
+        <a class="navbar-brand visible-md visible-lg visible-sm" href="" style="color: white;"> <img src="<?php echo base_url();?>/resources/images/logo1.png" alt="WEB MONITORING PKL STIS 58"></a>
 		<a class="navbar-brand visible-xs" href="" style="height: 60px;"> <img src="<?php echo base_url();?>/resources/images/logo2.png" alt="WEB MONITORING PKL STIS 58"></a>
 		<ul class="nav navbar-nav navbar-right visible-sm-block visible-md-block visible-lg-block">
 		    <li class="sidebar-search" style="display: absolute; width: 250px; margin-top: 12px;">
