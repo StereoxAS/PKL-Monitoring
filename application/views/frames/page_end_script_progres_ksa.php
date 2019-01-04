@@ -1,4 +1,5 @@
 <!-- DataTables -->
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.js"></script>
 <script type="text/javascript" language="javascript" src="<?php echo base_url('resources/js/jquery.dataTables.js')?>"></script>
 <script type="text/javascript" language="javascript" src="<?php echo base_url('resources/js/dataTables.bootstrap.js')?>"></script>
 <script type="text/javascript" language="javascript" src="<?php echo base_url('resources/js/dataTables.responsive.min.js')?>"></script>
@@ -12,20 +13,32 @@
     var currentTab;
     var interv;
     var interv2;
+	var JSONprogresKSA;
+	var urlProgressKSA = "http://bf0b9e2f.ngrok.io/pklserver/api/Monitoring/progress_ksa";
 
+	
+		
     $(document).ready(function() 
 	{
+		console.log("JSON initialized");
 		$('.btn').tooltip();
         interv2 = setInterval(get_reload, 3000);
-		var ksaRaw = 'http://bf0b9e2f.ngrok.io/pklserver/api/Monitoring/progress_ksa';
+		
+		$.getJSON(urlProgressKSA, function(result) 
+		{
+			console.log("JSON STATUS started: " + status);
+			var status = result.status;
+			console.log("JSON STATUS finished: " + status);
+		});
 		
         table = $('#tabel_progress_ksa').DataTable(
 		{
-            // ajax: '<?php echo base_url() ?>' + 'server/get_detail_ksa', // CHANGE ME
-			// ajax: 'http://bf0b9e2f.ngrok.io/pklserver/api/Monitoring/progress_ksa',
+			"Processing": true,
+			"ServerSide": true,
+			"AjaxSource": urlProgressKSA,
 			ajax: 
 			{
-				url: "http://bf0b9e2f.ngrok.io/pklserver/api/Monitoring/progress_ksa",
+				url: urlProgressKSA,
 				type: "POST",
 			},
 			displayLength: 25,
@@ -53,29 +66,15 @@
                 {"data": "nama_kec"},
                 {"data": "nama_desa"},
                 {"data": "status_segmen"},
-                // {
-                    // "data": "id_status",
-                    // render:function (data, type, full, meta) 
-					// {
-                        // if (data == 0 || data == null) 
-						// {
-                            // return "Belum Disetujui";
-                        // }
-						// else
-						// {
-                            // return "Disetujui";
-                        // }
-                    // }
-                // },
             ],
             order: [[1, 'asc']],
-            responsive: true,
-			processing: true,
-			serverSide: true
+            responsive: true
         });
 
     });
-
+	
+	console.log("JSON KSA : " + JSONprogresKSA);
+	
     function get_reload(){
         $.ajax({
             url: "<?php echo base_url(); ?>/server/get_agregat_listing", //service
@@ -114,30 +113,5 @@
 		$('.btn').tooltip('hide');
     })
 	
-	
-	// $(document).ready(function()
-	// {
-		// $('#tabel_progress_ksa').change(function()
-		// {
-			// var kabkot_id = $(this).val();
-			// console.log(kabkot_id);
-			// $('#tabel_progress_ksa').empty();
-			// $.ajax(
-			// {
-				// url: "<?php echo base_url() ?>Pkl/get_all_kecamatan",
-				// url: "http://bf0b9e2f.ngrok.io/pklserver/api/Monitoring/progress_ksa",
-				// method: "POST", <!-- type -->
-				// data: {kabkot_id: kabkot_id}, <!-- 'kako_id='+kabkot_id, --> <!-- response -->
-				// success: function(data) 
-				// {
-				// for(var i = 0; i<data.length ; i++)
-				// {
-					// var html = `<option value ="${data[i].id_kecamatan}">${data[i].nama_kecamatan}</option>`;
-					// $('#tabel_progress_ksa').append(html); <!-- data -->                                                
-					// }                                            
-				// }                                                
-			// });
-		// });
-	// });
    
 </script>
