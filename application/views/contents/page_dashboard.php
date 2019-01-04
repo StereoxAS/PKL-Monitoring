@@ -252,90 +252,95 @@
     </script>
 -->
 <script src="<?php echo base_url() ?>resources/js/jquery-3.3.1.min.js"> </script>
-                               <script>
-                                $(document).ready(function(){
-                                    $('#formKabkot').change(function(){
-                                        var kabkot_id = $(this).val();
-                                        console.log(kabkot_id);
-                                        $('#formKecamatan').empty();
-                                        $.ajax({
-                                            url: "<?php echo base_url() ?>Pkl/get_all_kecamatan",
-                                            method: "POST", <!-- type -->
-                                            data: {kabkot_id: kabkot_id}, <!-- 'kako_id='+kabkot_id, --> <!-- response -->
-                                            success: function(data) {
-                                            for(var i = 0; i<data.length ; i++){
-                                                var html = `<option value ="${data[i].id_kecamatan}">${data[i].nama_kecamatan}</option>`;
-                                                $('#formKecamatan').append(html); <!-- data -->                                                
-                                                }                                            
-                                            }                                                
-                                        });
-                                    });
-                                });
-                               
-                                </script>
-                                 <script>
-                                $(document).ready(function(){
-                                    $('#formKabkot').change(function(){
-                                        var kabkot_id = $(this).val();
-                                        var embed_kabkot;
-                                        console.log(kabkot_id);
-                                        $('#frameKabkot').empty();
-                                        $.ajax({
-                                            url: "<?php echo base_url() ?>Pkl/get_embed_kabkot?kabkot_id="+kabkot_id,
-                                            method: "GET", <!-- type -->                                                                                   
-                                            success: function(data) {
-                                                $('#frameKabkot').attr("src","https://www.google.com/maps/"+data[0].embed_kabkot); <!-- data -->
-                                            }
-                                        });
-                                    });
-                                });
-                                </script>
-                                <script>
-                                $(document).ready(function(){
-                                    $('#formKabkot').change(function(){
-                                        var kabkot_id = $(this).val();
-                                        var embed_kabkot;
-                                        console.log(kabkot_id);
-                                        $('#frameKecamatan').empty();
-                                        $.ajax({
-                                            url: "<?php echo base_url() ?>Pkl/get_embed_kecamatan_kabkot?kabkot_id="+kabkot_id,
-                                            method: "GET", <!-- type -->                                                                                   
-                                            success: function(data) {
-                                                $('#frameKecamatan').attr("src","https://www.google.com/maps/"+data[0].embed_kecamatan); <!-- data -->
-                                            }
-                                        });
-                                    });
-                                });
-                                </script>
-                                <script>
-                                $(document).ready(function(){
-                                    $('#formKecamatan').change(function(){
-                                        var kecamatan_id = $(this).val();
-                                        var embed_kecamatan;
-                                        console.log(kecamatan_id);
-                                        $('#frameKecamatan').empty();
-                                        $.ajax({
-                                            url: "<?php echo base_url() ?>Pkl/get_embed_kecamatan?kecamatan_id="+kecamatan_id,
-                                            method: "GET", <!-- type -->                                                                                   
-                                            success: function(data) {
-                                                $('#frameKecamatan').attr("src","https://www.google.com/maps/"+data[0].embed_kecamatan); <!-- data -->
-                                            }
-                                        });
-                                    });
-                                });
-                                </script>
-                                <script>
-                                $(document).ready(function(){
-                                    $('#formKabkot').change(function(){
-                                        var kabkot_id = $(this).val();
-                                        $('#tableNamakabkot').empty();
-                                        $.ajax({
-                                            url: "<?php echo base_url() ?>Pkl/get_tablenamakabkot?kabkot_id="+kabkot_id,
-                                            method: "GET", <!-- type -->                                                                                   
-                                            success: function(data) {
-                                                $('#tableNamakabkot').(data[0].nama_kabkot); <!-- data -->
-                                            }
-                                        });
-                                    });
-                                });
-                                </script>
+   <script>
+	$(document).ready(function()
+	{
+		$('#formKabkot').change(function()
+		{
+			var kabkot_id = $(this).val();
+			console.log(kabkot_id);
+			$('#formKecamatan').empty();
+			$.ajax(
+			{
+				url: "<?php echo base_url() ?>Pkl/get_all_kecamatan",
+				method: "POST", <!-- type -->
+				data: {kabkot_id: kabkot_id}, <!-- 'kako_id='+kabkot_id, --> <!-- response -->
+				success: function(data) 
+				{
+				for(var i = 0; i<data.length ; i++)
+				{
+					var html = `<option value ="${data[i].id_kecamatan}">${data[i].nama_kecamatan}</option>`;
+					$('#formKecamatan').append(html); <!-- data -->                                                
+					}                                            
+				}                                                
+			});
+		});
+	});
+   
+	</script>
+	 <script>
+	$(document).ready(function(){
+		$('#formKabkot').change(function(){
+			var kabkot_id = $(this).val();
+			var embed_kabkot;
+			console.log(kabkot_id);
+			$('#frameKabkot').empty();
+			$.ajax({
+				url: "<?php echo base_url() ?>Pkl/get_embed_kabkot?kabkot_id="+kabkot_id,
+				method: "GET", <!-- type -->                                                                                   
+				success: function(data) {
+					$('#frameKabkot').attr("src","https://www.google.com/maps/"+data[0].embed_kabkot); <!-- data -->
+				}
+			});
+		});
+	});
+	</script>
+	<script>
+	$(document).ready(function(){
+		$('#formKabkot').change(function(){
+			var kabkot_id = $(this).val();
+			var embed_kabkot;
+			console.log(kabkot_id);
+			$('#frameKecamatan').empty();
+			$.ajax({
+				url: "<?php echo base_url() ?>Pkl/get_embed_kecamatan_kabkot?kabkot_id="+kabkot_id,
+				method: "GET", <!-- type -->                                                                                   
+				success: function(data) {
+					$('#frameKecamatan').attr("src","https://www.google.com/maps/"+data[0].embed_kecamatan); <!-- data -->
+				}
+			});
+		});
+	});
+	</script>
+	<script>
+	$(document).ready(function(){
+		$('#formKecamatan').change(function(){
+			var kecamatan_id = $(this).val();
+			var embed_kecamatan;
+			console.log(kecamatan_id);
+			$('#frameKecamatan').empty();
+			$.ajax({
+				url: "<?php echo base_url() ?>Pkl/get_embed_kecamatan?kecamatan_id="+kecamatan_id,
+				method: "GET", <!-- type -->                                                                                   
+				success: function(data) {
+					$('#frameKecamatan').attr("src","https://www.google.com/maps/"+data[0].embed_kecamatan); <!-- data -->
+				}
+			});
+		});
+	});
+	</script>
+	<script>
+	$(document).ready(function(){
+		$('#formKabkot').change(function(){
+			var kabkot_id = $(this).val();
+			$('#tableNamakabkot').empty();
+			$.ajax({
+				url: "<?php echo base_url() ?>Pkl/get_tablenamakabkot?kabkot_id="+kabkot_id,
+				method: "GET", <!-- type -->                                                                                   
+				success: function(data) {
+					$('#tableNamakabkot').(data[0].nama_kabkot); <!-- data -->
+				}
+			});
+		});
+	});
+	</script>

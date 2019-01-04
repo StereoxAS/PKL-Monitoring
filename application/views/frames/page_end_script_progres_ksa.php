@@ -5,6 +5,7 @@
 
 <!-- Echarts JavaScripts -->
 <script src="<?php echo base_url()?>resources/vendor/echarts/echarts-all.js"></script>
+<script src="<?php echo base_url() ?>resources/js/jquery-3.3.1.min.js"> </script>
 
 <script type="text/javascript">
     var table;
@@ -16,10 +17,17 @@
 	{
 		$('.btn').tooltip();
         interv2 = setInterval(get_reload, 3000);
-
+		var ksaRaw = 'http://bf0b9e2f.ngrok.io/pklserver/api/Monitoring/progress_ksa';
+		
         table = $('#tabel_progress_ksa').DataTable(
 		{
-            ajax: '<?php echo base_url() ?>' + 'server/get_detail_ksa', // CHANGE ME
+            // ajax: '<?php echo base_url() ?>' + 'server/get_detail_ksa', // CHANGE ME
+			// ajax: 'http://bf0b9e2f.ngrok.io/pklserver/api/Monitoring/progress_ksa',
+			ajax: 
+			{
+				url: "http://bf0b9e2f.ngrok.io/pklserver/api/Monitoring/progress_ksa",
+				type: "POST",
+			},
 			displayLength: 25,
 			oLanguage: 
 			{
@@ -40,28 +48,30 @@
 				sLoadingRecords	: "Memuat data ..."
 			},
             columns: [
-                {"data": "nim"},
-                {"data": "nama"},
+                {"data": "id_segmen"},
+                {"data": "nim_pcl"},
                 {"data": "nama_kec"},
                 {"data": "nama_desa"},
-                // {"data": "id_status"},
-                {
-                    "data": "id_status",
-                    render:function (data, type, full, meta) 
-					{
-                        if (data == 0 || data == null) 
-						{
-                            return "Belum Disetujui";
-                        }
-						else
-						{
-                            return "Disetujui";
-                        }
-                    }
-                },
+                {"data": "status_segmen"},
+                // {
+                    // "data": "id_status",
+                    // render:function (data, type, full, meta) 
+					// {
+                        // if (data == 0 || data == null) 
+						// {
+                            // return "Belum Disetujui";
+                        // }
+						// else
+						// {
+                            // return "Disetujui";
+                        // }
+                    // }
+                // },
             ],
             order: [[1, 'asc']],
-            responsive: true
+            responsive: true,
+			processing: true,
+			serverSide: true
         });
 
     });
@@ -103,5 +113,31 @@
         table.ajax.reload();
 		$('.btn').tooltip('hide');
     })
-
+	
+	
+	// $(document).ready(function()
+	// {
+		// $('#tabel_progress_ksa').change(function()
+		// {
+			// var kabkot_id = $(this).val();
+			// console.log(kabkot_id);
+			// $('#tabel_progress_ksa').empty();
+			// $.ajax(
+			// {
+				// url: "<?php echo base_url() ?>Pkl/get_all_kecamatan",
+				// url: "http://bf0b9e2f.ngrok.io/pklserver/api/Monitoring/progress_ksa",
+				// method: "POST", <!-- type -->
+				// data: {kabkot_id: kabkot_id}, <!-- 'kako_id='+kabkot_id, --> <!-- response -->
+				// success: function(data) 
+				// {
+				// for(var i = 0; i<data.length ; i++)
+				// {
+					// var html = `<option value ="${data[i].id_kecamatan}">${data[i].nama_kecamatan}</option>`;
+					// $('#tabel_progress_ksa').append(html); <!-- data -->                                                
+					// }                                            
+				// }                                                
+			// });
+		// });
+	// });
+   
 </script>
