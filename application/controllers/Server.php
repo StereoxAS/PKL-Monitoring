@@ -295,7 +295,237 @@ function get_list_masalah_narasumber($kode=0) { // Database kedua
         $event = $pusher->trigger($id, 'my_event', array('message' => 'Hello World'));
         echo json_encode($event);
     }
-
+    
+    function get_embedkecamatanawal_control(){
+            $kabkot_id=$this->input->get('kabkot_id');
+           // $embed_kabkot = $this->Server_Model->get_embed_kabkott($idembed);
+            $kecamatan_id = ( $kabkot_id * 1000 ) +10;
+            $data_embedkecamatanawal = $this->Server_Model->get_embedkecamatanawal_model($kecamatan_id);
+            $this->output
+                    ->set_content_type('application/json')
+                    ->set_output(json_encode($data_embedkecamatanawal));
+        }
+        
+        function get_embedkecamatan_control(){
+            $kecamatan_id=$this->input->get('kecamatan_id');
+           // $embed_kabkot = $this->Server_Model->get_embed_kabkott($idembed);
+            $data_embedkecamatan = $this->Server_Model->get_embedkecamatan_model($kecamatan_id);
+            $this->output
+                    ->set_content_type('application/json')
+                    ->set_output(json_encode($data_embedkecamatan));
+        }
+        
+        function get_embedkabkot_control(){
+            $kabkot_id=$this->input->get('kabkot_id');
+           // $embed_kabkot = $this->Server_Model->get_embed_kabkott($idembed);
+            $data_embedkabkot = $this->Server_Model->get_embedkabkot_model($kabkot_id);
+            $this->output
+                    ->set_content_type('application/json')
+                    ->set_output(json_encode($data_embedkabkot));
+        }
+        
+        function get_allkecamatan_control(){
+            $kabkot_id=$this->input->get('kabkot_id');
+            $data_allkecamatan = $this->Server_Model->get_allkecamatan_model($kabkot_id);
+            $this->output
+                    ->set_content_type('application/json')
+                    ->set_output(json_encode($data_allkecamatan));
+        }
+        
+        function get_tablenamakabkot_control(){
+            $kabkot_id=$this->input->get('kabkot_id');
+            $data_tablenamakabkotawal = $this->Server_Model->get_tablenamakabkot_model($kabkot_id);
+            $this->output
+                    ->set_content_type('application/json')
+                    ->set_output(json_encode($data_tablenamakabkotawal));
+        }
+        
+        function get_tablenamakecamatanawal_control(){
+            $kabkot_id=$this->input->get('kabkot_id');
+            $kecamatan_id = ($kabkot_id * 1000) + 10;
+            $data_tablenamakecamatanawal = $this->Server_Model->get_namakecamatanawal_model($kecamatan_id);
+            $this->output
+                    ->set_content_type('application/json')
+                    ->set_output(json_encode($data_tablenamakecamatanawal));
+        }
+        
+        function get_tablenamakecamatan_control(){
+            $kecamatan_id=$this->input->get('kecamatan_id');
+            $data_tablenamakecamatan = $this->Server_Model->get_namakecamatan_model($kecamatan_id);
+            $this->output
+                    ->set_content_type('application/json')
+                    ->set_output(json_encode($data_tablenamakecamatan));
+        }
+        
+        function get_tableksatercacahkabkot_control(){
+            $kabkot_id=$this->input->get('kabkot_id');
+            $data_tableksatercacahkankot = $this->Server_Model->get_tableksatercacahkabkot_model($kabkot_id);
+            $this->output
+                    ->set_content_type('application/json')
+                    ->set_output(json_encode($data_tableksatercacahkabkot));
+        }
+        
+        function get_tableunitterlistingkabkot_control(){
+            $kabkot_id=$this->input->get('kabkot_id');
+            $kabkot_id_new = $kabkot_id - 5100;
+            $data_tableunitterlistingkabkot = $this->Server_Model->get_tableunitterlistingkabkot_model($kabkot_id_new);
+            $this->output
+                    ->set_content_type('application/json')
+                    ->set_output(json_encode($data_tableunitterlistingkabkot));
+        }
+        
+        function get_tableunitterlistingkecamatan_control(){
+            //$kabkot_id=$this->input->get('kabkot_id');
+            $kecamatan_id=$this->input->get('kecamatan_id');
+            $kabkot_id = $kecamatan_id / 1000;
+            $kabkot_id_floor = floor($kabkot_id);
+            $kabkot_id_new = $kabkot_id_floor - 5100;
+            //$kabkot_id_new = $kabkot_id - 5100;
+            //$pengurang_kecamatan = $kabkot_id * 1000;
+            $kecamatan_id_new = $kecamatan_id - ($kabkot_id_floor * 1000);
+            //$kecamatan_id_new = $kecamatan_id - 5100;
+            $data_tableunitterlistingkecamatan = $this->Server_Model->get_tableunitterlistingkecamatan_model($kabkot_id_new,$kecamatan_id_new);
+            $this->output
+                    ->set_content_type('application/json')
+                    ->set_output(json_encode($data_tableunitterlistingkecamatan));
+        }
+        
+        function get_progresscacahtotal_control(){
+            //$data = file_get_contents(<url of that website>);
+            //$data = json_decode($data, true); // Turns it into an array, change the last argument to false to make it an object
+            
+            //$character = json_decode($json);
+            //echo $character->name;
+            $data_progresscacahtotal_ksa = json_decode(file_get_contents());
+            $data_progresscacahtotal_ubinan = json_decode($this->Server_Model->get_progresscacahtotal_ubinan_model());
+            $data_progresscacahtotal_pencacahan = json_decode($this->Server_Model->get_progresscacahtotal_pencacahan_model());
+            //$data_progresscacahtotal = $data_progresscacahtotal_ksa-> . $data_progresscacahtotal_ubinan-> . $data_progresscacahtotal_pencacahan-> ;
+            //$this->output
+                    //->set_content_type('application/json')
+                    //->set_output(json_encode($data_progresscacahtotal));
+            //$data_progresscacahtotal_ksa_txt = json_decode();
+            //$data_progresscacahtotal_ubinan_txt = json_decode();
+            //$data_progresscacahtotal_pencacahan_txt = json_decode();
+        }
+        
+        function get_progresstotaljembrana_control(){
+                $kabkot_id=0;
+//            $data_api_ksa = file_get_contents(<url of that website>);
+//            $data_ksa = json_decode($data, true);
+//            $data_ubinan = $this->Server_Model->get_totalubinanjembrana_model($kabkot_id);
+//            $data_cacah = $this->Server_Model->get_totalcacahjembrana_model($kabkot_id);
+//            $data_progresstotaljembrana = $data_ksa->progress + $data_ubinan->progress + $data_cacah->progress;
+//            $this->output
+//                    ->set_content_type('application/json')
+//                    ->set_output(json_encode($data_progresstotaljembrana));
+        }
+        function get_progresstotaltabanan_control(){
+            $kabkot_id=0;
+           //            $data_api_ksa = file_get_contents(<url of that website>);
+//            $data_ksa = json_decode($data, true);
+//            $data_ubinan = $this->Server_Model->get_totalubinantabanan_model($kabkot_id);
+//            $data_cacah = $this->Server_Model->get_totalcacahtabanan_model($kabkot_id);
+//            $data_progresstotaltabanan = $data_ksa->progress + $data_ubinan->progress + $data_cacah->progress;
+//            $this->output
+//                    ->set_content_type('application/json')
+//                    ->set_output(json_encode($data_progresstotaltabanan)); 
+        }
+        function get_progresstotalbadung_control(){
+            $kabkot_id=0;
+            //            $data_api_ksa = file_get_contents(<url of that website>);
+//            $data_ksa = json_decode($data, true);
+//            $data_ubinan = $this->Server_Model->get_totalubinanbadung_model($kabkot_id);
+//            $data_cacah = $this->Server_Model->get_totalcacahbadung_model($kabkot_id);
+//            $data_progresstotalbadung = $data_ksa->progress + $data_ubinan->progress + $data_cacah->progress;
+//            $this->output
+//                    ->set_content_type('application/json')
+//                    ->set_output(json_encode($data_progresstotalbadung));
+        }
+        function get_progresstotalgianyar_control(){
+            $kabkot_id=0;
+            //            $data_api_ksa = file_get_contents(<url of that website>);
+//            $data_ksa = json_decode($data, true);
+//            $data_ubinan = $this->Server_Model->get_totalubinangianyar_model($kabkot_id);
+//            $data_cacah = $this->Server_Model->get_totalcacahgianyar_model($kabkot_id);
+//            $data_progresstotalgianyar = $data_ksa->progress + $data_ubinan->progress + $data_cacah->progress;
+//            $this->output
+//                    ->set_content_type('application/json')
+//                    ->set_output(json_encode($data_progresstotalgianyar));
+        }
+        function get_progresstotalklungkung_control(){
+            $kabkot_id=0;
+            //            $data_api_ksa = file_get_contents(<url of that website>);
+//            $data_ksa = json_decode($data, true);
+//            $data_ubinan = $this->Server_Model->get_totalubinanklungkung_model($kabkot_id);
+//            $data_cacah = $this->Server_Model->get_totalcacahklungkung_model($kabkot_id);
+//            $data_progresstotalklungkung = $data_ksa->progress + $data_ubinan->progress + $data_cacah->progress;
+//            $this->output
+//                    ->set_content_type('application/json')
+//                    ->set_output(json_encode($data_progresstotalklungkung));
+        }
+        function get_progresstotalbangli_control(){
+            $kabkot_id=0;
+            //            $data_api_ksa = file_get_contents(<url of that website>);
+//            $data_ksa = json_decode($data, true);
+//            $data_ubinan = $this->Server_Model->get_totalubinanbangli_model($kabkot_id);
+//            $data_cacah = $this->Server_Model->get_totalcacahbangli_model($kabkot_id);
+//            $data_progresstotalbangli = $data_ksa->progress + $data_ubinan->progress + $data_cacah->progress;
+//            $this->output
+//                    ->set_content_type('application/json')
+//                    ->set_output(json_encode($data_progresstotalbangli));
+        }
+        function get_progresstotalkarang_asem_control(){
+            $kabkot_id=0;
+            //            $data_api_ksa = file_get_contents(<url of that website>);
+//            $data_ksa = json_decode($data, true);
+//            $data_ubinan = $this->Server_Model->get_totalubinankarang_asem_model($kabkot_id);
+//            $data_cacah = $this->Server_Model->get_totalcacahkarang_asem_model($kabkot_id);
+//            $data_progresstotalkarang_asem = $data_ksa->progress + $data_ubinan->progress + $data_cacah->progress;
+//            $this->output
+//                    ->set_content_type('application/json')
+//                    ->set_output(json_encode($data_progresstotalkarang_asem));
+        }
+        function get_progresstotalbuleleng_control(){
+            $kabkot_id=0;
+            //            $data_api_ksa = file_get_contents(<url of that website>);
+//            $data_ksa = json_decode($data, true);
+//            $data_ubinan = $this->Server_Model->get_totalubinanbuleleng_model($kabkot_id);
+//            $data_cacah = $this->Server_Model->get_totalcacahbuleleng_model($kabkot_id);
+//            $data_progresstotalbuleleng = $data_ksa->progress + $data_ubinan->progress + $data_cacah->progress;
+//            $this->output
+//                    ->set_content_type('application/json')
+//                    ->set_output(json_encode($data_progresstotalbuleleng));
+        }
+        function get_progresstotaldenpasar_control(){
+            $kabkot_id=0;
+            //            $data_api_ksa = file_get_contents(<url of that website>);
+//            $data_ksa = json_decode($data, true);
+//            $data_ubinan = $this->Server_Model->get_totalubinandenpasar_model($kabkot_id);
+//            $data_cacah = $this->Server_Model->get_totalcacahdenpasar_model($kabkot_id);
+//            $data_progresstotaldenpasar = $data_ksa->progress + $data_ubinan->progress + $data_cacah->progress;
+//            $this->output
+//                    ->set_content_type('application/json')
+//                    ->set_output(json_encode($data_progresstotaldenpasar));
+        }
+        
+        
+        
+        
+        
+        
+        function get_progresscacahtotal_control(){
+            //            $data_api_ksa = file_get_contents(<url of that website>);
+//            $data_ksa = json_decode($data, true);
+//            $data_ubinan = $this->Server_Model->get_progresscacahtotalubinan_model($kabkot_id);
+//            $data_cacah = $this->Server_Model->get_progresscacahtotalcacah_model($kabkot_id);
+//            $data_progresscacahtotal_cacah = $data_ksa->total_cacah + $data_ubinan->total_cacah + $data_cacah->total_cacah;
+//            $data_progresscacahtotal_beban = $data_ksa->total_beban + $data_ubinan->total_beban + $data_cacah->total_beban;
+//            $data_progresscacahtotal = array('total_cacah'=>$data_progresscacahtotal_cacah, 'total_beban'=>$data_progresscacahtotal_beban);
+//            $this->output
+//                    ->set_content_type('application/json')
+//                    ->set_output(json_encode($data_progresscacahtotal));
+        }
+    
     function sent_email() {
         header('Content-Type: application/json');
         $this->load->library('email');

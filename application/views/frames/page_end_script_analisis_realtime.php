@@ -1,9 +1,9 @@
     <!-- Echarts JavaScripts -->
     <script src="<?php echo base_url()?>resources/vendor/echarts/echarts-all.js"></script>
 
-    <script type="text/javascript">
+    <!-- <script type="text/javascript">
         // Document ready
-        $(document).ready(function () {
+         $(document).ready(function () {
             $.ajax({
                 url: "<?php echo base_url('/server/get_list_variabel/'); ?>",
                 type: 'GET',
@@ -16,8 +16,8 @@
                         }));
                     });
                 }
-            });
-
+            }); -->
+<script type="text/javascript">
             function refreshDiv(){
                 document.getElementById("interpretasi").innerHTML;
             }

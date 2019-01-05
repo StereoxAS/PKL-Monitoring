@@ -67,6 +67,19 @@
                         </li>
                     </ul>
                 </li>
+                <!--
+                <li>
+                    <a href="#"><i class="fa fa-table fa-fw"></i> Analisis Realtime<span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li>
+                            <a href=" ">Map Tematik</a>
+                        </li>
+                        <li>
+                            <a href="<?php echo base_url('pkl/analisis_realtime')?>" >Variabel Analisis</a>
+                        </li>
+                    </ul>
+                </li>
+                -->
                 <li>
                     <a href="#"><i class="fa fa-table fa-fw"></i> Informasi Pencacahan<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
@@ -88,8 +101,13 @@
                          </li>  -->
                     </ul>
                 </li>
+            
+                <!-- <li>
+                    <a href=">"><i class="fa fa-dashboard fa-fw"></i> Analisis Real Time</a>
+                </li> -->
+               
                 <li>
-                    <a href="<?php echo base_url('pkl/analisis_realtime')?>"><i class="fa fa-dashboard fa-fw"></i> Analisis Real Time</a>
+                            <a href="<?php echo base_url('pkl/analisis_realtime')?>" ><i class="fa fa-dashboard fa-fw"></i> Analisis Real Time</a>
                 </li>
                 <li>
                     <a href="<?php echo base_url('pkl/monitoring_masalah')?>"><i class="fa fa-desktop fa-fw"></i> Monitoring Masalah Lapangan</a>
