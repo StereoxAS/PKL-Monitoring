@@ -40,17 +40,17 @@
 	                				<th rowspan="2" style="vertical-align: middle">NIM </th>
                                     <th rowspan="2" style="vertical-align: middle">PCL</th>
 	                				<th rowspan="2" style="vertical-align: middle">Kortim</th>
-	                				 <th rowspan="2" style="vertical-align: middle">Wilayah</th> 
-	                				<th rowspan="2" style="vertical-align: middle">Progress</th>
+	                				<!--  <th rowspan="2" style="vertical-align: middle">Wilayah</th>  -->
+	                				<th colspan="3" class="text-center">Progress</th>
 	                			 
 	                			</tr>
-								<!--
+								
 								<tr>
 									<th style="vertical-align: middle">KSA</th>
 									<th style="vertical-align: middle">Ubinan</th>
-									<th style="vertical-align: middle">Wilayah</th>
+									<th style="vertical-align: middle">Pola Tanam</th>
 								</tr>
-							-->
+						
 	                		</thead>
 	                		<tbody>
 					            <?php
@@ -61,8 +61,12 @@
 						            <td><?php echo $msl['nama']; ?></td>
 						            <td></td>
 						            <td></td>
-						            <td></td> 
+						            <td></td>
+						            <td></td>
+						            
 						        </tr>
+
+
 						           <?php } ?>
 						    </tbody>
 	                	</table>

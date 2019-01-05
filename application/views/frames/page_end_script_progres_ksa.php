@@ -1,25 +1,46 @@
 <!-- DataTables -->
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.js"></script>
 <script type="text/javascript" language="javascript" src="<?php echo base_url('resources/js/jquery.dataTables.js')?>"></script>
 <script type="text/javascript" language="javascript" src="<?php echo base_url('resources/js/dataTables.bootstrap.js')?>"></script>
 <script type="text/javascript" language="javascript" src="<?php echo base_url('resources/js/dataTables.responsive.min.js')?>"></script>
 
 <!-- Echarts JavaScripts -->
 <script src="<?php echo base_url()?>resources/vendor/echarts/echarts-all.js"></script>
+<script src="<?php echo base_url() ?>resources/js/jquery-3.3.1.min.js"> </script>
 
 <script type="text/javascript">
     var table;
     var currentTab;
     var interv;
     var interv2;
+	var JSONprogresKSA;
+	var urlProgressKSA = "http://bf0b9e2f.ngrok.io/pklserver/api/Monitoring/progress_ksa";
 
+	
+		
     $(document).ready(function() 
 	{
+		console.log("JSON initialized");
 		$('.btn').tooltip();
         interv2 = setInterval(get_reload, 3000);
-
+		
+		$.getJSON(urlProgressKSA, function(result) 
+		{
+			console.log("JSON STATUS started: " + status);
+			var status = result.status;
+			console.log("JSON STATUS finished: " + status);
+		});
+		
         table = $('#tabel_progress_ksa').DataTable(
 		{
-            ajax: '<?php echo base_url() ?>' + 'server/get_detail_ksa', // CHANGE ME
+			"Processing": true,
+			"ServerSide": true,
+			"AjaxSource": urlProgressKSA,
+			ajax: 
+			{
+				url: urlProgressKSA,
+				type: "POST",
+			},
 			displayLength: 25,
 			oLanguage: 
 			{
@@ -40,32 +61,20 @@
 				sLoadingRecords	: "Memuat data ..."
 			},
             columns: [
-                {"data": "nim"},
-                {"data": "nama"},
+                {"data": "id_segmen"},
+                {"data": "nim_pcl"},
                 {"data": "nama_kec"},
                 {"data": "nama_desa"},
-                // {"data": "id_status"},
-                {
-                    "data": "id_status",
-                    render:function (data, type, full, meta) 
-					{
-                        if (data == 0 || data == null) 
-						{
-                            return "Belum Disetujui";
-                        }
-						else
-						{
-                            return "Disetujui";
-                        }
-                    }
-                },
+                {"data": "status_segmen"},
             ],
             order: [[1, 'asc']],
             responsive: true
         });
 
     });
-
+	
+	console.log("JSON KSA : " + JSONprogresKSA);
+	
     function get_reload(){
         $.ajax({
             url: "<?php echo base_url(); ?>/server/get_agregat_listing", //service
@@ -103,5 +112,6 @@
         table.ajax.reload();
 		$('.btn').tooltip('hide');
     })
-
+	
+   
 </script>

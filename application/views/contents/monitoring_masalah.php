@@ -52,11 +52,11 @@
                 foreach($masalah1 as $msl){
         ?>
                 <tr>
-            <td><?php echo $msl->kategori; ?></td>
-            <td><?php echo $msl->pertanyaan; ?></td>
-            <td><?php echo $msl->jawaban; ?></td>
-            <td><?php echo $msl->timestamp; ?></td>
-            <td><?php echo $msl->detail; ?></td>
+            <td><?php echo $msl["kategori"]; ?></td>
+            <td><?php echo $msl["pertanyaan"]; ?></td>
+            <td><?php echo $msl["jawaban"]; ?></td>
+            <td><?php echo $msl["timestamp"]; ?></td>
+            <td></td>
         </tr>
            <?php } ?>
     </tbody>
