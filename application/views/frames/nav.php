@@ -15,12 +15,15 @@
 		    <li class="sidebar-search" style="display: absolute; width: 250px; margin-top: 12px;">
 				<div class="input-group custom-search-form">
 					<!-- search autocomplete menggunakan nim -->
-					<input type="text" class="form-control" placeholder="Cari Mahasiswa (NIM)" id="autocomplete_nav">
+					<!--  
+						<input type="text" class="form-control" placeholder="Cari Mahasiswa (NIM)" id="autocomplete_nav">
+					
 					<span class="input-group-btn">
 						<button class="btn btn-default" type="button" id="btn_cari_nav">
 							<i class="fa fa-search"></i>
 						</button>
 					</span>
+					-->
 				</div>
 				<!-- /input-group -->
 			</li>
@@ -38,12 +41,15 @@
                 <li class="sidebar-search visible-xs-block">
                     <div class="input-group custom-search-form">
                         <!-- search autocomplete menggunakan nim -->
-                        <input type="text" class="form-control" placeholder="Cari Mahasiswa (NIM)" id="autocomplete_nav">
+                        <!-- 
+							<input type="text" class="form-control" placeholder="Cari Mahasiswa (NIM)" id="autocomplete_nav">
+						
                         <span class="input-group-btn">
                             <button class="btn btn-default" type="button" id="btn_cari_nav">
                                 <i class="fa fa-search"></i>
                             </button>
                         </span>
+						-->
                     </div>
                     <!-- /input-group -->
                 </li>
