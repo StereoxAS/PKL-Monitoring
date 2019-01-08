@@ -14,66 +14,31 @@
     var interv;
     var interv2;
 	var JSONprogresKSA;
-	var urlProgressKSA = "http://bf0b9e2f.ngrok.io/pklserver/api/Monitoring/progress_ksa";
+	var urlProgressKSA = "http://0f3957d8.ngrok.io/pklserver/api/monitoring/progress_ksa";
 
 	
-		
-    $(document).ready(function() 
+	$(document).ready(function() 
 	{
-		console.log("JSON initialized");
-		$('.btn').tooltip();
-        interv2 = setInterval(get_reload, 3000);
-		
-		$.getJSON(urlProgressKSA, function(result) 
+		$('#example').DataTable( 
 		{
-			console.log("JSON STATUS started: " + status);
-			var status = result.status;
-			console.log("JSON STATUS finished: " + status);
+			ajax: 'http://0f3957d8.ngrok.io/pklserver/api/monitoring/progress_ksa',
+			columns: [
+				{data: 'id_segmen'},
+                {data: 'nim_pcl'},
+				{data: 'nama_kab'},
+                {data: 'nama_kec'},
+                {data: 'nama_desa'},
+                {data: 'status_segmen'}
+			],
+			order: [[2, 'asc']],
+			rowGroup: {
+				dataSrc: 'id_segmen'
+			}
 		});
-		
-        table = $('#tabel_progress_ksa').DataTable(
-		{
-			"Processing": true,
-			"ServerSide": true,
-			"AjaxSource": urlProgressKSA,
-			ajax: 
-			{
-				url: urlProgressKSA,
-				type: "POST",
-			},
-			displayLength: 25,
-			oLanguage: 
-			{
-				oPaginate: 
-				{
-					sFirst		: "Pertama",
-					sLast		: "Terakhir",
-					sNext		: "Berikutnya",
-					sPrevious	: "Sebelumnya",
-				},
-				sSearch			: "Cari",
-				sInfo			: "Menampilkan _START_ sampai _END_ dari _TOTAL_ hasil",
-				sInfoEmpty		: "Tidak ada hasil ditemukan",
-				sZeroRecords	: "Tidak ada hasil ditemukan",
-				sLengthMenu		: "Menampilkan _MENU_ hasil",
-				sInfoFiltered	: " (hasil filter dari _MAX_ hasil)",
-				sEmptyTable		: "Tidak ada data tersedia",
-				sLoadingRecords	: "Memuat data ..."
-			},
-            columns: [
-                {"data": "id_segmen"},
-                {"data": "nim_pcl"},
-                {"data": "nama_kec"},
-                {"data": "nama_desa"},
-                {"data": "status_segmen"},
-            ],
-            order: [[1, 'asc']],
-            responsive: true
-        });
-
-    });
+	});	
+    
 	
-	console.log("JSON KSA : " + JSONprogresKSA);
+	console.log("JSON KSA : " + urlProgressKSA + "     " + table);
 	
     function get_reload(){
         $.ajax({

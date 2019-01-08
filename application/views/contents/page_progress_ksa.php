@@ -27,6 +27,7 @@
 							<tr>
 								<th>Segmen</th>
 								<th>NIM</th>
+								<th>Kabupaten</th>
 								<th>Kecamatan</th>
 								<th>Desa</th>
 								<th>Status Segmen</th>

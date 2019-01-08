@@ -882,7 +882,31 @@ function get_list_masalah_narasumber($kode=0) { // Database kedua
 //                    ->set_content_type('application/json')
 //                    ->set_output(json_encode($data_progresscacahtotal));
         }
-
-
+		
+		function get_progressksa()
+		{
+			$progress_ksa_ws = 0;
+			$url_ksa_ws = "http://0f3957d8.ngrok.io/pklserver/api/monitoring/progress_ksa";
+			$data_ksa_ws1 = file_get_contents($url_ksa_ws);
+			$data_ksa_ws2 = json_decode($data_ksa_ws2, true);
+			echo $data_ksa_ws2;
+		}
+		function get_progress_ksa()
+		{
+			header('Content-Type: application/json');
+			$url_ksa_ws = "http://0f3957d8.ngrok.io/pklserver/api/monitoring/progress_ksa";
+			
+			$data = file_get_contents($url_ksa_ws);
+			$result = array('data' => $data);
+			echo json_encode($result); 
+			exit();
+		}
+		function get_detail_listing2($wilayah2 = NULL) 
+		{
+			header('Content-Type: application/json');
+			$data = $this->Server_Model->get_detail_listing($wilayah1);
+			$result = array('data' => $data);
+			echo json_encode($result); exit();
+		}
 }
 ?>
