@@ -48,8 +48,8 @@
             url: "<?php echo base_url('Server/get_progresscacahtotal_control') ?>", //'server/get_agregat_cacah'
             type: "GET",
             dataType: "json",
-            success: function(result) {
-                bar.animate(result['total_cacah'] / result['total_beban']); // CHANGE ME (result['total_cacah'] / result['total_beban'])
+            success: function(data) {
+                bar.animate(data['progress_total']]); // CHANGE ME (result['total_cacah'] / result['total_beban'])
 				//console.log(result['total_cacah'] / result['total_beban']);
 				//console.log(result);
             }
@@ -102,7 +102,6 @@
 </script>
 
 <script src="<?php echo base_url('resources/js/jquery.countdown.min.js')?>"></script>
-
 <script type="text/javascript">
     $('#example').countdown({
         date: '3/2/2019 23:59:59',
@@ -118,14 +117,8 @@
     });
 </script>
 
-
-
-
-
-<script src="<?php echo base_url() ?>resources/js/jquery-3.3.1.min.js"> </script>
-
-
-
+<!--<script src="<?php echo base_url() ?>resources/js/jquery-3.3.1.min.js"> </script> -->
+ 
                                 <!-- Progress total per kabkot -->
                                 <script>
                                 $(document).ready(function(){
@@ -476,19 +469,71 @@
                                     });
                                 });
                                 </script>
-                                 <!-- table Ksa kabkot dari formkabkot -->   
+                                 <!-- table Ksa tercacah kabkot dari formkabkot -->   
                                 <script>
                                 $(document).ready(function(){
                                     $('#formKabkot').change(function(){
                                         var kabkot_id = $(this).val();
                                         $('#tableKsatercacahkabkot').empty();
                                         $.ajax({
-                                            url: "<?php echo base_url() ?>Server/get_tableksatercacahkabkot_control?kabkot_id="+kabkot_id,
+                                            url: "<?php echo base_url() ?>Server/get_tableksatercacahdanprogresskabkot_control?kabkot_id="+kabkot_id,
                                             method: "GET", <!-- type -->                                                                                   
                                             success: function(data) {
-                                                $('#tableKsatercacahkabkot').append(data[0].nama_kabkot); <!-- data -->
+                                                $('#tableKsatercacahkabkot').append(data['tercacah']); <!-- data -->
                                             }
                                         });
                                     });
                                 });
                                 </script>
+                                <!-- table Ksa PROGRESS kabkot dari formkabkot -->   
+                                <script>
+                                $(document).ready(function(){
+                                    $('#formKabkot').change(function(){
+                                        var kabkot_id = $(this).val();
+                                        $('#tableProgressksakabkot').empty();
+                                        $.ajax({
+                                            url: "<?php echo base_url() ?>Server/get_tableksatercacahdanprogresskabkot_control?kabkot_id="+kabkot_id,
+                                            method: "GET", <!-- type -->                                                                                   
+                                            success: function(data) {
+                                                var html = `${data['progress']}%`;
+                                                $('#tableProgressksakabkot').append(html); <!-- data -->
+                                            }
+                                        });
+                                    });
+                                });
+                                </script>
+                                <!-- table Ksa tercacah kecamatan dari formkkecamatan -->   
+                                <script>
+                                $(document).ready(function(){
+                                    $('#formKecamatan').change(function(){
+                                        var kecamatan_id = $(this).val();
+                                        $('#tableKsatercacahkecamatan').empty();
+                                        $.ajax({
+                                            url: "<?php echo base_url() ?>Server/get_tableksatercacahdanprogresskecamatan_control?kecamatan_id="+kecamatan_id,
+                                            method: "GET", <!-- type -->                                                                                   
+                                            success: function(data) {
+                                                $('#tableKsatercacahkecamatan').append(data['tercacah']); <!-- data -->
+                                            }
+                                        });
+                                    });
+                                });
+                                </script>
+                                <!-- table Ksa progress kecamatan dari formkkecamatan -->   
+                                <script>
+                                $(document).ready(function(){
+                                    $('#formKecamatan').change(function(){
+                                        var kecamatan_id = $(this).val();
+                                        $('#tableProgressksakecamatan').empty();
+                                        $.ajax({
+                                            url: "<?php echo base_url() ?>Server/get_tableksatercacahdanprogresskecamatan_control?kecamatan_id="+kecamatan_id,
+                                            method: "GET", <!-- type -->                                                                                   
+                                            success: function(data) {
+                                            
+                                                var html = `${data['progress']}%`;
+                                                $('#tableProgressksakecamatan').append(html); <!-- data -->
+                                            }
+                                        });
+                                    });
+                                });
+                                </script>
+                                

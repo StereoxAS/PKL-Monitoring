@@ -13,15 +13,10 @@
             <div class="panel panel-default">
               <div class="panel-heading">Peta Progress</div>
 			  <div class="panel-body">
-			  
-				<div class="col-lg-6">
-                                    <!-- col-lg-6 z-depth-2 -->
-                                
-                                <div>
-                                           
+			  <div class="col-lg-6">
+                          <div>
                                 <p>
                                 Cari Kabupaten / Kota
-                               
                                 <!-- <form action ="" method="POST"> -->
                                 <select name="formKabkot" id="formKabkot">
                                     <option selected disabled value="">...</option>
@@ -32,21 +27,16 @@
                                 </div>
                                   
 				<!-- <div id="map"></div> -->
-                                
-                               <!--
+                                <!--
                                 $idembeddddd = $_POST['formKabkot'];
                                 $idembedddd = $this->Pkl->get_embed_kabkot($idembeddddd);
-                               php echo $idembeddddd  -->
-                                 
+                                php echo $idembeddddd  -->
                                  
                                <div name="mapKabkot" id="mapKabkot">
                                <iframe id="frameKabkot" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1010292.4352177527!2d114.51104914828034!3d-8.455072623045481!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd141d3e8100fa1%3A0x24910fb14b24e690!2sBali!5e0!3m2!1sid!2sid!4v1546617299915" width="470" height="300" frameborder="0" style="border:0" allowfullscreen></iframe>    
-                               
                                </div>
-                                
-
-				
-				  <table class="table table-bordered">
+                                    
+                                    <table class="table table-bordered">
 					<thead>
 					  <tr>
 						<th>Kabupaten / Kota</th>
@@ -66,19 +56,17 @@
 						<td><div id="tableProgressubinankabkot">0%</div></td>
 					  </tr>
 					</tbody>
-				  </table>
+				    </table>
                                 
                                 <table class="table table-bordered">
 					<thead>
 					  <tr>
-						
 						<th>Unit Terlisting</th>
 						<th>Progress Cacah</th>
 					  </tr>
 					</thead>
 					<tbody>
 					  <tr>
-						
 						<td><div id="tableUnitterlistingkabkot">0</div></td>
 						<td><div id="tableProgresscacahkabkot">0%</div></td>
 					  </tr>
@@ -86,6 +74,7 @@
 				  </table>
                                 
 				  <br>
+                                  
 				</div>
 				<div class="col-lg-6">
                                 <!--   
@@ -95,8 +84,6 @@
                                 <div>
                                 <p>
                                 Cari Kecamatan
-                                
-                                
                                 <select name="formKecamatan" id="formKecamatan" >
                                     <option selected disabled value="">...</option>
                                     <!-- <option value="5101010">Melaya</option>
@@ -105,9 +92,9 @@
                                     <option value="5101030">Mendoyo</option>
                                     <option value="5101040">Pekutatan</option> -->
                                 </select>
-                                
                                 </p>
                                 </div>
+                                
 				<!-- <div id="map2"></div> -->
                                 <div name="mapKecamatan" id="mapKecamatan">
                                <iframe id="frameKecamatan" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1010292.4352177527!2d114.51104914828034!3d-8.455072623045481!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd141d3e8100fa1%3A0x24910fb14b24e690!2sBali!5e0!3m2!1sid!2sid!4v1546617299915" width="460" height="300" frameborder="0" style="border:0" allowfullscreen></iframe>
@@ -155,13 +142,13 @@
 				</div>
 			  </div>	 
 			</div>
-          </div>
+            </div>
             
             
-             <div class="col-lg-4">
+            <div class="col-lg-4">
             <div class="panel panel-default">
-              <div class="panel-heading">
-				<div class="row">
+                <div class="panel-heading">
+			<div class="row">
   					<div class="col-xs-9">
   						Cacah Total Kab./Kota
   					</div>
@@ -171,11 +158,10 @@
                                             </div>
                                             -->
   					<div class="col-xs-3">
-                                           
-  						 <button class="pull-right" data-toggle="tooltip" data-placement="top" title="Tampilkan" id="tampilkanTotalperkabkot"><i class="fa fa-refresh" style="color: black"></i></button> 
+                                            <button class="pull-right" data-toggle="tooltip" data-placement="top" title="Tampilkan" id="tampilkanTotalperkabkot"><i class="fa fa-refresh" style="color: black"></i></button> 
   					</div> 
-  				</div>
-			</div>  
+  			</div>
+		</div>  
             
               
               <div class="panel-body">
@@ -185,9 +171,7 @@
 					  <tr>
 						<th>Kab./Kota</th>
 						<th>Progress</th>
-                                                
-					
-					  </tr>
+                                          </tr>
 					</thead>
 					<tbody>
 					  <tr>
@@ -233,8 +217,7 @@
                                           <tr>
 						<td><div></div>Denpasar</td>
 						<td><div id="progressTotaldenpasar">0</div></td>
-						
-					  </tr>
+					   </tr>
 					</tbody>
 				  </table>
                     <!--
@@ -270,8 +253,7 @@
     					<div class="col-xs-3">
     						<a class="pull-right" data-toggle="tooltip" data-placement="top" title="Lihat Detail" href="<?php echo base_url('pkl/progres_cacah')?>"><i class="fa fa-external-link" style="color: white"></i></a>
     					</div> -->
-                                        
-    				</div>
+                                </div>
 			  </div>
               <!-- /.panel-heading -->
               <div class="panel-body">
@@ -284,17 +266,13 @@
             </div>
           </div> 
             
-         
-            
-
-		  <div class="col-lg-4">
+                    <div class="col-lg-4">
 			<div class="panel panel-default">
-              <div class="panel-heading">Sisa Waktu Pencacahan</div>
-              <!-- /.panel-heading -->
-              <div class="panel-body">
-			 
-	              <span id="countDown"></span>
-	                  <ul id="example">
+                <div class="panel-heading">Sisa Waktu Pencacahan</div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+			    <span id="countDown"></span>
+	                    <ul id="example">
 	                    <li><span class="days">00</span><p class="days_text" style="color: #3f3f3f">Hari</p></li>
 	                    <li class="seperator">:</li>
 	                    <li><span class="hours">00</span><p class="hours_text" style="color: #3f3f3f">Jam</p></li>
@@ -309,9 +287,14 @@
 		  </div>
         </div>
         <!-- /.row -->
-    </div>
+                </div>
     <!-- /.container-fluid -->  
+                        </div>
+                    </div>
+        </div>
+    </div>
 </div>
+
 <!-- /#page-wrapper -->
 
 <!-- jQuery 
@@ -325,3 +308,4 @@
     }
     </script>
 -->
+        
