@@ -1356,4 +1356,97 @@ WHERE a.nim = c.nim AND a.kategori = b.id AND a.status = '3' AND (a.kategori = '
     	    return $que;
         }
         
+         function get_tableprogresscacahkabkot_nim_model($kabkot_id_new){
+             $que = $this->load->database('pkl58_odk', TRUE)->query("
+		SELECT
+                    DISTINCT nim 
+		FROM
+                    dummy_kode_bloksensus
+                WHERE
+                    kabupaten LIKE '%$kabkot_id_new' 
+		");
+
+    	$que = $que->result_array();
+    	return $que;
+        }
+        
+        function get_tableprogresscacahkabkot_beban_model($kabkot_id_new){
+            $que = $this->load->database('pkl58_odk', TRUE)->query("
+		SELECT
+                    COUNT(*) AS beban
+		FROM
+                    dummy_kode_bloksensus INNER JOIN backup_datast ON dummy_kode_bloksensus.id = backup_datast.kodeBs
+                WHERE
+                    dummy_kode_bloksensus.kabupaten LIKE '%$kabkot_id_new' 
+		");
+
+    	$que = $que->result_array();
+    	return $que;
+        }
+        
+        function get_tableprogresscacahkabkot_tercacah_nim_model($nim){
+            $db_jarlap = $this->load->database('pkl58_kortimpcl', TRUE);
+            $db_jarlap->select("COUNT(nim) AS hasil");
+            $db_jarlap->from("notif");
+            $db_jarlap->where("nim = $nim"); //status clear dan final belum ditambahkan
+            $que = $db_jarlap->get();
+            return $que->result_array();
+        }
+        
+        function get_tableprogresscacahkecamatan_nim_model($kabkot_id_new, $kecamatan_id_new){
+             $que = $this->load->database('pkl58_odk', TRUE)->query("
+		SELECT
+                    DISTINCT nim 
+		FROM
+                    dummy_kode_bloksensus
+                WHERE
+                    kabupaten LIKE '%$kabkot_id_new' AND kecamatan LIKE '%$kecamatan_id_new'
+		");
+
+    	$que = $que->result_array();
+    	return $que;
+        }
+        
+        function get_tableprogresscacahkecamatan_beban_model($kabkot_id_new, $kecamatan_id_new){
+            $que = $this->load->database('pkl58_odk', TRUE)->query("
+		SELECT
+                    COUNT(*) AS beban
+		FROM
+                    dummy_kode_bloksensus INNER JOIN backup_datast ON dummy_kode_bloksensus.id = backup_datast.kodeBs
+                WHERE
+                    dummy_kode_bloksensus.kabupaten LIKE '%$kabkot_id_new' AND dummy_kode_bloksensus.kecamatan LIKE '%$kecamatan_id_new'
+		");
+
+    	$que = $que->result_array();
+    	return $que;
+        }
+        
+        function get_tableprogresscacahkecamatan_tercacah_nim_model($nim){
+            $db_jarlap = $this->load->database('pkl58_kortimpcl', TRUE);
+            $db_jarlap->select("COUNT(nim) AS hasil");
+            $db_jarlap->from("notif");
+            $db_jarlap->where("nim = $nim"); //status clear dan final belum ditambahkan
+            $que = $db_jarlap->get();
+            return $que->result_array();
+        }
+        
+        function get_tableprogresscacahtotal_totalbeban_model() {
+            $db_jarlap = $this->load->database('pkl58_odk', TRUE);
+            $db_jarlap->select("COUNT(*) AS beban");
+            $db_jarlap->from("backup_datast");
+            
+            $que = $db_jarlap->get();
+            return $que->result_array();
+            
+        }
+        
+        function get_tableprogresscacahtotal_totaltercacah_model() {
+            $db_jarlap = $this->load->database('pkl58_kortimpcl', TRUE);
+            $db_jarlap->select("COUNT(nim) AS hasil");
+            $db_jarlap->from("notif");
+            //where status clear dan final belum ditambahkan
+            $que = $db_jarlap->get();
+            return $que->result_array();
+        }
+        
 }

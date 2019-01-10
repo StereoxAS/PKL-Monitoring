@@ -49,7 +49,7 @@
             type: "GET",
             dataType: "json",
             success: function(data) {
-                bar.animate(data['progress_total']]); // CHANGE ME (result['total_cacah'] / result['total_beban'])
+                bar.animate(data/100); // CHANGE ME (result['total_cacah'] / result['total_beban'])
 				//console.log(result['total_cacah'] / result['total_beban']);
 				//console.log(result);
             }
@@ -128,7 +128,8 @@
                                             url: "<?php echo base_url() ?>Server/get_progresstotaljembrana_control",
                                             method: "GET",
                                             success: function(data) {
-                                            $('#progressTotaljembrana').append(data[0]);}                                                
+                                            var html = `${data}%`
+                                            $('#progressTotaljembrana').append(html);}                                                
                                         });
                                     });
                                 });
@@ -141,7 +142,8 @@
                                             url: "<?php echo base_url() ?>Server/get_progresstotaltabanan_control",
                                             method: "GET",
                                             success: function(data) {
-                                            $('#progressTotaltabanan').append(data[0]);}                                                
+                                            var html = `${data}%`
+                                            $('#progressTotaltabanan').append(html);}                                                
                                         });
                                     });
                                 });
@@ -154,7 +156,8 @@
                                             url: "<?php echo base_url() ?>Server/get_progresstotalbadung_control",
                                             method: "GET",
                                             success: function(data) {
-                                            $('#progressTotalbadung').append(data[0]);}                                                
+                                           var html = `${data}%`
+                                            $('#progressTotalbadung').append(html);}                                               
                                         });
                                     });
                                 });
@@ -167,7 +170,8 @@
                                             url: "<?php echo base_url() ?>Server/get_progresstotalgianyar_control",
                                             method: "GET",
                                             success: function(data) {
-                                            $('#progressTotalgianyar').append(data[0]);}                                                
+                                            var html = `${data}%`
+                                            $('#progressTotalgianyar').append(html);}                                                
                                         });
                                     });
                                 });
@@ -180,7 +184,8 @@
                                             url: "<?php echo base_url() ?>Server/get_progresstotalklungkung_control",
                                             method: "GET",
                                             success: function(data) {
-                                            $('#progressTotalklungkung').append(data[0]);}                                                
+                                            var html = `${data}%`
+                                            $('#progressTotalklungkung').append(html);}                                                
                                         });
                                     });
                                 });
@@ -193,7 +198,8 @@
                                             url: "<?php echo base_url() ?>Server/get_progresstotalbangli_control",
                                             method: "GET",
                                             success: function(data) {
-                                            $('#progressTotalbangli').append(data[0]);}                                                
+                                            var html = `${data}%`
+                                            $('#progressTotalbangli').append(html);}                                               
                                         });
                                     });
                                 });
@@ -206,7 +212,8 @@
                                             url: "<?php echo base_url() ?>Server/get_progresstotalkarang_asem_control",
                                             method: "GET",
                                             success: function(data) {
-                                            $('#progressTotalkarang_asem').append(data[0]);}                                                
+                                            var html = `${data}%`
+                                            $('#progressTotalkarang_asem').append(html);}                                               
                                         });
                                     });
                                 });
@@ -219,7 +226,8 @@
                                             url: "<?php echo base_url() ?>Server/get_progresstotalbuleleng_control",
                                             method: "GET",
                                             success: function(data) {
-                                            $('#progressTotalbuleleng').append(data[0]);}                                                
+                                            var html = `${data}%`
+                                            $('#progressTotalbuleleng').append(html);}                                                
                                         });
                                     });
                                 });
@@ -232,7 +240,8 @@
                                             url: "<?php echo base_url() ?>Server/get_progresstotaldenpasar_control",
                                             method: "GET",
                                             success: function(data) {
-                                            $('#progressTotaldenpasar').append(data[0]);}                                                
+                                            var html = `${data}%`
+                                            $('#progressTotaldenpasar').append(html);}                                               
                                         });
                                     });
                                 });
@@ -358,6 +367,41 @@
                                 
                                 
                                 
+                                
+                                <!-- progress cacah kabkot -->
+                                <script>
+                                $(document).ready(function(){
+                                    $('#formKabkot').change(function(){
+                                        var kabkot_id = $(this).val();
+                                        $('#tableProgresscacahkabkot').empty();
+                                        $.ajax({
+                                            url: "<?php echo base_url() ?>Server/get_tableprogresscacahkabkot_control?kabkot_id="+kabkot_id,
+                                            method: "GET", <!-- type -->                                                                                   
+                                            success: function(data) {
+                                                var html = `${data}%`
+                                                $('#tableProgresscacahkabkot').append(html); <!-- data -->
+                                            }
+                                        });
+                                    });
+                                });
+                                </script>
+                                <!-- progress cacah kecamatan -->
+                                <script>
+                                $(document).ready(function(){
+                                    $('#formKecamatan').change(function(){
+                                        var kecamatan_id = $(this).val();
+                                        $('#tableProgresscacahkecamatan').empty();
+                                        $.ajax({
+                                            url: "<?php echo base_url() ?>Server/get_tableprogresscacahkecamatan_control?kecamatan_id="+kecamatan_id,
+                                            method: "GET", <!-- type -->                                                                                   
+                                            success: function(data) {
+                                                var html = `${data}%`
+                                                $('#tableProgresscacahkecamatan').append(html); <!-- data -->
+                                            }
+                                        });
+                                    });
+                                });
+                                </script>
                                 
                                 
                                 
