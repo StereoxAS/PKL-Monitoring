@@ -124,8 +124,22 @@
                             
                 <!-- /.panel-heading -->
                 <div class="panel-body">
+                                        <div class="panel-body"> Cari Fase Subsegmen
+                                        <select name="formMap" id="formMap">
+                                        <option selected disabled value="">...</option>
+                                        <option name="vegetatif1" value="vegetatif1">F1 Vegetatif 1</option>
+                                        <option name="vegetatif2" value="vegetatif2">F2 Vegetatif 2</option>
+                                        <option name="generatif" value="generatif">F3 Generatif</option>
+                                        <option name="panen" value="panen">F4 Panen</option>
+                                        <option name="persiapan_lahan" value="persiapan_lahan">F5 Persiapan Lahan</option>
+                                        <option name="puso" value="puso">F6 Puso</option>
+                                        <option name="bukanpadi" value="bukanpadi">F7 Bukan Sawah Padi</option>
+                                        <option name="bukansawah" value="bukansawah">F8 Bukan Sawah</option>
+                                        </select>
+                                        </div>
+                    
 					<!-- <div id="chart_rt" style="height: 500px;"></div> -->
-                                       <div id='mapleafletbali'></div>
+                                        <div id='mapleafletbali' ></div>
 				</div>
 				<!-- /.panel-body -->
 			</div>
@@ -138,23 +152,22 @@
     <!-- /.row -->
 </div>
 <!-- /#page-wrapper -->
-        <script>
-         var var_buleleng = 100;
-         var var_karangasem = 200;
-         var var_klungkung = 300;
-         var var_bangli = 400;
-         var var_gianyar = 500;
-         var var_denpasar = 600;
-         var var_badung = 700;
-         var var_tabanan = 800;
-         var var_jembrana = 900;        
-        </script>
+<script>
+         var var_buleleng = 5;
+         var var_karang_asem = 15;
+         var var_klungkung = 25;
+         var var_bangli = 55;
+         var var_gianyar = 150;
+         var var_denpasar = 250;
+         var var_badung = 750;
+         var var_tabanan = 1000;
+         var var_jembrana = 1000;        
+</script>
+
         <link rel="stylesheet" href="<?php echo base_url()?>resources/vendor/mapleafletbali/leaflet.css" />
         <script id="leafletScript" src="<?php echo base_url()?>resources/vendor/mapleafletbali/leaflet.js"></script>
-<script type="text/javascript" id="geojsonScript" src="<?php echo base_url()?>resources/vendor/mapleafletbali/bali.js"></script>        
+        <script type="text/javascript" id="geojsonScript" src="<?php echo base_url()?>resources/vendor/mapleafletbali/bali.js"></script>        
         
-	
-
 	<style>
 		html, body {
 			height: 100%;
@@ -175,7 +188,50 @@
         
         <script id="mapleafletbaliScript" type="text/javascript" src="<?php echo base_url()?>resources/vendor/mapleafletbali/mapleafletbali.js"></script>
 
-    <script>
+     <script>
+    $(document).ready(function(){
+                $('#formMap').change(function(){
+                    var fase_id = $(this).val();
+                    map.remove();
+                    $('#leafletScript').remove();
+                    $('#geojsonScript').remove();
+                    $('#mapleafletbaliScript').remove();
+                    
+                $.ajax({
+                url: "<?php echo base_url() ?>Server/get_maptematik_faseksa?fase_id="+fase_id,
+                method: "GET",
+                success: function(data) {
+                
+                var_buleleng = data[0]['buleleng'];
+                var_karang_asem = data[0]['karang_asem'];
+                var_klungkung = data[0]['klungkung'];
+                var_bangli = data[0]['bangli'];
+                var_gianyar = data[0]['gianyar'];
+                var_denpasar = data[0]['denpasar'];
+                var_badung = data[0]['badung'];
+                var_tabanan = data[0]['tabanan'];
+                var_jembrana = data[0]['jembrana'];   
+                console.log(data);
+                
+                $.getScript("<?php echo base_url()?>resources/vendor/mapleafletbali/leaflet.js", function() {
+                $('script:last').attr('id', 'leafletScript');
+                });
+                
+                $.getScript("<?php echo base_url()?>resources/vendor/mapleafletbali/bali.js", function() {
+                $('script:last').attr('id', 'geojsonScript');
+                });
+                
+                $.getScript("<?php echo base_url()?>resources/vendor/mapleafletbali/mapleafletbali.js", function() {
+                $('script:last').attr('id', 'mapleafletbaliScript');
+                });
+                
+                }                                                
+                                        });
+                                    });
+                                });
+    </script>   
+        
+<!--    <script>
     $(document).ready(function(){
                 $('#tampilkanMaptematik').click(function(){
                     map.remove();
@@ -215,4 +271,4 @@
                                         });
                                     });
                                 });
-    </script>
+    </script>-->

@@ -492,21 +492,47 @@ function get_list_masalah_narasumber($kode=0) { // Database kedua
     /////////////////////////////////////////////////////////////////ROZAN CONTROL////////////////////////////////////////////////////////////////////
         
         function get_maptematik_faseksa(){
+            $fase_id=$this->input->get('fase_id');
+            $nama_var_pembagi = "jumlah_subsegmen_selesai";
             $data_maptematik_faseksa = array();
-            $url_ksa="http://8a1cd868.ngrok.io/pklserver/api/Monitoring/kab_progress";
+            $url_ksa="http://0f3957d8.ngrok.io/pklserver/api/Monitoring/kab_progress";
             $maptematik_faseksa = file_get_contents($url_ksa);
             $maptematik_faseksa_decode = json_decode($maptematik_faseksa, true); // Turns it into an array, change the last argument to false to make it an object
             for($i=0; $i < count($maptematik_faseksa_decode); $i++){
-                                        $data_maptematik_faseksa[$i] = round(($maptematik_faseksa_decode[$i]['jumlah_']/$maptematik_faseksa_decode[$i]['jumlah_']))*1000;
-                                        $data_maptematik_faseksa[$i] = round(($maptematik_faseksa_decode[$i]['jumlah_']/$maptematik_faseksa_decode[$i]['jumlah_']))*1000;
-					$data_maptematik_faseksa[$i] = round(($maptematik_faseksa_decode[$i]['jumlah_']/$maptematik_faseksa_decode[$i]['jumlah_']))*1000;
-                                        $data_maptematik_faseksa[$i] = round(($maptematik_faseksa_decode[$i]['jumlah_']/$maptematik_faseksa_decode[$i]['jumlah_']))*1000;
-                                        $data_maptematik_faseksa[$i] = round(($maptematik_faseksa_decode[$i]['jumlah_']/$maptematik_faseksa_decode[$i]['jumlah_']))*1000;
-                                        $data_maptematik_faseksa[$i] = round(($maptematik_faseksa_decode[$i]['jumlah_']/$maptematik_faseksa_decode[$i]['jumlah_']))*1000;
-                                        $data_maptematik_faseksa[$i] = round(($maptematik_faseksa_decode[$i]['jumlah_']/$maptematik_faseksa_decode[$i]['jumlah_']))*1000;
-                                        $data_maptematik_faseksa[$i] = round(($maptematik_faseksa_decode[$i]['jumlah_']/$maptematik_faseksa_decode[$i]['jumlah_']))*1000;
-                                        $data_maptematik_faseksa[$i] = round(($maptematik_faseksa_decode[$i]['jumlah_']/$maptematik_faseksa_decode[$i]['jumlah_']))*1000;
-					};
+                
+                switch (intval($maptematik_faseksa_decode[$i]['id_kab'])) {
+        case 5101:
+		$data_maptematik_faseksa['jembrana'] = round((intval($maptematik_faseksa_decode[$i][$fase_id])/intval($maptematik_faseksa_decode[$i][$nama_var_pembagi]))*1000);
+		break;
+	case 5102:
+		$data_maptematik_faseksa['tabanan'] = round((intval($maptematik_faseksa_decode[$i][$fase_id])/intval($maptematik_faseksa_decode[$i][$nama_var_pembagi]))*1000);
+		break;
+	case 5103:
+		$data_maptematik_faseksa['badung'] = round((intval($maptematik_faseksa_decode[$i][$fase_id])/intval($maptematik_faseksa_decode[$i][$nama_var_pembagi]))*1000);
+		break;
+	case 5104:
+		$data_maptematik_faseksa['gianyar'] = round((intval($maptematik_faseksa_decode[$i][$fase_id])/intval($maptematik_faseksa_decode[$i][$nama_var_pembagi]))*1000);
+		break;
+	case 5105:
+		$data_maptematik_faseksa['klungkung'] = round((intval($maptematik_faseksa_decode[$i][$fase_id])/intval($maptematik_faseksa_decode[$i][$nama_var_pembagi]))*1000);
+		break;
+	case 5106:
+		$data_maptematik_faseksa['bangli'] = round((intval($maptematik_faseksa_decode[$i][$fase_id])/intval($maptematik_faseksa_decode[$i][$nama_var_pembagi]))*1000);
+		break;
+        case 5107:
+		$data_maptematik_faseksa['karang_asem'] = round((intval($maptematik_faseksa_decode[$i][$fase_id])/intval($maptematik_faseksa_decode[$i][$nama_var_pembagi]))*1000);
+		break;
+        case 5108:
+		$data_maptematik_faseksa['buleleng'] = round((intval($maptematik_faseksa_decode[$i][$fase_id])/intval($maptematik_faseksa_decode[$i][$nama_var_pembagi]))*1000);
+		break;
+        case 5171:
+		$data_maptematik_faseksa['denpasar'] = round((intval($maptematik_faseksa_decode[$i][$fase_id])/intval($maptematik_faseksa_decode[$i][$nama_var_pembagi]))*1000);
+		break;
+	default:
+		
+		break;
+                }
+                                      };
             
             //$character = json_decode($json);
             //echo $character->name;
@@ -580,7 +606,7 @@ function get_list_masalah_narasumber($kode=0) { // Database kedua
         function get_tableksatercacahdanprogresskabkot_control(){
             $kabkot_id=$this->input->get('kabkot_id');
             $tercacahdanprogress_ksa_kabkot = array();
-            $url_ksa="http://8a1cd868.ngrok.io/pklserver/api/Monitoring/kab_progress";
+            $url_ksa="http://0f3957d8.ngrok.io/pklserver/api/Monitoring/kab_progress";
             $data_tableksatercacahdanprogresskabkot = file_get_contents($url_ksa);
             $data_tableksatercacahdanprogresskabkot_decode = json_decode($data_tableksatercacahdanprogresskabkot, true); // Turns it into an array, change the last argument to false to make it an object
             for($i=0; $i < count($data_tableksatercacahdanprogresskabkot_decode); $i++){
@@ -601,7 +627,7 @@ function get_list_masalah_narasumber($kode=0) { // Database kedua
         function get_tableksatercacahdanprogresskecamatan_control(){
             $kecamatan_id=$this->input->get('kecamatan_id');
             $tercacahdanprogress_ksa_kecamatan = array();
-            $url_ksa="http://8a1cd868.ngrok.io/pklserver/api/Monitoring/kec_progress";
+            $url_ksa="http://0f3957d8.ngrok.io/pklserver/api/Monitoring/kec_progress";
             $data_tableksatercacahdanprogresskecamatan = file_get_contents($url_ksa);
             $data_tableksatercacahdanprogresskecamatan_decode = json_decode($data_tableksatercacahdanprogresskecamatan, true); // Turns it into an array, change the last argument to false to make it an object
             for($i=0; $i < count($data_tableksatercacahdanprogresskecamatan_decode); $i++){
@@ -663,209 +689,360 @@ function get_list_masalah_narasumber($kode=0) { // Database kedua
         //}
         
         function get_progresstotaljembrana_control(){
-                $kabkot_id=5101;
-                
-            $progress_ksa_kabkot;
-            $url_ksa="http://8a1cd868.ngrok.io/pklserver/api/Monitoring/kab_progress";
+            $kabkot_id=5101;
+            $progress_ksa_kabkot=0;
+            $progress_ubinan_kabkot=0;
+            $progress_cacah_kabkot=0;
+            $progress_total=0;
+            $url_ksa="http://0f3957d8.ngrok.io/pklserver/api/Monitoring/kab_progress";
             $data_progress_ksa_kabkot = file_get_contents($url_ksa);
             $data_progress_ksa_kabkot_decode = json_decode($data_progress_ksa_kabkot, true); // Turns it into an array, change the last argument to false to make it an object
             for($i=0; $i < count($data_progress_ksa_kabkot_decode); $i++){
 				if ($data_progress_ksa_kabkot_decode[$i]['id_kab']=$kabkot_id) {
-                                        $progress_ksa_kabkot = $data_tableksatercacahdanprogresskabkot_decode[$i]['progres_segmen'];
+                                        $progress_ksa_kabkot = intval($data_progress_ksa_kabkot_decode[$i]['progres_segmen']);
 					break;
 					};};
-            //$tercacahdanprogress_ksa_kabkot['progress'] = round($tercacahdanprogress_ksa_kabkot['progress'],2);
             
+            $kabkot_id_new=$kabkot_id - 5100;
+            $akumulasi_tercacah_nim = array();
+            $data_tableprogresscacahkabkot_nim = $this->Server_Model->get_tableprogresscacahkabkot_nim_model($kabkot_id_new);
+            $data_tableprogresscacahkabkot_beban = $this->Server_Model->get_tableprogresscacahkabkot_beban_model($kabkot_id_new);
+            for($i=0; $i < count($data_tableprogresscacahkabkot_nim); $i++){
+                                $akumulasi_tercacah_nim[$i]=$this->Server_Model->get_tableprogresscacahkabkot_tercacah_nim_model(intval($data_tableprogresscacahkabkot_nim[$i]['nim']));
+				};
+            for($i=0; $i < count($akumulasi_tercacah_nim); $i++){
+                                $progress_cacah_kabkot += intval($akumulasi_tercacah_nim[$i]);
+				};
+            $progress_cacah_kabkot = $progress_cacah_kabkot / intval($data_tableprogresscacahkabkot_beban[0]['beban']);
+           
             
-//            $data_api_ksa = file_get_contents(<url of that website>);
-//            $data_ksa = json_decode($data, true);
-//            $data_ubinan = $this->Server_Model->get_totalubinanjembrana_model($kabkot_id);
-//            $data_cacah = $this->Server_Model->get_totalcacahjembrana_model($kabkot_id);
-//            $data_progresstotaljembrana = $data_ksa->progress + $data_ubinan->progress + $data_cacah->progress;
-//            $this->output
-//                    ->set_content_type('application/json')
-//                    ->set_output(json_encode($data_progresstotaljembrana));
-        }
+            $progress_total= ($progress_ksa_kabkot + $progress_ubinan_kabkot + $progress_cacah_kabkot)/3;
+            $progress_total= round($progress_total,2);
+            $this->output
+                    ->set_content_type('application/json')
+                    ->set_output(json_encode($progress_total));
+                                        
+            
+            }
         
         function get_progresstotaltabanan_control(){
             $kabkot_id=5102;
-            
-            $progress_ksa_kabkot;
-            $url_ksa="http://8a1cd868.ngrok.io/pklserver/api/Monitoring/kab_progress";
+            $progress_ksa_kabkot=0;
+            $progress_ubinan_kabkot=0;
+            $progress_cacah_kabkot=0;
+            $progress_total=0;
+            $url_ksa="http://0f3957d8.ngrok.io/pklserver/api/Monitoring/kab_progress";
             $data_progress_ksa_kabkot = file_get_contents($url_ksa);
             $data_progress_ksa_kabkot_decode = json_decode($data_progress_ksa_kabkot, true); // Turns it into an array, change the last argument to false to make it an object
             for($i=0; $i < count($data_progress_ksa_kabkot_decode); $i++){
 				if ($data_progress_ksa_kabkot_decode[$i]['id_kab']=$kabkot_id) {
-                                        $progress_ksa_kabkot = $data_tableksatercacahdanprogresskabkot_decode[$i]['progres_segmen'];
+                                        $progress_ksa_kabkot = intval($data_progress_ksa_kabkot_decode[$i]['progres_segmen']);
 					break;
 					};};
-           //            $data_api_ksa = file_get_contents(<url of that website>);
-//            $data_ksa = json_decode($data, true);
-//            $data_ubinan = $this->Server_Model->get_totalubinantabanan_model($kabkot_id);
-//            $data_cacah = $this->Server_Model->get_totalcacahtabanan_model($kabkot_id);
-//            $data_progresstotaltabanan = $data_ksa->progress + $data_ubinan->progress + $data_cacah->progress;
-//            $this->output
-//                    ->set_content_type('application/json')
-//                    ->set_output(json_encode($data_progresstotaltabanan)); 
-        }
+            
+            $kabkot_id_new=$kabkot_id - 5100;
+            $akumulasi_tercacah_nim = array();
+            $data_tableprogresscacahkabkot_nim = $this->Server_Model->get_tableprogresscacahkabkot_nim_model($kabkot_id_new);
+            $data_tableprogresscacahkabkot_beban = $this->Server_Model->get_tableprogresscacahkabkot_beban_model($kabkot_id_new);
+            for($i=0; $i < count($data_tableprogresscacahkabkot_nim); $i++){
+                                $akumulasi_tercacah_nim[$i]=$this->Server_Model->get_tableprogresscacahkabkot_tercacah_nim_model(intval($data_tableprogresscacahkabkot_nim[$i]['nim']));
+				};
+            for($i=0; $i < count($akumulasi_tercacah_nim); $i++){
+                                $progress_cacah_kabkot += intval($akumulasi_tercacah_nim[$i]);
+				};
+            $progress_cacah_kabkot = $progress_cacah_kabkot / intval($data_tableprogresscacahkabkot_beban[0]['beban']);
+           
+            
+            $progress_total= ($progress_ksa_kabkot + $progress_ubinan_kabkot + $progress_cacah_kabkot)/3;
+            $progress_total= round($progress_total,2);
+            $this->output
+                    ->set_content_type('application/json')
+                    ->set_output(json_encode($progress_total));
+                                        
+            
+            }
         
         function get_progresstotalbadung_control(){
             $kabkot_id=5103;
-             
-            $progress_ksa_kabkot;
-            $url_ksa="http://8a1cd868.ngrok.io/pklserver/api/Monitoring/kab_progress";
+            $progress_ksa_kabkot=0;
+            $progress_ubinan_kabkot=0;
+            $progress_cacah_kabkot=0;
+            $progress_total=0;
+            $url_ksa="http://0f3957d8.ngrok.io/pklserver/api/Monitoring/kab_progress";
             $data_progress_ksa_kabkot = file_get_contents($url_ksa);
             $data_progress_ksa_kabkot_decode = json_decode($data_progress_ksa_kabkot, true); // Turns it into an array, change the last argument to false to make it an object
             for($i=0; $i < count($data_progress_ksa_kabkot_decode); $i++){
 				if ($data_progress_ksa_kabkot_decode[$i]['id_kab']=$kabkot_id) {
-                                        $progress_ksa_kabkot = $data_tableksatercacahdanprogresskabkot_decode[$i]['progres_segmen'];
+                                        $progress_ksa_kabkot = intval($data_progress_ksa_kabkot_decode[$i]['progres_segmen']);
 					break;
 					};};
-            //            $data_api_ksa = file_get_contents(<url of that website>);
-//            $data_ksa = json_decode($data, true);
-//            $data_ubinan = $this->Server_Model->get_totalubinanbadung_model($kabkot_id);
-//            $data_cacah = $this->Server_Model->get_totalcacahbadung_model($kabkot_id);
-//            $data_progresstotalbadung = $data_ksa->progress + $data_ubinan->progress + $data_cacah->progress;
-//            $this->output
-//                    ->set_content_type('application/json')
-//                    ->set_output(json_encode($data_progresstotalbadung));
-        }
+            
+            $kabkot_id_new=$kabkot_id - 5100;
+            $akumulasi_tercacah_nim = array();
+            $data_tableprogresscacahkabkot_nim = $this->Server_Model->get_tableprogresscacahkabkot_nim_model($kabkot_id_new);
+            $data_tableprogresscacahkabkot_beban = $this->Server_Model->get_tableprogresscacahkabkot_beban_model($kabkot_id_new);
+            for($i=0; $i < count($data_tableprogresscacahkabkot_nim); $i++){
+                                $akumulasi_tercacah_nim[$i]=$this->Server_Model->get_tableprogresscacahkabkot_tercacah_nim_model(intval($data_tableprogresscacahkabkot_nim[$i]['nim']));
+				};
+            for($i=0; $i < count($akumulasi_tercacah_nim); $i++){
+                                $progress_cacah_kabkot += intval($akumulasi_tercacah_nim[$i]);
+				};
+            $progress_cacah_kabkot = $progress_cacah_kabkot / intval($data_tableprogresscacahkabkot_beban[0]['beban']);
+           
+            
+            $progress_total= ($progress_ksa_kabkot + $progress_ubinan_kabkot + $progress_cacah_kabkot)/3;
+            $progress_total= round($progress_total,2);
+            $this->output
+                    ->set_content_type('application/json')
+                    ->set_output(json_encode($progress_total));
+                                        
+            
+            }
         
         function get_progresstotalgianyar_control(){
             $kabkot_id=5104;
-            $progress_ksa_kabkot;
-            $url_ksa="http://8a1cd868.ngrok.io/pklserver/api/Monitoring/kab_progress";
+            $progress_ksa_kabkot=0;
+            $progress_ubinan_kabkot=0;
+            $progress_cacah_kabkot=0;
+            $progress_total=0;
+            $url_ksa="http://0f3957d8.ngrok.io/pklserver/api/Monitoring/kab_progress";
             $data_progress_ksa_kabkot = file_get_contents($url_ksa);
             $data_progress_ksa_kabkot_decode = json_decode($data_progress_ksa_kabkot, true); // Turns it into an array, change the last argument to false to make it an object
             for($i=0; $i < count($data_progress_ksa_kabkot_decode); $i++){
 				if ($data_progress_ksa_kabkot_decode[$i]['id_kab']=$kabkot_id) {
-                                        $progress_ksa_kabkot = $data_tableksatercacahdanprogresskabkot_decode[$i]['progres_segmen'];
+                                        $progress_ksa_kabkot = intval($data_progress_ksa_kabkot_decode[$i]['progres_segmen']);
 					break;
 					};};
-            //            $data_api_ksa = file_get_contents(<url of that website>);
-//            $data_ksa = json_decode($data, true);
-//            $data_ubinan = $this->Server_Model->get_totalubinangianyar_model($kabkot_id);
-//            $data_cacah = $this->Server_Model->get_totalcacahgianyar_model($kabkot_id);
-//            $data_progresstotalgianyar = $data_ksa->progress + $data_ubinan->progress + $data_cacah->progress;
-//            $this->output
-//                    ->set_content_type('application/json')
-//                    ->set_output(json_encode($data_progresstotalgianyar));
-        }
+            
+            $kabkot_id_new=$kabkot_id - 5100;
+            $akumulasi_tercacah_nim = array();
+            $data_tableprogresscacahkabkot_nim = $this->Server_Model->get_tableprogresscacahkabkot_nim_model($kabkot_id_new);
+            $data_tableprogresscacahkabkot_beban = $this->Server_Model->get_tableprogresscacahkabkot_beban_model($kabkot_id_new);
+            for($i=0; $i < count($data_tableprogresscacahkabkot_nim); $i++){
+                                $akumulasi_tercacah_nim[$i]=$this->Server_Model->get_tableprogresscacahkabkot_tercacah_nim_model(intval($data_tableprogresscacahkabkot_nim[$i]['nim']));
+				};
+            for($i=0; $i < count($akumulasi_tercacah_nim); $i++){
+                                $progress_cacah_kabkot += intval($akumulasi_tercacah_nim[$i]);
+				};
+            $progress_cacah_kabkot = $progress_cacah_kabkot / intval($data_tableprogresscacahkabkot_beban[0]['beban']);
+           
+            
+            $progress_total= ($progress_ksa_kabkot + $progress_ubinan_kabkot + $progress_cacah_kabkot)/3;
+            $progress_total= round($progress_total,2);
+            $this->output
+                    ->set_content_type('application/json')
+                    ->set_output(json_encode($progress_total));
+                                        
+            
+            }
         
         function get_progresstotalklungkung_control(){
             $kabkot_id=5105;
-            $progress_ksa_kabkot;
-            $url_ksa="http://8a1cd868.ngrok.io/pklserver/api/Monitoring/kab_progress";
+            $progress_ksa_kabkot=0;
+            $progress_ubinan_kabkot=0;
+            $progress_cacah_kabkot=0;
+            $progress_total=0;
+            $url_ksa="http://0f3957d8.ngrok.io/pklserver/api/Monitoring/kab_progress";
             $data_progress_ksa_kabkot = file_get_contents($url_ksa);
             $data_progress_ksa_kabkot_decode = json_decode($data_progress_ksa_kabkot, true); // Turns it into an array, change the last argument to false to make it an object
             for($i=0; $i < count($data_progress_ksa_kabkot_decode); $i++){
 				if ($data_progress_ksa_kabkot_decode[$i]['id_kab']=$kabkot_id) {
-                                        $progress_ksa_kabkot = $data_tableksatercacahdanprogresskabkot_decode[$i]['progres_segmen'];
+                                        $progress_ksa_kabkot = intval($data_progress_ksa_kabkot_decode[$i]['progres_segmen']);
 					break;
 					};};
-            //            $data_api_ksa = file_get_contents(<url of that website>);
-//            $data_ksa = json_decode($data, true);
-//            $data_ubinan = $this->Server_Model->get_totalubinanklungkung_model($kabkot_id);
-//            $data_cacah = $this->Server_Model->get_totalcacahklungkung_model($kabkot_id);
-//            $data_progresstotalklungkung = $data_ksa->progress + $data_ubinan->progress + $data_cacah->progress;
-//            $this->output
-//                    ->set_content_type('application/json')
-//                    ->set_output(json_encode($data_progresstotalklungkung));
-        }
+            
+            $kabkot_id_new=$kabkot_id - 5100;
+            $akumulasi_tercacah_nim = array();
+            $data_tableprogresscacahkabkot_nim = $this->Server_Model->get_tableprogresscacahkabkot_nim_model($kabkot_id_new);
+            $data_tableprogresscacahkabkot_beban = $this->Server_Model->get_tableprogresscacahkabkot_beban_model($kabkot_id_new);
+            for($i=0; $i < count($data_tableprogresscacahkabkot_nim); $i++){
+                                $akumulasi_tercacah_nim[$i]=$this->Server_Model->get_tableprogresscacahkabkot_tercacah_nim_model(intval($data_tableprogresscacahkabkot_nim[$i]['nim']));
+				};
+            for($i=0; $i < count($akumulasi_tercacah_nim); $i++){
+                                $progress_cacah_kabkot += intval($akumulasi_tercacah_nim[$i]);
+				};
+            $progress_cacah_kabkot = $progress_cacah_kabkot / intval($data_tableprogresscacahkabkot_beban[0]['beban']);
+           
+            
+            $progress_total= ($progress_ksa_kabkot + $progress_ubinan_kabkot + $progress_cacah_kabkot)/3;
+            $progress_total= round($progress_total,2);
+            $this->output
+                    ->set_content_type('application/json')
+                    ->set_output(json_encode($progress_total));
+                                        
+            
+            }
         
         function get_progresstotalbangli_control(){
             $kabkot_id=5106;
-            $progress_ksa_kabkot;
-            $url_ksa="http://8a1cd868.ngrok.io/pklserver/api/Monitoring/kab_progress";
+            $progress_ksa_kabkot=0;
+            $progress_ubinan_kabkot=0;
+            $progress_cacah_kabkot=0;
+            $progress_total=0;
+            $url_ksa="http://0f3957d8.ngrok.io/pklserver/api/Monitoring/kab_progress";
             $data_progress_ksa_kabkot = file_get_contents($url_ksa);
             $data_progress_ksa_kabkot_decode = json_decode($data_progress_ksa_kabkot, true); // Turns it into an array, change the last argument to false to make it an object
             for($i=0; $i < count($data_progress_ksa_kabkot_decode); $i++){
 				if ($data_progress_ksa_kabkot_decode[$i]['id_kab']=$kabkot_id) {
-                                        $progress_ksa_kabkot = $data_tableksatercacahdanprogresskabkot_decode[$i]['progres_segmen'];
+                                        $progress_ksa_kabkot = intval($data_progress_ksa_kabkot_decode[$i]['progres_segmen']);
 					break;
 					};};
-            //            $data_api_ksa = file_get_contents(<url of that website>);
-//            $data_ksa = json_decode($data, true);
-//            $data_ubinan = $this->Server_Model->get_totalubinanbangli_model($kabkot_id);
-//            $data_cacah = $this->Server_Model->get_totalcacahbangli_model($kabkot_id);
-//            $data_progresstotalbangli = $data_ksa->progress + $data_ubinan->progress + $data_cacah->progress;
-//            $this->output
-//                    ->set_content_type('application/json')
-//                    ->set_output(json_encode($data_progresstotalbangli));
-        }
+            
+            $kabkot_id_new=$kabkot_id - 5100;
+            $akumulasi_tercacah_nim = array();
+            $data_tableprogresscacahkabkot_nim = $this->Server_Model->get_tableprogresscacahkabkot_nim_model($kabkot_id_new);
+            $data_tableprogresscacahkabkot_beban = $this->Server_Model->get_tableprogresscacahkabkot_beban_model($kabkot_id_new);
+            for($i=0; $i < count($data_tableprogresscacahkabkot_nim); $i++){
+                                $akumulasi_tercacah_nim[$i]=$this->Server_Model->get_tableprogresscacahkabkot_tercacah_nim_model(intval($data_tableprogresscacahkabkot_nim[$i]['nim']));
+				};
+            for($i=0; $i < count($akumulasi_tercacah_nim); $i++){
+                                $progress_cacah_kabkot += intval($akumulasi_tercacah_nim[$i]);
+				};
+            $progress_cacah_kabkot = $progress_cacah_kabkot / intval($data_tableprogresscacahkabkot_beban[0]['beban']);
+           
+            
+            $progress_total= ($progress_ksa_kabkot + $progress_ubinan_kabkot + $progress_cacah_kabkot)/3;
+            $progress_total= round($progress_total,2);
+            $this->output
+                    ->set_content_type('application/json')
+                    ->set_output(json_encode($progress_total));
+                                        
+            
+            }
         
         function get_progresstotalkarang_asem_control(){
             $kabkot_id=5107;
-            $progress_ksa_kabkot;
-            $url_ksa="http://8a1cd868.ngrok.io/pklserver/api/Monitoring/kab_progress";
+            $progress_ksa_kabkot=0;
+            $progress_ubinan_kabkot=0;
+            $progress_cacah_kabkot=0;
+            $progress_total=0;
+            $url_ksa="http://0f3957d8.ngrok.io/pklserver/api/Monitoring/kab_progress";
             $data_progress_ksa_kabkot = file_get_contents($url_ksa);
             $data_progress_ksa_kabkot_decode = json_decode($data_progress_ksa_kabkot, true); // Turns it into an array, change the last argument to false to make it an object
             for($i=0; $i < count($data_progress_ksa_kabkot_decode); $i++){
 				if ($data_progress_ksa_kabkot_decode[$i]['id_kab']=$kabkot_id) {
-                                        $progress_ksa_kabkot = $data_tableksatercacahdanprogresskabkot_decode[$i]['progres_segmen'];
+                                        $progress_ksa_kabkot = intval($data_progress_ksa_kabkot_decode[$i]['progres_segmen']);
 					break;
 					};};
-            //            $data_api_ksa = file_get_contents(<url of that website>);
-//            $data_ksa = json_decode($data, true);
-//            $data_ubinan = $this->Server_Model->get_totalubinankarang_asem_model($kabkot_id);
-//            $data_cacah = $this->Server_Model->get_totalcacahkarang_asem_model($kabkot_id);
-//            $data_progresstotalkarang_asem = $data_ksa->progress + $data_ubinan->progress + $data_cacah->progress;
-//            $this->output
-//                    ->set_content_type('application/json')
-//                    ->set_output(json_encode($data_progresstotalkarang_asem));
-        }
+            
+            $kabkot_id_new=$kabkot_id - 5100;
+            $akumulasi_tercacah_nim = array();
+            $data_tableprogresscacahkabkot_nim = $this->Server_Model->get_tableprogresscacahkabkot_nim_model($kabkot_id_new);
+            $data_tableprogresscacahkabkot_beban = $this->Server_Model->get_tableprogresscacahkabkot_beban_model($kabkot_id_new);
+            for($i=0; $i < count($data_tableprogresscacahkabkot_nim); $i++){
+                                $akumulasi_tercacah_nim[$i]=$this->Server_Model->get_tableprogresscacahkabkot_tercacah_nim_model(intval($data_tableprogresscacahkabkot_nim[$i]['nim']));
+				};
+            for($i=0; $i < count($akumulasi_tercacah_nim); $i++){
+                                $progress_cacah_kabkot += intval($akumulasi_tercacah_nim[$i]);
+				};
+            $progress_cacah_kabkot = $progress_cacah_kabkot / intval($data_tableprogresscacahkabkot_beban[0]['beban']);
+           
+            
+            $progress_total= ($progress_ksa_kabkot + $progress_ubinan_kabkot + $progress_cacah_kabkot)/3;
+            $progress_total= round($progress_total,2);
+            $this->output
+                    ->set_content_type('application/json')
+                    ->set_output(json_encode($progress_total));
+                                        
+            
+            }
         
         function get_progresstotalbuleleng_control(){
             $kabkot_id=5108;
-            $progress_ksa_kabkot;
-            $url_ksa="http://8a1cd868.ngrok.io/pklserver/api/Monitoring/kab_progress";
+            $progress_ksa_kabkot=0;
+            $progress_ubinan_kabkot=0;
+            $progress_cacah_kabkot=0;
+            $progress_total=0;
+            $url_ksa="http://0f3957d8.ngrok.io/pklserver/api/Monitoring/kab_progress";
             $data_progress_ksa_kabkot = file_get_contents($url_ksa);
             $data_progress_ksa_kabkot_decode = json_decode($data_progress_ksa_kabkot, true); // Turns it into an array, change the last argument to false to make it an object
             for($i=0; $i < count($data_progress_ksa_kabkot_decode); $i++){
 				if ($data_progress_ksa_kabkot_decode[$i]['id_kab']=$kabkot_id) {
-                                        $progress_ksa_kabkot = $data_tableksatercacahdanprogresskabkot_decode[$i]['progres_segmen'];
+                                        $progress_ksa_kabkot = intval($data_progress_ksa_kabkot_decode[$i]['progres_segmen']);
 					break;
 					};};
-            //            $data_api_ksa = file_get_contents(<url of that website>);
-//            $data_ksa = json_decode($data, true);
-//            $data_ubinan = $this->Server_Model->get_totalubinanbuleleng_model($kabkot_id);
-//            $data_cacah = $this->Server_Model->get_totalcacahbuleleng_model($kabkot_id);
-//            $data_progresstotalbuleleng = $data_ksa->progress + $data_ubinan->progress + $data_cacah->progress;
-//            $this->output
-//                    ->set_content_type('application/json')
-//                    ->set_output(json_encode($data_progresstotalbuleleng));
-        }
+            
+            $kabkot_id_new=$kabkot_id - 5100;
+            $akumulasi_tercacah_nim = array();
+            $data_tableprogresscacahkabkot_nim = $this->Server_Model->get_tableprogresscacahkabkot_nim_model($kabkot_id_new);
+            $data_tableprogresscacahkabkot_beban = $this->Server_Model->get_tableprogresscacahkabkot_beban_model($kabkot_id_new);
+            for($i=0; $i < count($data_tableprogresscacahkabkot_nim); $i++){
+                                $akumulasi_tercacah_nim[$i]=$this->Server_Model->get_tableprogresscacahkabkot_tercacah_nim_model(intval($data_tableprogresscacahkabkot_nim[$i]['nim']));
+				};
+            for($i=0; $i < count($akumulasi_tercacah_nim); $i++){
+                                $progress_cacah_kabkot += intval($akumulasi_tercacah_nim[$i]);
+				};
+            $progress_cacah_kabkot = $progress_cacah_kabkot / intval($data_tableprogresscacahkabkot_beban[0]['beban']);
+           
+            
+            $progress_total= ($progress_ksa_kabkot + $progress_ubinan_kabkot + $progress_cacah_kabkot)/3;
+            $progress_total= round($progress_total,2);
+            $this->output
+                    ->set_content_type('application/json')
+                    ->set_output(json_encode($progress_total));
+                                        
+            
+            }
         
         function get_progresstotaldenpasar_control(){
             $kabkot_id=5171;
-            $progress_ksa_kabkot;
-            $url_ksa="http://8a1cd868.ngrok.io/pklserver/api/Monitoring/kab_progress";
+            $progress_ksa_kabkot=0;
+            $progress_ubinan_kabkot=0;
+            $progress_cacah_kabkot=0;
+            $progress_total=0;
+            $url_ksa="http://0f3957d8.ngrok.io/pklserver/api/Monitoring/kab_progress";
             $data_progress_ksa_kabkot = file_get_contents($url_ksa);
             $data_progress_ksa_kabkot_decode = json_decode($data_progress_ksa_kabkot, true); // Turns it into an array, change the last argument to false to make it an object
             for($i=0; $i < count($data_progress_ksa_kabkot_decode); $i++){
 				if ($data_progress_ksa_kabkot_decode[$i]['id_kab']=$kabkot_id) {
-                                        $progress_ksa_kabkot = $data_tableksatercacahdanprogresskabkot_decode[$i]['progres_segmen'];
+                                        $progress_ksa_kabkot = intval($data_progress_ksa_kabkot_decode[$i]['progres_segmen']);
 					break;
 					};};
-            //            $data_api_ksa = file_get_contents(<url of that website>);
-//            $data_ksa = json_decode($data, true);
-//            $data_ubinan = $this->Server_Model->get_totalubinandenpasar_model($kabkot_id);
-//            $data_cacah = $this->Server_Model->get_totalcacahdenpasar_model($kabkot_id);
-//            $data_progresstotaldenpasar = $data_ksa->progress + $data_ubinan->progress + $data_cacah->progress;
-//            $this->output
-//                    ->set_content_type('application/json')
-//                    ->set_output(json_encode($data_progresstotaldenpasar));
-        }
+            
+            $kabkot_id_new=$kabkot_id - 5100;
+            $akumulasi_tercacah_nim = array();
+            $data_tableprogresscacahkabkot_nim = $this->Server_Model->get_tableprogresscacahkabkot_nim_model($kabkot_id_new);
+            $data_tableprogresscacahkabkot_beban = $this->Server_Model->get_tableprogresscacahkabkot_beban_model($kabkot_id_new);
+            for($i=0; $i < count($data_tableprogresscacahkabkot_nim); $i++){
+                                $akumulasi_tercacah_nim[$i]=$this->Server_Model->get_tableprogresscacahkabkot_tercacah_nim_model(intval($data_tableprogresscacahkabkot_nim[$i]['nim']));
+				};
+            for($i=0; $i < count($akumulasi_tercacah_nim); $i++){
+                                $progress_cacah_kabkot += intval($akumulasi_tercacah_nim[$i]);
+				};
+            $progress_cacah_kabkot = $progress_cacah_kabkot / intval($data_tableprogresscacahkabkot_beban[0]['beban']);
+           
+            
+            $progress_total= ($progress_ksa_kabkot + $progress_ubinan_kabkot + $progress_cacah_kabkot)/3;
+            $progress_total= round($progress_total,2);
+            $this->output
+                    ->set_content_type('application/json')
+                    ->set_output(json_encode($progress_total));
+                                        
+            
+            }
         
         function get_progresscacahtotal_control(){
            
             $progress_ksa = 0;
-            $url_ksa="http://8a1cd868.ngrok.io/pklserver/api/Monitoring/kab_progress";
+            $progress_ubinan = 0;
+            $progress_cacah = 0;
+            $progress_total=0;
+            $url_ksa="http://0f3957d8.ngrok.io/pklserver/api/Monitoring/kab_progress";
             $data_progress_ksa = file_get_contents($url_ksa);
             $data_progress_ksa_decode = json_decode($data_progress_ksa, true); // Turns it into an array, change the last argument to false to make it an object
             for($i=0; $i < count($data_progress_ksa_decode); $i++){
-				$progress_ksa += $data_progress_ksa_decode[$i]['progres_segmen'];
+				$progress_ksa += intval($data_progress_ksa_decode[$i]['progres_segmen']);
 				};
+                                
+            
+            $data_tableprogresscacahtotal_beban = $this->Server_Model->get_tableprogresscacahtotal_totalbeban_model();
+            $data_tableprogresscacahtotal_tercacah = $this->Server_Model->get_tableprogresscacahtotal_totaltercacah_model();
+            $progress_cacah_= intval($data_tableprogresscacahtotal_beban[0]['beban']) / intval($data_tableprogresscacahtotal_tercacah[0]['hasil']);
+           
+            
+            $progress_total= ($progress_ksa + $progress_ubinan + $progress_cacah)/3;
+            $progress_total= round($progress_total,2);
+            
             //$tercacahdanprogress_ksa_kabkot['progress'] = round($tercacahdanprogress_ksa_kabkot['progress'],2);
             //$character = json_decode($json);
             //echo $character->name;
@@ -878,11 +1055,66 @@ function get_list_masalah_narasumber($kode=0) { // Database kedua
 //            $data_progresscacahtotal_cacah = $data_ksa->total_cacah + $data_ubinan->total_cacah + $data_cacah->total_cacah;
 //            $data_progresscacahtotal_beban = $data_ksa->total_beban + $data_ubinan->total_beban + $data_cacah->total_beban;
 //            $data_progresscacahtotal = array('total_cacah'=>$data_progresscacahtotal_cacah, 'total_beban'=>$data_progresscacahtotal_beban);
-//            $this->output
-//                    ->set_content_type('application/json')
-//                    ->set_output(json_encode($data_progresscacahtotal));
+              $progress_total;
+              $this->output
+                    ->set_content_type('application/json')
+                    ->set_output(json_encode($progress_total));
         }
 
-
+        function get_tableprogresscacahkabkot_control(){
+            $kabkot_id=$this->input->get('kabkot_id');
+            $kabkot_id_new=$kabkot_id - 5100;
+            $data_tableprogresscacahkabkot=0;
+            $akumulasi_tercacah_nim = array();
+            //$data_tableprogresscacahkabkot_tercacah;
+            $data_tableprogresscacahkabkot_nim = $this->Server_Model->get_tableprogresscacahkabkot_nim_model($kabkot_id_new);
+            $data_tableprogresscacahkabkot_beban = $this->Server_Model->get_tableprogresscacahkabkot_beban_model($kabkot_id_new);
+            for($i=0; $i < count($data_tableprogresscacahkabkot_nim); $i++){
+                                $akumulasi_tercacah_nim[$i]=$this->Server_Model->get_tableprogresscacahkabkot_tercacah_nim_model(intval($data_tableprogresscacahkabkot_nim[$i]['nim']));
+				//$data_tableprogresscacahkabkot_tercacah = $data_tableprogresscacahkabkot_tercacah + intval($akumulasi_tercacah_nim[0]['hasil']);
+				};
+            for($i=0; $i < count($akumulasi_tercacah_nim); $i++){
+                                $data_tableprogresscacahkabkot += intval($akumulasi_tercacah_nim[$i]);
+				//$data_tableprogresscacahkabkot_tercacah = $data_tableprogresscacahkabkot_tercacah + intval($akumulasi_tercacah_nim[0]['hasil']);
+				};
+            $data_tableprogresscacahkabkot = $data_tableprogresscacahkabkot / intval($data_tableprogresscacahkabkot_beban[0]['beban']);
+            //$data_tableprogresscacahkabkot_tercacah=intval($akumulasi_tercacah_nim[0])+intval($akumulasi_tercacah_nim[1]);
+            //$data_tableprogresscacahkabkot=($data_tableprogresscacahkabkot_tercacah / $data_tabeprogresscacahkabkot_beban[0]['beban'])*100;
+            //$data_tableprogresscacahkabkot=round($data_tableprogresscacahkabkot,2);
+            $this->output
+                    ->set_content_type('application/json')
+                    ->set_output(json_encode($data_tableprogresscacahkabkot));
+        }
+        
+        function get_tableprogresscacahkecamatan_control(){
+            $kecamatan_id=$this->input->get('kecamatan_id');
+            $kabkot_id = $kecamatan_id / 1000;
+            $kabkot_id_floor = floor($kabkot_id);
+            $kabkot_id_new = $kabkot_id_floor - 5100;
+            $kecamatan_id_new = $kecamatan_id - ($kabkot_id_floor * 1000);
+            
+            $data_tableprogresscacahkecamatan=0;
+            $akumulasi_tercacah_nim = array();
+            //$data_tableprogresscacahkabkot_tercacah;
+            $data_tableprogresscacahkecamatan_nim = $this->Server_Model->get_tableprogresscacahkecamatan_nim_model($kabkot_id_new, $kecamatan_id_new);
+            $data_tableprogresscacahkecamatan_beban = $this->Server_Model->get_tableprogresscacahkecamatan_beban_model($kabkot_id_new, $kecamatan_id_new);
+            for($i=0; $i < count($data_tableprogresscacahkecamatan_nim); $i++){
+                                $akumulasi_tercacah_nim[$i]=$this->Server_Model->get_tableprogresscacahkecamatan_tercacah_nim_model(intval($data_tableprogresscacahkecamatan_nim[$i]['nim']));
+				//$data_tableprogresscacahkabkot_tercacah = $data_tableprogresscacahkabkot_tercacah + intval($akumulasi_tercacah_nim[0]['hasil']);
+				};
+            for($i=0; $i < count($akumulasi_tercacah_nim); $i++){
+                                $data_tableprogresscacahkecamatan += intval($akumulasi_tercacah_nim[$i]);
+				//$data_tableprogresscacahkabkot_tercacah = $data_tableprogresscacahkabkot_tercacah + intval($akumulasi_tercacah_nim[0]['hasil']);
+				};
+            $data_tableprogresscacahkecamatan = $data_tableprogresscacahkecamatan / intval($data_tableprogresscacahkecamatan_beban[0]['beban']);
+            //$data_tableprogresscacahkabkot_tercacah=intval($akumulasi_tercacah_nim[0])+intval($akumulasi_tercacah_nim[1]);
+            //$data_tableprogresscacahkabkot=($data_tableprogresscacahkabkot_tercacah / $data_tabeprogresscacahkabkot_beban[0]['beban'])*100;
+            //$data_tableprogresscacahkabkot=round($data_tableprogresscacahkabkot,2);
+            $this->output
+                    ->set_content_type('application/json')
+                    ->set_output(json_encode($data_tableprogresscacahkecamatan));
+        }
+        
+        
 }
 ?>
