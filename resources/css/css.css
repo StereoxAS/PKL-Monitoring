@@ -8,10 +8,10 @@
 }
  */
 .page-header{
-	color: #141b5e;
+	color: #222937;
 	font-weight: 500;
 	font-size: 15pt;
-  border-bottom: 1px solid #141b5e;	
+  border-bottom: 1px solid #222937;	
 }
 
 .nama{
@@ -47,7 +47,7 @@ input, textarea, select, button {
 
 
 .navbar-toggle{
-	background-color: #141b5e;
+	background-color: #222937;
 	border: 0px;
 }
 .navbar-default .navbar-toggle{
@@ -110,8 +110,8 @@ input, textarea, select, button {
 
 .panel-default>.panel-heading{
 	background: #1DE9B6;
-	background: -webkit-linear-gradient(45deg, #141b5e 0%, #222937 100%);
-	background: linear-gradient(45deg, #141b5e 0%, #222937 100%);
+	background: -webkit-linear-gradient(45deg, #222937 0%, #222937 100%);
+	background: linear-gradient(45deg, #222937 0%, #222937 100%);
 	color :#FFFFFF;
 	font-weight: 500;
 
@@ -167,7 +167,7 @@ body {
 }
 
 .features {
-	fill: #141b5e; /* ungu */
+	fill: #222937; /* ungu */
 	cursor: pointer;
 }
 

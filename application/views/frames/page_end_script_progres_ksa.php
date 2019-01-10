@@ -1,12 +1,10 @@
 <!-- DataTables -->
-<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.js"></script>
 <script type="text/javascript" language="javascript" src="<?php echo base_url('resources/js/jquery.dataTables.js')?>"></script>
 <script type="text/javascript" language="javascript" src="<?php echo base_url('resources/js/dataTables.bootstrap.js')?>"></script>
 <script type="text/javascript" language="javascript" src="<?php echo base_url('resources/js/dataTables.responsive.min.js')?>"></script>
 
 <!-- Echarts JavaScripts -->
 <script src="<?php echo base_url()?>resources/vendor/echarts/echarts-all.js"></script>
-<script src="<?php echo base_url() ?>resources/js/jquery-3.3.1.min.js"> </script>
 
 <script type="text/javascript">
     var table;
@@ -14,32 +12,46 @@
     var interv;
     var interv2;
 	var JSONprogresKSA;
-	var urlProgressKSA = "http://0f3957d8.ngrok.io/pklserver/api/monitoring/progress_ksa";
+	var urlProgressKSA = "http://26e7dd1e.ngrok.io/pklserver/api/monitoring/progress_ksa";
 
 	
-	$(document).ready(function() 
-	{
-		$('#example').DataTable( 
-		{
-			ajax: 'http://0f3957d8.ngrok.io/pklserver/api/monitoring/progress_ksa',
-			columns: [
-				{data: 'id_segmen'},
-                {data: 'nim_pcl'},
-				{data: 'nama_kab'},
-                {data: 'nama_kec'},
-                {data: 'nama_desa'},
-                {data: 'status_segmen'}
-			],
-			order: [[2, 'asc']],
-			rowGroup: {
-				dataSrc: 'id_segmen'
-			}
-		});
-	});	
-    
-	
-	console.log("JSON KSA : " + urlProgressKSA + "     " + table);
-	
+	$(document).ready(function() {
+		$('.btn').tooltip();
+        interv2 = setInterval(get_reload, 3000);
+
+        table = $('#tabel_progress_ksa').DataTable({
+            ajax: '<?php echo base_url() ?>' + 'server/get_progress_ksa', // CHANGE ME
+			displayLength: 25,
+			oLanguage: {
+				oPaginate: {
+					sFirst: "Pertama",
+					sLast: "Terakhir",
+					sNext: "Berikutnya",
+					sPrevious: "Sebelumnya",
+				},
+				sSearch: "Cari",
+				sInfo: "Menampilkan _START_ sampai _END_ dari _TOTAL_ hasil",
+				sInfoEmpty: "Tidak ada hasil ditemukan",
+				sZeroRecords: "Tidak ada hasil ditemukan",
+				sLengthMenu: "Menampilkan _MENU_ hasil",
+				sInfoFiltered: " (hasil filter dari _MAX_ hasil)",
+				sEmptyTable: "Tidak ada data tersedia",
+				sLoadingRecords: "Memuat data ..."
+			},
+            columns: [
+				{"data": "id_segmen"},
+                {"data": "nim_pcl"},
+				{"data": "nama_kab"},
+                {"data": "nama_kec"},
+                {"data": "nama_desa"},
+                {"data": "status_segmen"},
+            ],
+            order: [[1, 'asc']],
+            responsive: true
+        });
+
+    });
+
     function get_reload(){
         $.ajax({
             url: "<?php echo base_url(); ?>/server/get_agregat_listing", //service
@@ -68,7 +80,7 @@
     $('.bar_div').on('click', '.cont', function(event){
         // var id = $(this).attr('id');
         var id = event.target.id;
-        table.ajax.url('<?php echo base_url() ?>' + 'server/get_detail_listing/' + id);
+        table.ajax.url('<?php echo base_url() ?>' + 'server/get_detail_ksa/' + id);
         table.ajax.reload();
         $('[href=\\#detail]').tab('show');
     });
@@ -77,6 +89,6 @@
         table.ajax.reload();
 		$('.btn').tooltip('hide');
     })
-	
+
    
 </script>

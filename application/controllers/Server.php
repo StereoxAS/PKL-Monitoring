@@ -580,7 +580,7 @@ function get_list_masalah_narasumber($kode=0) { // Database kedua
         function get_tableksatercacahdanprogresskabkot_control(){
             $kabkot_id=$this->input->get('kabkot_id');
             $tercacahdanprogress_ksa_kabkot = array();
-            $url_ksa="http://8a1cd868.ngrok.io/pklserver/api/Monitoring/kab_progress";
+            $url_ksa="http://26e7dd1e.ngrok.io/pklserver/api/Monitoring/kab_progress";
             $data_tableksatercacahdanprogresskabkot = file_get_contents($url_ksa);
             $data_tableksatercacahdanprogresskabkot_decode = json_decode($data_tableksatercacahdanprogresskabkot, true); // Turns it into an array, change the last argument to false to make it an object
             for($i=0; $i < count($data_tableksatercacahdanprogresskabkot_decode); $i++){
@@ -894,10 +894,13 @@ function get_list_masalah_narasumber($kode=0) { // Database kedua
 		function get_progress_ksa()
 		{
 			header('Content-Type: application/json');
-			$url_ksa_ws = "http://0f3957d8.ngrok.io/pklserver/api/monitoring/progress_ksa";
+			$url_ksa_ws = "http://26e7dd1e.ngrok.io/pklserver/api/monitoring/progress_ksa.json";
 			
 			$data = file_get_contents($url_ksa_ws);
-			$result = array('data' => $data);
+            $data_decode = json_decode($data, true); // Turns it into an array, change the last
+			$result = array('data' => $data_decode);
+			
+			// $aduh['data'][$i][0]=$data[$i]['id_segmen'];
 			echo json_encode($result); 
 			exit();
 		}
