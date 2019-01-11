@@ -995,9 +995,7 @@ WHERE a.nim = c.nim AND a.kategori = b.id AND a.status = '3' AND (a.kategori = '
 		 $SQL1="
 
             
-		SELECT a.nim, a.nama, b.nama as nama_kortim, c.nama_tim_real, a.id_wilayah, c.nim_koor FROM sipadu_mahasiswa a, sipadu_mahasiswa b, sipadu_timpencacah c WHERE a.id_tim=c.id_tim AND c.nim_koor=b.nim  ORDER BY a.nim DESC
-
-           
+		SELECT a.prodi,a.nim, a.nama, b.nama as nama_kortim, c.nama_tim_real, d.nama_wilayah, c.nim_koor, a.no_hp FROM sipadu_mahasiswa a, sipadu_mahasiswa b, sipadu_timpencacah c, sipadu_wilayah d WHERE a.id_tim=c.id_tim AND c.nim_koor=b.nim AND a.id_wilayah=d.id_wilayah ORDER BY a.nim DESC
             ";
 
         $Q = $db_jarlap->query($SQL1);

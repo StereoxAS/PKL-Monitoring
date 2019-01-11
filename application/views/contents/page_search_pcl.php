@@ -42,8 +42,8 @@
                             <tr>
                                 <th>NIM PCL</th>
                                 <th>Nama PCL</th>
-                                <th>NIM Kortim</th>
                                 <th>Nama Kortim</th>
+                                <th>No HP PCL</th>
                                 <th>Detail</th>
                             </tr>
 
@@ -54,8 +54,8 @@
                 <tr>
             <td><?php echo $msl["nim"]; ?></td>
             <td><?php echo $msl["nama"]; ?></td>
-            <td><?php echo $msl["nim_kortim"]; ?></td>
             <td><?php echo $msl["nama_kortim"]; ?></td>
+            <td><?php echo $msl["no_hp"]; ?></td>
             <td></td>
         </tr>
            <?php } ?>

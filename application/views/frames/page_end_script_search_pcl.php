@@ -23,10 +23,10 @@
                 '</div>' +
                 '<div class="row" style="margin-top:10px">' +
                     '<div class="col-lg-3">' +
-                        '<b>Nama Kortim: </b>' +
+                        '<b>Prodi: </b>' +
                     '</div>' +
                     '<div class="col-lg-9">' +
-                        data.nama_kortim +
+                        data.prodi +
                     '</div>' +
                 '</div>' +
                 '<div class="row" style="margin-top:10px">' +
@@ -34,7 +34,7 @@
                         '<b>Nama Tim: </b>' +
                     '</div>' +
                     '<div class="col-lg-9">' +
-                        data.id_tim +
+                        data.nama_tim_real +
                     '</div>' +
                 '</div>' +
                 '<div class="row" style="margin-top:10px">' +
@@ -42,15 +42,15 @@
                         '<b>Wilayah: </b>' +
                     '</div>' +
                     '<div class="col-lg-9">' +
-                        data.id_wilayah +
+                        data.nama_wilayah +
                     '</div>' +
                 '</div>' +
                 '<div class="row" style="margin-top:10px">' +
                     '<div class="col-lg-3">' +
-                        '<b>No HP: </b>' +
+                        '<b>Nim Kortim: </b>' +
                     '</div>' +
                     '<div class="col-lg-9">' +
-                        data.no_hp +
+                        data.nim_koor +
                     '</div>' +
                 '</div>' +
             '</div>' +
@@ -81,9 +81,9 @@
             columns: [
                 {"data": "nim"},
                 {"data": "nama"},
-                 {"data": "nim_kortim"},
+                 {"data": "nama_kortim"},
                 {
-                    "data": "nama_kortim"
+                    "data": "no_hp"
                    
                 },
                
