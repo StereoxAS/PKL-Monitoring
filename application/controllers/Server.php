@@ -607,7 +607,8 @@ function get_list_masalah_narasumber($kode=0) { // Database kedua
         function get_tableksatercacahdanprogresskabkot_control(){
             $kabkot_id=$this->input->get('kabkot_id');
             $tercacahdanprogress_ksa_kabkot = array();
-            $url_ksa="http://0f3957d8.ngrok.io/pklserver/api/Monitoring/kab_progress";
+
+            $url_ksa="http://26e7dd1e.ngrok.io/pklserver/api/Monitoring/kab_progress";
             $data_tableksatercacahdanprogresskabkot = file_get_contents($url_ksa);
             $data_tableksatercacahdanprogresskabkot_decode = json_decode($data_tableksatercacahdanprogresskabkot, true); // Turns it into an array, change the last argument to false to make it an object
             for($i=0; $i < count($data_tableksatercacahdanprogresskabkot_decode); $i++){
@@ -1061,61 +1062,33 @@ function get_list_masalah_narasumber($kode=0) { // Database kedua
                     ->set_content_type('application/json')
                     ->set_output(json_encode($progress_total));
         }
-
-        function get_tableprogresscacahkabkot_control(){
-            $kabkot_id=$this->input->get('kabkot_id');
-            $kabkot_id_new=$kabkot_id - 5100;
-            $data_tableprogresscacahkabkot=0;
-            $akumulasi_tercacah_nim = array();
-            //$data_tableprogresscacahkabkot_tercacah;
-            $data_tableprogresscacahkabkot_nim = $this->Server_Model->get_tableprogresscacahkabkot_nim_model($kabkot_id_new);
-            $data_tableprogresscacahkabkot_beban = $this->Server_Model->get_tableprogresscacahkabkot_beban_model($kabkot_id_new);
-            for($i=0; $i < count($data_tableprogresscacahkabkot_nim); $i++){
-                                $akumulasi_tercacah_nim[$i]=$this->Server_Model->get_tableprogresscacahkabkot_tercacah_nim_model(intval($data_tableprogresscacahkabkot_nim[$i]['nim']));
-				//$data_tableprogresscacahkabkot_tercacah = $data_tableprogresscacahkabkot_tercacah + intval($akumulasi_tercacah_nim[0]['hasil']);
-				};
-            for($i=0; $i < count($akumulasi_tercacah_nim); $i++){
-                                $data_tableprogresscacahkabkot += intval($akumulasi_tercacah_nim[$i]);
-				//$data_tableprogresscacahkabkot_tercacah = $data_tableprogresscacahkabkot_tercacah + intval($akumulasi_tercacah_nim[0]['hasil']);
-				};
-            $data_tableprogresscacahkabkot = $data_tableprogresscacahkabkot / intval($data_tableprogresscacahkabkot_beban[0]['beban']);
-            //$data_tableprogresscacahkabkot_tercacah=intval($akumulasi_tercacah_nim[0])+intval($akumulasi_tercacah_nim[1]);
-            //$data_tableprogresscacahkabkot=($data_tableprogresscacahkabkot_tercacah / $data_tabeprogresscacahkabkot_beban[0]['beban'])*100;
-            //$data_tableprogresscacahkabkot=round($data_tableprogresscacahkabkot,2);
-            $this->output
-                    ->set_content_type('application/json')
-                    ->set_output(json_encode($data_tableprogresscacahkabkot));
-        }
-        
-        function get_tableprogresscacahkecamatan_control(){
-            $kecamatan_id=$this->input->get('kecamatan_id');
-            $kabkot_id = $kecamatan_id / 1000;
-            $kabkot_id_floor = floor($kabkot_id);
-            $kabkot_id_new = $kabkot_id_floor - 5100;
-            $kecamatan_id_new = $kecamatan_id - ($kabkot_id_floor * 1000);
-            
-            $data_tableprogresscacahkecamatan=0;
-            $akumulasi_tercacah_nim = array();
-            //$data_tableprogresscacahkabkot_tercacah;
-            $data_tableprogresscacahkecamatan_nim = $this->Server_Model->get_tableprogresscacahkecamatan_nim_model($kabkot_id_new, $kecamatan_id_new);
-            $data_tableprogresscacahkecamatan_beban = $this->Server_Model->get_tableprogresscacahkecamatan_beban_model($kabkot_id_new, $kecamatan_id_new);
-            for($i=0; $i < count($data_tableprogresscacahkecamatan_nim); $i++){
-                                $akumulasi_tercacah_nim[$i]=$this->Server_Model->get_tableprogresscacahkecamatan_tercacah_nim_model(intval($data_tableprogresscacahkecamatan_nim[$i]['nim']));
-				//$data_tableprogresscacahkabkot_tercacah = $data_tableprogresscacahkabkot_tercacah + intval($akumulasi_tercacah_nim[0]['hasil']);
-				};
-            for($i=0; $i < count($akumulasi_tercacah_nim); $i++){
-                                $data_tableprogresscacahkecamatan += intval($akumulasi_tercacah_nim[$i]);
-				//$data_tableprogresscacahkabkot_tercacah = $data_tableprogresscacahkabkot_tercacah + intval($akumulasi_tercacah_nim[0]['hasil']);
-				};
-            $data_tableprogresscacahkecamatan = $data_tableprogresscacahkecamatan / intval($data_tableprogresscacahkecamatan_beban[0]['beban']);
-            //$data_tableprogresscacahkabkot_tercacah=intval($akumulasi_tercacah_nim[0])+intval($akumulasi_tercacah_nim[1]);
-            //$data_tableprogresscacahkabkot=($data_tableprogresscacahkabkot_tercacah / $data_tabeprogresscacahkabkot_beban[0]['beban'])*100;
-            //$data_tableprogresscacahkabkot=round($data_tableprogresscacahkabkot,2);
-            $this->output
-                    ->set_content_type('application/json')
-                    ->set_output(json_encode($data_tableprogresscacahkecamatan));
-        }
-        
-        
+		function get_progressksa()
+		{
+			$progress_ksa_ws = 0;
+			$url_ksa_ws = "http://0f3957d8.ngrok.io/pklserver/api/monitoring/progress_ksa";
+			$data_ksa_ws1 = file_get_contents($url_ksa_ws);
+			$data_ksa_ws2 = json_decode($data_ksa_ws2, true);
+			echo $data_ksa_ws2;
+		}
+		function get_progress_ksa()
+		{
+			header('Content-Type: application/json');
+			$url_ksa_ws = "http://26e7dd1e.ngrok.io/pklserver/api/monitoring/progress_ksa.json";
+			
+			$data = file_get_contents($url_ksa_ws);
+            $data_decode = json_decode($data, true); // Turns it into an array, change the last
+			$result = array('data' => $data_decode);
+			
+			// $aduh['data'][$i][0]=$data[$i]['id_segmen'];
+			echo json_encode($result); 
+			exit();
+		}
+		function get_detail_listing2($wilayah2 = NULL) 
+		{
+			header('Content-Type: application/json');
+			$data = $this->Server_Model->get_detail_listing($wilayah1);
+			$result = array('data' => $data);
+			echo json_encode($result); exit();
+		}
 }
 ?>
