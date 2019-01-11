@@ -8,14 +8,14 @@
 }
  */
 .page-header{
-	color: #141b5e;
+	color: #000000;
 	font-weight: 500;
 	font-size: 15pt;
-  border-bottom: 1px solid #141b5e;	
+  border-bottom: 1px solid #1e1e1e;	
 }
 
 .nama{
-	border-bottom: 5px solid #1DE9B6;
+	border-bottom: 5px solid #7d7d7d;
 }
 .navbar-default{
 background-color: rgba(0,0,0,0);
@@ -41,13 +41,13 @@ input, textarea, select, button {
 }
 /* .navbar{ height: 60px;} */
 .navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
-	background-color: #1DE9B6;
+	background-color: #1e1e1e;
 }
 
 
 
 .navbar-toggle{
-	background-color: #141b5e;
+	background-color: #7d7d7d;
 	border: 0px;
 }
 .navbar-default .navbar-toggle{
@@ -59,7 +59,7 @@ input, textarea, select, button {
 }
 
 .navbar-toggle:hover, .navbar-toggle:focus{
-	background-color: #00695c;
+	background-color: #7d7d7d;
 	border: 0px;
 }
 .navbar-default .navbar-toggle .icon-bar {
@@ -104,14 +104,14 @@ input, textarea, select, button {
 /*	background-color: #00cccc;*/
   -webkit-box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12), 0 3px 5px -1px rgba(0, 0, 0, 0.3);
           box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12), 0 3px 5px -1px rgba(0, 0, 0, 0.3);
-	background-color: #222937;
+	background: linear-gradient(45deg, #1e1e1e 0%, #7d7d7d 100%);
 	font-family: 'Open Sans', sans-serif;
 }
 
 .panel-default>.panel-heading{
-	background: #1DE9B6;
-	background: -webkit-linear-gradient(45deg, #141b5e 0%, #222937 100%);
-	background: linear-gradient(45deg, #141b5e 0%, #222937 100%);
+	background: #1e1e1e;
+	background: -webkit-linear-gradient(45deg, #1e1e1e 0%, #7d7d7d 100%);
+	background: linear-gradient(45deg, #1e1e1e 0%, #7d7d7d 100%);
 	color :#FFFFFF;
 	font-weight: 500;
 
@@ -148,9 +148,9 @@ body {
 	font-size: 12pt;
 }
 #wrapper{
-	background: #222937;
-	background: -webkit-linear-gradient(165deg, #222937 2%, #1DE9B6 55%);
-	background: linear-gradient(165deg, #222937 20%, #1DE9B6 55%);
+	background: #7d7d7d;
+	background: -webkit-linear-gradient(165deg, #1e1e1e 2%, #7d7d7d 55%);
+	background: linear-gradient(165deg, #1e1e1e 20%, #7d7d7d 55%);
 }
 #page-wrapper {
 /*	background-color: #FFFFFF;*/
@@ -167,20 +167,20 @@ body {
 }
 
 .features {
-	fill: #141b5e; /* ungu */
+	fill: #1e1e1e; /* ungu */
 	cursor: pointer;
 }
 
 .feature:hover {
-	fill: #1DE9B6; /* ijo tosca */
+	fill: #7d7d7d; /* ijo tosca */
 }
 
 .feature:active {
-	fill: #1DE9B6; /* ijo tosca */
+	fill: #7d7d7d; /* ijo tosca */
 }
 
 .active {
-	fill: #1DE9B6; /* ijo tosca */
+	fill: #7d7d7d; /* ijo tosca */
 }
 
 .boundary {
@@ -203,5 +203,5 @@ map.tooltip{
 }
 
 .namakabterpilih{
-	border-bottom: 5px solid #1DE9B6;
+	border-bottom: 5px solid #7d7d7d;
 }

@@ -174,6 +174,7 @@ class Server extends CI_Controller {
 
         $data = $this->Server_Model->get_detail_listing($wilayah1);
         $result = array('data' => $data);
+        var_dump($data);
         echo json_encode($result); exit();
     }
 	
