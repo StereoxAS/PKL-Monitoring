@@ -914,83 +914,95 @@ WHERE a.nim = c.nim AND a.kategori = b.id AND a.status = '3' AND (a.kategori = '
 
     function get_tabel_pcl(){
 
-    	$que = $this->db->query("
-		SELECT
-			t1.nim,
-		    t2.nama,
-		    t2.nama_koor as kortim,
-			GROUP_CONCAT(t1.kode_bs) as wilayah_kerja,
-			t1.kode_desa,
-			t1.nama_desa,
-			t1.kode_kecamatan,
-			t1.nama_kecamatan,
-			t1.kode_kabupaten,
-			t1.nama_kabupaten,
-			SUM(t3.jumlah) as jumlah,
-			SUM(t1.beban_cacah) as beban_cacah,
-			SUM(t3.jumlah / t1.beban_cacah) as progress
-		FROM
-			(
-				SELECT
-					dkb.id as kode_bs,
-					dkb.nama as nama_bs,
-					dkd.id as kode_desa,
-					dkd.nama as nama_desa,
-					dkc.id as kode_kecamatan,
-					dkc.nama as nama_kecamatan,
-					dkk.id as kode_kabupaten,
-					dkk.nama as nama_kabupaten,
-					dkb.beban_cacah,
-					dkb.nim
-				FROM
-					dummy_kode_bloksensus dkb
-					INNER JOIN dummy_kode_kelurahandesa dkd ON dkd.id = dkb.kelurahandesa
-					AND dkd.kecamatan = dkb.kecamatan
-					AND dkd.kabupaten = dkb.kabupaten
-					INNER JOIN dummy_kode_kecamatan dkc ON dkc.id = dkb.kecamatan
-					AND dkc.kabupaten = dkb.kabupaten
-					INNER JOIN dummy_kode_kabupaten dkk ON dkk.id = dkb.kabupaten
-			) t1
-			INNER JOIN (
-				SELECT
-					sm.nama,
-					sm.nim,
-					st.nim_koor,
-					sm1.nama as nama_koor
-				FROM
-					`pkl_sipadu_real`.`sipadu_mahasiswa` sm
-					INNER JOIN `pkl_sipadu_real`.`sipadu_timpencacah` st ON sm.id_tim = st.id_tim
-					INNER JOIN `pkl_sipadu_real`.`sipadu_mahasiswa` sm1 ON st.nim_koor = sm1.nim
-				WHERE
-					sm.nim <> st.nim_koor
-			) t2 ON t1.nim = t2.nim
-			LEFT OUTER JOIN (
-			SELECT
-					COUNT(DISTINCT(n.unique_id_instance)) as jumlah,
-					n.nim,
-					ks.BLOK1_GROUP1_B1_6 as nama_bs,
-					ks.BLOK1_B1_4 kode_desa,
-					ks.BLOK1_B1_3 as kode_kecamatan,
-					ks.BLOK1_B1_2 as kode_kabupaten
-		 		FROM
-					pkl_odk_real.VSENPKL56_15_1_BETA_CORE ks
-					INNER JOIN pkl_kortimpcl_real.notif n ON n.unique_id_instance = ks._URI
-				WHERE
-					n.status_isian = 'Clear'
-					AND n.status = 'Final'
-					AND n.form_id = 'vsenpkl56_15.1_beta'
-				GROUP BY
-					ks.BLOK1_GROUP1_B1_6
-			) t3 ON t1.kode_kabupaten = t3.kode_kabupaten
-			AND t1.kode_kecamatan = t3.kode_kecamatan
-			AND t1.kode_desa = t3.kode_desa
-			AND t1.nama_bs = t3.nama_bs
-			AND t1.nim = t3.nim
-		GROUP BY t1.nim");
+  //   	$que = $this->db->query("
+		// SELECT
+		// 	t1.nim,
+		//     t2.nama,
+		//     t2.nama_koor as kortim,
+		// 	GROUP_CONCAT(t1.kode_bs) as wilayah_kerja,
+		// 	t1.kode_desa,
+		// 	t1.nama_desa,
+		// 	t1.kode_kecamatan,
+		// 	t1.nama_kecamatan,
+		// 	t1.kode_kabupaten,
+		// 	t1.nama_kabupaten,
+		// 	SUM(t3.jumlah) as jumlah,
+		// 	SUM(t1.beban_cacah) as beban_cacah,
+		// 	SUM(t3.jumlah / t1.beban_cacah) as progress
+		// FROM
+		// 	(
+		// 		SELECT
+		// 			dkb.id as kode_bs,
+		// 			dkb.nama as nama_bs,
+		// 			dkd.id as kode_desa,
+		// 			dkd.nama as nama_desa,
+		// 			dkc.id as kode_kecamatan,
+		// 			dkc.nama as nama_kecamatan,
+		// 			dkk.id as kode_kabupaten,
+		// 			dkk.nama as nama_kabupaten,
+		// 			dkb.beban_cacah,
+		// 			dkb.nim
+		// 		FROM
+		// 			dummy_kode_bloksensus dkb
+		// 			INNER JOIN dummy_kode_kelurahandesa dkd ON dkd.id = dkb.kelurahandesa
+		// 			AND dkd.kecamatan = dkb.kecamatan
+		// 			AND dkd.kabupaten = dkb.kabupaten
+		// 			INNER JOIN dummy_kode_kecamatan dkc ON dkc.id = dkb.kecamatan
+		// 			AND dkc.kabupaten = dkb.kabupaten
+		// 			INNER JOIN dummy_kode_kabupaten dkk ON dkk.id = dkb.kabupaten
+		// 	) t1
+		// 	INNER JOIN (
+		// 		SELECT
+		// 			sm.nama,
+		// 			sm.nim,
+		// 			st.nim_koor,
+		// 			sm1.nama as nama_koor
+		// 		FROM
+		// 			`pkl_sipadu_real`.`sipadu_mahasiswa` sm
+		// 			INNER JOIN `pkl_sipadu_real`.`sipadu_timpencacah` st ON sm.id_tim = st.id_tim
+		// 			INNER JOIN `pkl_sipadu_real`.`sipadu_mahasiswa` sm1 ON st.nim_koor = sm1.nim
+		// 		WHERE
+		// 			sm.nim <> st.nim_koor
+		// 	) t2 ON t1.nim = t2.nim
+		// 	LEFT OUTER JOIN (
+		// 	SELECT
+		// 			COUNT(DISTINCT(n.unique_id_instance)) as jumlah,
+		// 			n.nim,
+		// 			ks.BLOK1_GROUP1_B1_6 as nama_bs,
+		// 			ks.BLOK1_B1_4 kode_desa,
+		// 			ks.BLOK1_B1_3 as kode_kecamatan,
+		// 			ks.BLOK1_B1_2 as kode_kabupaten
+		//  		FROM
+		// 			pkl_odk_real.VSENPKL56_15_1_BETA_CORE ks
+		// 			INNER JOIN pkl_kortimpcl_real.notif n ON n.unique_id_instance = ks._URI
+		// 		WHERE
+		// 			n.status_isian = 'Clear'
+		// 			AND n.status = 'Final'
+		// 			AND n.form_id = 'vsenpkl56_15.1_beta'
+		// 		GROUP BY
+		// 			ks.BLOK1_GROUP1_B1_6
+		// 	) t3 ON t1.kode_kabupaten = t3.kode_kabupaten
+		// 	AND t1.kode_kecamatan = t3.kode_kecamatan
+		// 	AND t1.kode_desa = t3.kode_desa
+		// 	AND t1.nama_bs = t3.nama_bs
+		// 	AND t1.nim = t3.nim
+		// GROUP BY t1.nim");
 
-    	$que = $que->result_array();
-    	return $que;
-    }
+  //   	$que = $que->result_array();
+  //   	return $que;
+  //   }
+    	$db_jarlap = $this->load->database('pkl58_sikoko', TRUE);
+		 $SQL1="
+
+            
+		SELECT a.nim, a.nama, b.nama as nama_kortim, c.nama_tim_real, a.id_wilayah, c.nim_koor FROM sipadu_mahasiswa a, sipadu_mahasiswa b, sipadu_timpencacah c WHERE a.id_tim=c.id_tim AND c.nim_koor=b.nim  ORDER BY a.nim DESC
+
+           
+            ";
+
+        $Q = $db_jarlap->query($SQL1);
+        return $Q->result_array();
+	}
 
     function get_tabel_unit_cacah(){
 
