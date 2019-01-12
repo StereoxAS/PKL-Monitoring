@@ -21,17 +21,18 @@
                             <div class="input-group col-lg-12">
                                 <div class="form-group col-lg-12">
                                     <label>Variabel Analisis</label>
-                                    <select class="form-control" id="select_variabel">
-        								<option selected disabled value="">Pilih Variabel</option>
-                                                                        <option value="">Var1</option>
-                                                                        <option value="">Var2</option>
-                                                                        <option value="">Var3</option>
+                                    <select class="form-control" id="formVar">
+        								<option selected disabled value="disable">Pilih Variabel</option>
+                                                                        <option value="Terkirim">Produktivitas (Terkirim)</option>
+                                                                        <option value="Confirmed">Produktivitas (Final)</option>
+                                                                        <option value="Var3">Var3</option>
+
                                     </select>
                                 </div>
                                 <br>
                                 <br>
                                 <div class="form-group col-lg-12">
-                                    <button class="btn btn-default btn-lg btn-block" type="button" id="btn_analisis">Cari</button>
+                                   
                                 </div>
                             </div>
                         </div>
@@ -48,7 +49,7 @@
 		<div class="col-lg-6">
                 <div class="panel panel-default">
                 <div class="panel-heading">
-                    Five Number Summary
+                    Pie Chart Diagram
                 </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">
@@ -92,8 +93,18 @@
                 </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">
-				
-		</div>
+					<table width="100%" class="table table-striped table-bordered table-hover" id="tabel_progress_ksa">
+						<thead>
+							<tr>
+								<th>NIM</th>
+								<th>Produktivitas</th>
+								<th>Confirmation</th>
+								<th>Status</th>								
+							</tr>
+						</thead>
+					</table>
+                </div>
+
 			<!-- /.panel -->
             </div>
 		
@@ -104,9 +115,12 @@
                     Boxplot
                 </div>
                 <!-- /.panel-heading -->
+                <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+                <div id="myDiv" style="height:600px;width:500px; margin:0 auto;" ></div>
+                
+
                 <div class="panel-body">
-				
-				
+								
 				</div>
 			<!-- /.panel -->
 		</div>
