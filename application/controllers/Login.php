@@ -22,6 +22,7 @@ class Login extends CI_Controller {
         $nim = $this->input->post('nim');
         $password = $this->input->post('password');
         $verifikasi = $this->mahasiswa_model->verifikasi($nim, $password);
+        
         if ($verifikasi==1) {
             $sekre = $this->mahasiswa_model->cek_sekre($nim);
             $this->session->set_userdata('nim',$nim);
@@ -29,12 +30,12 @@ class Login extends CI_Controller {
             $this->session->unset_userdata('email');
             $this->session->set_userdata('sekre',$sekre[0]['level']);
             $this->session->set_userdata('nama',$sekre[0]['nama']);
-            $this->session->set_userdata('email',$sekre[0]['email']);
-            $this->session->set_userdata('id_modul',$sekre[0]['id_modul']);
-            $this->session->set_userdata('id_seksi',$sekre[0]['id_seksi']);
-            $this->session->set_userdata('id_subseksi',$sekre[0]['id_subseksi']);
-            $this->session->set_userdata('narasumber',$sekre[0]['narasumber']);
-            $this->session->set_userdata('jabatan',$sekre[0]['jabatan']);
+//            $this->session->set_userdata('email',$sekre[0]['email']);
+//            $this->session->set_userdata('id_modul',$sekre[0]['id_modul']);
+//            $this->session->set_userdata('id_seksi',$sekre[0]['id_seksi']);
+//            $this->session->set_userdata('id_subseksi',$sekre[0]['id_subseksi']);
+//            $this->session->set_userdata('narasumber',$sekre[0]['narasumber']);
+//            $this->session->set_userdata('jabatan',$sekre[0]['jabatan']);
             redirect('Pkl');
         } else if($verifikasi ==2){
             $dosen = $this->mahasiswa_model->get_nip($email);            

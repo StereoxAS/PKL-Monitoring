@@ -76,17 +76,55 @@ class mahasiswa_model extends CI_Model {
 
 
     public function verifikasi($nim,$password){
-        $db_jarlap = $this->load->database('pkl_sipadu_real', TRUE);
-
-        $kode = $db_jarlap->get_where('sipadu_mahasiswa', array('nim' => $nim,'password' => md5($password)))->num_rows();
-        if($kode != 1){
-            $kode = $db_jarlap->get_where('sipadu_dosen', array('email' => $nim,'password' => md5($password)))->num_rows();
-            if ($kode==1) {
-                $kode = 2;
+        
+        $db_jarlap = $this->load->database('pkl58_sikoko', TRUE);
+        $kode = 0;
+        $kode = $db_jarlap->get_where('sipadu_mahasiswa', array('nim' => $nim))->num_rows();
+        $table_mahasiswa = 'sipadu_mahasiswa';
+        $where_mahasiswa = array (
+            'nim' => $nim
+        );
+        $data_mahasiswa = $this->load->database('pkl58_sikoko', TRUE)->where($where_mahasiswa)->get($table_mahasiswa)->result();
+        $hashed_password = $data_mahasiswa['0']->password;
+        $daftar_akses_nim = array("16.9124", "16.9468", "16.9214", "16.8999", "16.9082", "16.9288", "16.9212", "16.9277", "16.9175", "16.9134", 
+            "16.9275", "16.9338", "16.9278", 
+            "16.9184", "16.9418", "16.9048", "16.9121", "16.9120", "16.9090", "16.9166", "16.9202", 
+            "16.9404", "16.9309", "16.8974", "16.9286", "16.9227", "16.9386", "16.9036");
+                
+//        for ($i = 1; $i < count($daftar_akses_nim); $i++) {
+//            if($nim == $daftar_akses_nim[$i]){
+//            $kode = 1;
+//            }
+//        }        
+                
+        if ($kode == 1){
+            if (password_verify($password, $hashed_password)) {
+                $kode = 1;
+                }
+            } else {
+                $kode = 0;
             }
-        }
+        
+        
         return $kode;
-
+        
+        //,'password' => md5($password)
+        
+//        $db_jarlap2 = $this->load->database('pkl58_sikoko', TRUE);
+//            $db_jarlap2->select("password");
+//            $db_jarlap2->from("sipadu_mahasiswa");
+//            $db_jarlap2->where("nim = $nim");
+//            $hashed_password = $db_jarlap2->get();
+            
+            
+            
+        
+//        if($kode != 1){
+//            $kode = $db_jarlap->get_where('sipadu_dosen', array('email' => $nim))->num_rows();
+//            if ($kode==1) {
+//                $kode = 2;
+//            }
+//        }
     }
     public function get_rapat_administrasi(){
         if ( $this->session->userdata('nim') == '14.8191') {
@@ -137,9 +175,9 @@ public function get_detail_absensi($id){
     $Q->free_result();
 }
 public function cek_sekre($nim){
-    $db_jarlap = $this->load->database('pkl_sipadu_real', TRUE);
+    $db_jarlap = $this->load->database('pkl58_sikoko', TRUE);
     $SQL1 ="
-    SELECT nama, email, level, id_modul, id_seksi, id_subseksi, jabatan, password
+    SELECT nama, email, level, id_seksi, id_subseksi, password
     FROM sipadu_mahasiswa
     WHERE nim = '".$nim."'
     ";
