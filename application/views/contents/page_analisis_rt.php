@@ -48,11 +48,11 @@
 		<div class="col-lg-6">
                 <div class="panel panel-default">
                 <div class="panel-heading">
-                    Five Number Summary
+                    Pie Chart 
                 </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">
-				<table class="table table-stripped">
+				<!-- <table class="table table-stripped">
 				<tbody>
 					<tr>
 						<th><b>Min</b></th>
@@ -75,11 +75,83 @@
 						<td id="fivenumbersummary_max">0</td>
 					</tr>
 				</tbody>
-				</table>
-				
-				
+				</table> -->
 				<!-- /.panel-body -->
-				
+                                
+				<script async="" src="<?php echo base_url()?>resources/vendor/piechart/analytics.js.download"></script>
+                                <script src="<?php echo base_url()?>resources/vendor/piechart/Chart.bundle.js.download"></script><style type="text/css">/* Chart.js */
+                                @-webkit-keyframes chartjs-render-animation{from{opacity:0.99}to{opacity:1}}@keyframes chartjs-render-animation{from{opacity:0.99}to{opacity:1}}.chartjs-render-monitor{-webkit-animation:chartjs-render-animation 0.001s;animation:chartjs-render-animation 0.001s;}</style>
+                                <script src="<?php echo base_url()?>resources/vendor/piechart/utils.js.download"></script>
+                                <div id="canvas-holder" style="width:100%">
+                                <div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
+                                    <div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;">
+                                        <div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div>
+                                    </div>
+                                        <div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;">
+                                            <div style="position:absolute;width:200%;height:200%;left:0; top:0"></div>
+                                        </div>
+                                </div>
+                                    
+        <canvas id="chart-area" width="540" height="270" class="chartjs-render-monitor" style="display: block; width: 540px; height: 270px;"></canvas>
+	</div>
+	<!-- <button id="randomizeData">Randomize Data</button>
+	<button id="addDataset">Add Dataset</button>
+	<button id="removeDataset">Remove Dataset</button> -->
+	<script>
+		var randomScalingFactor = function() {
+			return Math.round(Math.random() * 100);
+		};
+
+		var config = {
+			type: 'pie',
+			data: {
+				datasets: [{
+					data: [
+						randomScalingFactor(),
+						randomScalingFactor(),
+						randomScalingFactor(),
+						randomScalingFactor(),
+						randomScalingFactor(),
+					],
+					backgroundColor: [
+						window.chartColors.red,
+						window.chartColors.orange,
+						window.chartColors.yellow,
+						window.chartColors.green,
+						window.chartColors.blue,
+					],
+					label: 'Dataset 1'
+				}],
+				labels: [
+					'Red',
+					'Orange',
+					'Yellow',
+					'Green',
+					'Blue'
+				]
+			},
+			options: {
+				responsive: true
+			}
+		};
+
+		window.onload = function() {
+			var ctx = document.getElementById('chart-area').getContext('2d');
+			window.myPie = new Chart(ctx, config);
+		};
+
+		document.getElementById('randomizeData').addEventListener('click', function() {
+			config.data.datasets.forEach(function(dataset) {
+				dataset.data = dataset.data.map(function() {
+					return randomScalingFactor();
+				});
+			});
+
+			window.myPie.update();
+		});
+
+	</script>
+                                
 				</div>
 			<!-- /.panel -->
 		</div>
@@ -191,6 +263,49 @@
      <script>
     $(document).ready(function(){
                 $('#formMap').change(function(){
+                    var fase_id = $(this).val();
+                    map.remove();
+                    $('#leafletScript').remove();
+                    $('#geojsonScript').remove();
+                    $('#mapleafletbaliScript').remove();
+                    
+                $.ajax({
+                url: "<?php echo base_url() ?>Server/get_maptematik_faseksa?fase_id="+fase_id,
+                method: "GET",
+                success: function(data) {
+                
+                var_buleleng = data[0]['buleleng'];
+                var_karang_asem = data[0]['karang_asem'];
+                var_klungkung = data[0]['klungkung'];
+                var_bangli = data[0]['bangli'];
+                var_gianyar = data[0]['gianyar'];
+                var_denpasar = data[0]['denpasar'];
+                var_badung = data[0]['badung'];
+                var_tabanan = data[0]['tabanan'];
+                var_jembrana = data[0]['jembrana'];   
+                console.log(data);
+                
+                $.getScript("<?php echo base_url()?>resources/vendor/mapleafletbali/leaflet.js", function() {
+                $('script:last').attr('id', 'leafletScript');
+                });
+                
+                $.getScript("<?php echo base_url()?>resources/vendor/mapleafletbali/bali.js", function() {
+                $('script:last').attr('id', 'geojsonScript');
+                });
+                
+                $.getScript("<?php echo base_url()?>resources/vendor/mapleafletbali/mapleafletbali.js", function() {
+                $('script:last').attr('id', 'mapleafletbaliScript');
+                });
+                
+                }                                                
+                                        });
+                                    });
+                                });
+    </script>   
+    
+    <script>
+    $(document).ready(function(){
+                $('#tampilkanMaptematik').click(function(){
                     var fase_id = $(this).val();
                     map.remove();
                     $('#leafletScript').remove();
