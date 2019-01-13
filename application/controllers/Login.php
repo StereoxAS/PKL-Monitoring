@@ -37,10 +37,10 @@ class Login extends CI_Controller {
 //            $this->session->set_userdata('narasumber',$sekre[0]['narasumber']);
 //            $this->session->set_userdata('jabatan',$sekre[0]['jabatan']);
             redirect('Pkl');
-        } else if($verifikasi ==2){
-            $dosen = $this->mahasiswa_model->get_nip($email);            
-            $this->session->set_userdata('email',$email);
-            $this->session->set_userdata('nim',$dosen[0]['nip']);                
+        } else if($verifikasi==2){
+            $dosen = $this->mahasiswa_model->get_nip($nim);  //$email          
+            $this->session->set_userdata('email',$nim);    //$email
+            //$this->session->set_userdata('nim',$dosen[0]['nip']);                
             redirect('Pkl');
         }else {
             redirect('login');
