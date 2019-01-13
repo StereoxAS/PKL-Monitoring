@@ -603,6 +603,31 @@ function get_list_masalah_narasumber($kode=0) { // Database kedua
                     ->set_content_type('application/json')
                     ->set_output(json_encode($data_tablenamakecamatan));
         }
+//atttry
+        function get_prodConfirmed_control(){
+            $statusprod=$this->input->get('statusprod');
+            $data_prodfinal = $this->Server_Model-> get_prodConfirmed_model($statusprod);
+            $this->output
+                    ->set_content_type('application/json')
+                    ->set_output(json_encode($data_prodfinal));
+        }
+        
+        function get_prodTerkirim_control(){
+            $statusprod=$this->input->get('statusprod');
+            $data_prodterkirim = $this->Server_Model-> get_prodTerkirim_model($statusprod);
+            $this->output
+                    ->set_content_type('application/json')
+                    ->set_output(json_encode($data_prodterkirim));
+        }
+
+        function get_outlier_control(){
+            $statusprod="Terkirim";
+            $data_prodterkirim = $this->Server_Model-> get_outlier_model($statusprod);
+            $this->output
+                    ->set_content_type('application/json')
+                    ->set_output(json_encode($data_prodterkirim));
+        }
+
         
         function get_tableksatercacahdanprogresskabkot_control(){
             $kabkot_id=$this->input->get('kabkot_id');
@@ -1082,7 +1107,10 @@ function get_list_masalah_narasumber($kode=0) { // Database kedua
 			// $aduh['data'][$i][0]=$data[$i]['id_segmen'];
 			echo json_encode($result); 
 			exit();
-		}
+        }
+
+
+
 		function get_detail_listing2($wilayah2 = NULL) 
 		{
 			header('Content-Type: application/json');

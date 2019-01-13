@@ -1116,7 +1116,40 @@ WHERE a.nim = c.nim AND a.kategori = b.id AND a.status = '3' AND (a.kategori = '
             $db_jarlap->where("id_kecamatan = $kecamatan_id");
             $que = $db_jarlap->get();
             return $que->result();
-        }
+		}
+//atttry		
+		function get_prodConfirmed_model($statusprod){
+			$db_jarlap = $this->load->database('pkl58_monitoring', TRUE);
+			$db_jarlap->select("produktivitas");
+			$db_jarlap->from("dummyproduktivitas");
+			$db_jarlap->where("statusConfirmed=$statusprod");
+			$que = $db_jarlap->get();
+            return $que->result();
+		}
+		
+		function get_prodTerkirim_model($statusprod){
+			$db_jarlap = $this->load->database('pkl58_monitoring', TRUE);
+			$db_jarlap->select("produktivitas");
+			$db_jarlap->from("dummyproduktivitas");
+			$db_jarlap->where("statusTerkirim=$statusprod");
+			$que = $db_jarlap->get();
+            return $que->result();
+		}
+
+		function get_outlier_model($statusprod){	
+						$que = $this->load->database('pkl58_monitoring', TRUE)->query("
+					SELECT
+								*
+					
+					FROM
+								dummyproduktivitas
+					WHERE
+								produktivitas>80
+					");
+			
+					$que = $que->result_array();
+					return $que;
+					}
         
         function get_progresscacahtotal_pencacahan_model(){
             
