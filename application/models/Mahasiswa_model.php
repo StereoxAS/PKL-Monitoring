@@ -75,7 +75,7 @@ class mahasiswa_model extends CI_Model {
     }
 
 
-    public function verifikasi($nim,$password){
+    public function verifikasi($nim, $email, $password){
         $kode = 0;
         
         $daftar_akses_email_dosen = array("rinaha@stis.ac.id", "dwybagus@stis.ac.id", "silfi_fitriana@stis.ac.id", "16.9083@stis.ac.id",
@@ -103,7 +103,7 @@ class mahasiswa_model extends CI_Model {
             'nim' => $nim
         );
         $where_dosen = array (
-            'email' => $nim
+            'email' => $email
         );
         $data_mahasiswa = $this->load->database('pkl58_sikoko', TRUE)->where($where_mahasiswa)->get($table_mahasiswa)->result();
         $data_dosen = $this->load->database('pkl58_sikoko', TRUE)->where($where_dosen)->get($table_dosen)->result();
@@ -112,27 +112,26 @@ class mahasiswa_model extends CI_Model {
        
         for ($i = 1; $i < count($daftar_akses_nim); $i++) {
             if($nim == $daftar_akses_nim[$i]){
-            $kode = 3;
+            $kode = $kode + 3;
             }
         }
         
         for ($i = 1; $i < count($daftar_akses_email_dosen); $i++) {
-            if($nim == $daftar_akses_email_dosen[$i]){
-            $kode = 4;
+            if($email == $daftar_akses_email_dosen[$i]){
+            $kode = $kode + 4;
             }
         }
         
         if ($kode == 3){
             if (password_verify($password, $hashed_password_mahasiswa)) {
-                $kode = 1;
-                return $kode;
+                $kode = $kode - 2;
+                
                 } 
         }
         
         if ($kode == 4){
             if (password_verify($password, $hashed_password_dosen)) {
-                $kode = 2;
-                return $kode;
+                $kode = $kode - 2;
                 } 
             }
             
@@ -469,7 +468,7 @@ public function savekode($nim,$kode) {
     $db_jarlap->update('mahasiswa',$koderes);
 }
 public function get_nip($email){
-    $db_jarlap = $this->load->database('pkl_sipadu_real', TRUE);
+    $db_jarlap = $this->load->database('pkl58_sikoko', TRUE);
     $SQL1 ="
     SELECT nip
     FROM sipadu_dosen
