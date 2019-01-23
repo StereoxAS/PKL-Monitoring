@@ -11,8 +11,6 @@
     var currentTab;
     var interv;
     var interv2;
-	var JSONprogresKSA;
-	var urlProgressKSA = "http://26e7dd1e.ngrok.io/pklserver/api/monitoring/progress_ksa";
 
 	
 	$(document).ready(function() {
@@ -20,7 +18,7 @@
         interv2 = setInterval(get_reload, 3000);
 
         table = $('#tabel_progress_ksa').DataTable({
-            ajax: '<?php echo base_url() ?>' + 'server/get_progress_ksa', // CHANGE ME
+            ajax: '<?php echo base_url() ?>' + 'server/get_progress_ksa', // refers ke Controller > Server > get_progress_ksa > Web Service dari KSA
 			displayLength: 25,
 			oLanguage: {
 				oPaginate: {
