@@ -596,7 +596,7 @@
     var interv;
     var interv2;
 	var JSONprogresKSA;
-	var urlProgressKSA = "http://26e7dd1e.ngrok.io/pklserver/api/monitoring/progress_ksa";
+	var urlProgressKSA = "http://2c0c8c69.ngrok.io/pklserver/api/monitoring/progress_ksa";
 
 	
 	$(document).ready(function() {

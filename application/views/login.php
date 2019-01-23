@@ -28,12 +28,12 @@
 		  	<div class="panel-body">
 		    	<?php echo form_open('login/verification', array('class' => 'form-horizontal col-md-12 text-center')); ?>
 					<div class="form-group">
-						    <?php echo form_input(array('id' => 'nim', 'name' => 'nim', 'class' => 'form-control', 'placeholder' => 'Masukkan NIM / Email')); ?>
+						    <?php echo form_input(array('id' => 'nim', 'name' => 'nim', 'class' => 'form-control', 'placeholder' => 'NIM (Mahasiswa) / Email (Dosen)')); ?>
 						    </div>
 					
 					
 					<div class="form-group">
-						    <?php echo form_input(array('id' => 'password', 'type' => 'password', 'name' => 'password', 'class' => 'form-control', 'placeholder' => 'Masukkan Password')); ?>
+						    <?php echo form_input(array('id' => 'password', 'type' => 'password', 'name' => 'password', 'class' => 'form-control', 'placeholder' => 'Password')); ?>
 					</div>
 					
 							<?php echo form_submit(array('id' => 'submit', 'class' => 'btn btn-default btn-block', 'value' => 'Login')); ?>

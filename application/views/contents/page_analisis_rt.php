@@ -205,7 +205,7 @@
 			<div class="panel panel-default">
                 <div class="panel-heading">
                      Map Tematik 
-                     <button class="pull-right" data-toggle="tooltip" data-placement="top" title="Tampilkan" id="tampilkanMaptematik"><i class="fa fa-refresh" style="color: black"></i></button> 
+                     <button class="pull-right" data-toggle="tooltip" data-placement="top" title="Refresh" id="tampilkanMaptematik"><i class="fa fa-refresh" style="color: black"></i></button> 
   		</div>
                             
                 <!-- /.panel-heading -->
@@ -239,15 +239,15 @@
 </div>
 <!-- /#page-wrapper -->
 <script>
-         var var_buleleng = 5;
-         var var_karang_asem = 15;
+         var var_buleleng = 0;
+         var var_karang_asem = 0;
          var var_klungkung = 25;
-         var var_bangli = 55;
-         var var_gianyar = 150;
+         var var_bangli = 0;
+         var var_gianyar = 100;
          var var_denpasar = 250;
          var var_badung = 750;
          var var_tabanan = 1000;
-         var var_jembrana = 1000;        
+         var var_jembrana = 0;        
 </script>
 
         <link rel="stylesheet" href="<?php echo base_url()?>resources/vendor/mapleafletbali/leaflet.css" />
@@ -288,15 +288,15 @@
                 method: "GET",
                 success: function(data) {
                 
-                var_buleleng = data[0]['buleleng'];
-                var_karang_asem = data[0]['karang_asem'];
+               // var_buleleng = data[0]['buleleng'];
+               //  var_karang_asem = data[0]['karang_asem'];
                 var_klungkung = data[0]['klungkung'];
-                var_bangli = data[0]['bangli'];
+               // var_bangli = data[0]['bangli'];
                 var_gianyar = data[0]['gianyar'];
                 var_denpasar = data[0]['denpasar'];
                 var_badung = data[0]['badung'];
                 var_tabanan = data[0]['tabanan'];
-                var_jembrana = data[0]['jembrana'];   
+               // var_jembrana = data[0]['jembrana'];   
                 console.log(data);
                 
                 $.getScript("<?php echo base_url()?>resources/vendor/mapleafletbali/leaflet.js", function() {
@@ -331,15 +331,15 @@
                 method: "GET",
                 success: function(data) {
                 
-                var_buleleng = data[0]['buleleng'];
-                var_karang_asem = data[0]['karang_asem'];
+               // var_buleleng = data[0]['buleleng'];
+               // var_karang_asem = data[0]['karang_asem'];
                 var_klungkung = data[0]['klungkung'];
-                var_bangli = data[0]['bangli'];
+               // var_bangli = data[0]['bangli'];
                 var_gianyar = data[0]['gianyar'];
                 var_denpasar = data[0]['denpasar'];
                 var_badung = data[0]['badung'];
                 var_tabanan = data[0]['tabanan'];
-                var_jembrana = data[0]['jembrana'];   
+               // var_jembrana = data[0]['jembrana'];   
                 console.log(data);
                 
                 $.getScript("<?php echo base_url()?>resources/vendor/mapleafletbali/leaflet.js", function() {
