@@ -132,167 +132,12 @@ class Server_Model extends CI_Model {
 		return $que->result_array();
 	}
         
-        function get_embedkabkot_model($kabkot_id){
-            
-            $db_jarlap = $this->load->database('pkl58_monitoring', TRUE);
-            $db_jarlap->select("embed_kabkot");
-            $db_jarlap->from("kabkot");
-            $db_jarlap->where("id_kabkot = $kabkot_id");
-            $que = $db_jarlap->get();
-            return $que->result();
-        }
         
-        function get_embedkecamatan_model($kecamatan_id){
-            
-            $db_jarlap = $this->load->database('pkl58_monitoring', TRUE);
-            $db_jarlap->select("embed_kecamatan");
-            $db_jarlap->from("kecamatan");
-            $db_jarlap->where("id_kecamatan = $kecamatan_id");
-            $que = $db_jarlap->get();
-            return $que->result();
-        }
         
-        function get_embedkecamatanawal_model($kecamatan_id){
-            
-            $db_jarlap = $this->load->database('pkl58_monitoring', TRUE);
-            $db_jarlap->select("embed_kecamatan");
-            $db_jarlap->from("kecamatan");
-            $db_jarlap->where("id_kecamatan = $kecamatan_id");
-            $que = $db_jarlap->get();
-            return $que->result();
-        }
         
-        function get_kabkot_model(){
-            $db_jarlap = $this->load->database('pkl58_monitoring', TRUE);
-            $db_jarlap->select("*");
-            $db_jarlap->from("kabkot");
-            $que = $db_jarlap->get();
-            return $que->result();
-        }
         
-        function get_tablenamakabkot_model($kabkot_id){
-            $db_jarlap = $this->load->database('pkl58_monitoring', TRUE);
-            $db_jarlap->select("nama_kabkot");
-            $db_jarlap->from("kabkot");
-            $db_jarlap->where("id_kabkot = $kabkot_id");
-            $que = $db_jarlap->get();
-            return $que->result();
-        }
         
-        function get_namakecamatanawal_model($kecamatan_id){
-            $db_jarlap = $this->load->database('pkl58_monitoring', TRUE);
-            $db_jarlap->select("nama_kecamatan");
-            $db_jarlap->from("kecamatan");
-            $db_jarlap->where("id_kecamatan = $kecamatan_id");
-            $que = $db_jarlap->get();
-            return $que->result();
-        }
         
-        function get_namakecamatan_model($kecamatan_id){
-            $db_jarlap = $this->load->database('pkl58_monitoring', TRUE);
-            $db_jarlap->select("nama_kecamatan");
-            $db_jarlap->from("kecamatan");
-            $db_jarlap->where("id_kecamatan = $kecamatan_id");
-            $que = $db_jarlap->get();
-            return $que->result();
-        }
-        
-        function get_tableksatercacahkabkot_model($kabkot_id){
-            //$db_jarlap = $this->load->database('pkl58_monitoring', TRUE);
-            //$db_jarlap->select("nama_kabkot");
-            //$db_jarlap->from("kabkot");
-            //$db_jarlap->where("id_kabkot = $kabkot_id");
-            //$que = $db_jarlap->get();
-            //return $que->result();
-            
-            $que = $this->load->database('pkl58_monitoring', TRUE)->query("
-		SELECT
-			t1.nim,
-		    t2.nama,
-		    t2.nama_koor as kortim,
-			GROUP_CONCAT(t1.kode_bs) as wilayah_kerja,
-			t1.kode_desa,
-			t1.nama_desa,
-			t1.kode_kecamatan,
-			t1.nama_kecamatan,
-			t1.kode_kabupaten,
-			t1.nama_kabupaten,
-			SUM(t3.jumlah) as jumlah,
-			SUM(t1.beban_cacah) as beban_cacah,
-			SUM(t3.jumlah / t1.beban_cacah) as progress
-		FROM
-			(
-				SELECT
-					dkb.id as kode_bs,
-					dkb.nama as nama_bs,
-					dkd.id as kode_desa,
-					dkd.nama as nama_desa,
-					dkc.id as kode_kecamatan,
-					dkc.nama as nama_kecamatan,
-					dkk.id as kode_kabupaten,
-					dkk.nama as nama_kabupaten,
-					dkb.beban_cacah,
-					dkb.nim
-				FROM
-					dummy_kode_bloksensus dkb
-					INNER JOIN dummy_kode_kelurahandesa dkd ON dkd.id = dkb.kelurahandesa
-					AND dkd.kecamatan = dkb.kecamatan
-					AND dkd.kabupaten = dkb.kabupaten
-					INNER JOIN dummy_kode_kecamatan dkc ON dkc.id = dkb.kecamatan
-					AND dkc.kabupaten = dkb.kabupaten
-					INNER JOIN dummy_kode_kabupaten dkk ON dkk.id = dkb.kabupaten
-			) t1
-			INNER JOIN (
-				SELECT
-					sm.nama,
-					sm.nim,
-					st.nim_koor,
-					sm1.nama as nama_koor
-				FROM
-					`pkl_sipadu_real`.`sipadu_mahasiswa` sm
-					INNER JOIN `pkl_sipadu_real`.`sipadu_timpencacah` st ON sm.id_tim = st.id_tim
-					INNER JOIN `pkl_sipadu_real`.`sipadu_mahasiswa` sm1 ON st.nim_koor = sm1.nim
-				WHERE
-					sm.nim <> st.nim_koor
-			) t2 ON t1.nim = t2.nim
-			LEFT OUTER JOIN (
-				SELECT
-					COUNT(DISTINCT(n.unique_id_instance)) as jumlah,
-					n.nim,
-					ks.BLOK1_GROUP1_B1_6 as nama_bs,
-					ks.BLOK1_B1_4 kode_desa,
-					ks.BLOK1_B1_3 as kode_kecamatan,
-					ks.BLOK1_B1_2 as kode_kabupaten
-		 		FROM
-					pkl_odk_real.VSENPKL56_15_1_BETA_CORE ks
-					INNER JOIN pkl_kortimpcl_real.notif n ON n.unique_id_instance = ks._URI
-				WHERE
-					n.status_isian = 'Clear'
-					AND n.status = 'Final'
-					AND n.form_id = 'vsenpkl56_15.1_beta'
-				GROUP BY
-					ks.BLOK1_GROUP1_B1_6
-			) t3 ON t1.kode_kabupaten = t3.kode_kabupaten
-			AND t1.kode_kecamatan = t3.kode_kecamatan
-			AND t1.kode_desa = t3.kode_desa
-			AND t1.nama_bs = t3.nama_bs
-			AND t1.nim = t3.nim
-		GROUP BY t1.nim");
-
-    	$que = $que->result_array();
-    	return $que;
-        }
-        
-         function get_allkecamatan_model($kabkot_id){
-            
-            $db_jarlap = $this->load->database('pkl58_monitoring', TRUE);
-            $db_jarlap->select("*");
-            $db_jarlap->from("kecamatan");
-            $db_jarlap->where(" id_kabkot = $kabkot_id ");
-            $que = $db_jarlap->get();
-            return $que->result();
-        }
-
 	function get_list_unit_cacah($wilayah1 = NULL, $wilayah2 = NULL, $wilayah3 = NULL, $wilayah4 = NULL) {
 		// CHANGE ME :
 		$where = array();
@@ -1069,83 +914,93 @@ WHERE a.nim = c.nim AND a.kategori = b.id AND a.status = '3' AND (a.kategori = '
 
     function get_tabel_pcl(){
 
-    	$que = $this->db->query("
-		SELECT
-			t1.nim,
-		    t2.nama,
-		    t2.nama_koor as kortim,
-			GROUP_CONCAT(t1.kode_bs) as wilayah_kerja,
-			t1.kode_desa,
-			t1.nama_desa,
-			t1.kode_kecamatan,
-			t1.nama_kecamatan,
-			t1.kode_kabupaten,
-			t1.nama_kabupaten,
-			SUM(t3.jumlah) as jumlah,
-			SUM(t1.beban_cacah) as beban_cacah,
-			SUM(t3.jumlah / t1.beban_cacah) as progress
-		FROM
-			(
-				SELECT
-					dkb.id as kode_bs,
-					dkb.nama as nama_bs,
-					dkd.id as kode_desa,
-					dkd.nama as nama_desa,
-					dkc.id as kode_kecamatan,
-					dkc.nama as nama_kecamatan,
-					dkk.id as kode_kabupaten,
-					dkk.nama as nama_kabupaten,
-					dkb.beban_cacah,
-					dkb.nim
-				FROM
-					dummy_kode_bloksensus dkb
-					INNER JOIN dummy_kode_kelurahandesa dkd ON dkd.id = dkb.kelurahandesa
-					AND dkd.kecamatan = dkb.kecamatan
-					AND dkd.kabupaten = dkb.kabupaten
-					INNER JOIN dummy_kode_kecamatan dkc ON dkc.id = dkb.kecamatan
-					AND dkc.kabupaten = dkb.kabupaten
-					INNER JOIN dummy_kode_kabupaten dkk ON dkk.id = dkb.kabupaten
-			) t1
-			INNER JOIN (
-				SELECT
-					sm.nama,
-					sm.nim,
-					st.nim_koor,
-					sm1.nama as nama_koor
-				FROM
-					`pkl_sipadu_real`.`sipadu_mahasiswa` sm
-					INNER JOIN `pkl_sipadu_real`.`sipadu_timpencacah` st ON sm.id_tim = st.id_tim
-					INNER JOIN `pkl_sipadu_real`.`sipadu_mahasiswa` sm1 ON st.nim_koor = sm1.nim
-				WHERE
-					sm.nim <> st.nim_koor
-			) t2 ON t1.nim = t2.nim
-			LEFT OUTER JOIN (
-			SELECT
-					COUNT(DISTINCT(n.unique_id_instance)) as jumlah,
-					n.nim,
-					ks.BLOK1_GROUP1_B1_6 as nama_bs,
-					ks.BLOK1_B1_4 kode_desa,
-					ks.BLOK1_B1_3 as kode_kecamatan,
-					ks.BLOK1_B1_2 as kode_kabupaten
-		 		FROM
-					pkl_odk_real.VSENPKL56_15_1_BETA_CORE ks
-					INNER JOIN pkl_kortimpcl_real.notif n ON n.unique_id_instance = ks._URI
-				WHERE
-					n.status_isian = 'Clear'
-					AND n.status = 'Final'
-					AND n.form_id = 'vsenpkl56_15.1_beta'
-				GROUP BY
-					ks.BLOK1_GROUP1_B1_6
-			) t3 ON t1.kode_kabupaten = t3.kode_kabupaten
-			AND t1.kode_kecamatan = t3.kode_kecamatan
-			AND t1.kode_desa = t3.kode_desa
-			AND t1.nama_bs = t3.nama_bs
-			AND t1.nim = t3.nim
-		GROUP BY t1.nim");
+  //   	$que = $this->db->query("
+		// SELECT
+		// 	t1.nim,
+		//     t2.nama,
+		//     t2.nama_koor as kortim,
+		// 	GROUP_CONCAT(t1.kode_bs) as wilayah_kerja,
+		// 	t1.kode_desa,
+		// 	t1.nama_desa,
+		// 	t1.kode_kecamatan,
+		// 	t1.nama_kecamatan,
+		// 	t1.kode_kabupaten,
+		// 	t1.nama_kabupaten,
+		// 	SUM(t3.jumlah) as jumlah,
+		// 	SUM(t1.beban_cacah) as beban_cacah,
+		// 	SUM(t3.jumlah / t1.beban_cacah) as progress
+		// FROM
+		// 	(
+		// 		SELECT
+		// 			dkb.id as kode_bs,
+		// 			dkb.nama as nama_bs,
+		// 			dkd.id as kode_desa,
+		// 			dkd.nama as nama_desa,
+		// 			dkc.id as kode_kecamatan,
+		// 			dkc.nama as nama_kecamatan,
+		// 			dkk.id as kode_kabupaten,
+		// 			dkk.nama as nama_kabupaten,
+		// 			dkb.beban_cacah,
+		// 			dkb.nim
+		// 		FROM
+		// 			dummy_kode_bloksensus dkb
+		// 			INNER JOIN dummy_kode_kelurahandesa dkd ON dkd.id = dkb.kelurahandesa
+		// 			AND dkd.kecamatan = dkb.kecamatan
+		// 			AND dkd.kabupaten = dkb.kabupaten
+		// 			INNER JOIN dummy_kode_kecamatan dkc ON dkc.id = dkb.kecamatan
+		// 			AND dkc.kabupaten = dkb.kabupaten
+		// 			INNER JOIN dummy_kode_kabupaten dkk ON dkk.id = dkb.kabupaten
+		// 	) t1
+		// 	INNER JOIN (
+		// 		SELECT
+		// 			sm.nama,
+		// 			sm.nim,
+		// 			st.nim_koor,
+		// 			sm1.nama as nama_koor
+		// 		FROM
+		// 			`pkl_sipadu_real`.`sipadu_mahasiswa` sm
+		// 			INNER JOIN `pkl_sipadu_real`.`sipadu_timpencacah` st ON sm.id_tim = st.id_tim
+		// 			INNER JOIN `pkl_sipadu_real`.`sipadu_mahasiswa` sm1 ON st.nim_koor = sm1.nim
+		// 		WHERE
+		// 			sm.nim <> st.nim_koor
+		// 	) t2 ON t1.nim = t2.nim
+		// 	LEFT OUTER JOIN (
+		// 	SELECT
+		// 			COUNT(DISTINCT(n.unique_id_instance)) as jumlah,
+		// 			n.nim,
+		// 			ks.BLOK1_GROUP1_B1_6 as nama_bs,
+		// 			ks.BLOK1_B1_4 kode_desa,
+		// 			ks.BLOK1_B1_3 as kode_kecamatan,
+		// 			ks.BLOK1_B1_2 as kode_kabupaten
+		//  		FROM
+		// 			pkl_odk_real.VSENPKL56_15_1_BETA_CORE ks
+		// 			INNER JOIN pkl_kortimpcl_real.notif n ON n.unique_id_instance = ks._URI
+		// 		WHERE
+		// 			n.status_isian = 'Clear'
+		// 			AND n.status = 'Final'
+		// 			AND n.form_id = 'vsenpkl56_15.1_beta'
+		// 		GROUP BY
+		// 			ks.BLOK1_GROUP1_B1_6
+		// 	) t3 ON t1.kode_kabupaten = t3.kode_kabupaten
+		// 	AND t1.kode_kecamatan = t3.kode_kecamatan
+		// 	AND t1.kode_desa = t3.kode_desa
+		// 	AND t1.nama_bs = t3.nama_bs
+		// 	AND t1.nim = t3.nim
+		// GROUP BY t1.nim");
 
-    	$que = $que->result_array();
-    	return $que;
-    }
+  //   	$que = $que->result_array();
+  //   	return $que;
+  //   }
+    	$db_jarlap = $this->load->database('pkl58_sikoko', TRUE);
+		 $SQL1="
+
+            
+		SELECT a.prodi,a.nim, a.nama, b.nama as nama_kortim, c.nama_tim_real, d.nama_wilayah, c.nim_koor, a.no_hp FROM sipadu_mahasiswa a, sipadu_mahasiswa b, sipadu_timpencacah c, sipadu_wilayah d WHERE a.id_tim=c.id_tim AND c.nim_koor=b.nim AND a.id_wilayah=d.id_wilayah ORDER BY a.nim DESC
+            ";
+
+        $Q = $db_jarlap->query($SQL1);
+        return $Q->result_array();
+	}
 
     function get_tabel_unit_cacah(){
 
@@ -1195,4 +1050,623 @@ WHERE a.nim = c.nim AND a.kategori = b.id AND a.status = '3' AND (a.kategori = '
                 ");
                 return $que->result();
         }
+        
+//////////////////////////////////////////////////////////ROZAN MODEL////////////////////////////////////////////////////////////////////////////
+        
+        function get_embedkabkot_model($kabkot_id){
+            
+            $db_jarlap = $this->load->database('pkl58_monitoring', TRUE);
+            $db_jarlap->select("embed_kabkot");
+            $db_jarlap->from("kabkot");
+            $db_jarlap->where("id_kabkot = $kabkot_id");
+            $que = $db_jarlap->get();
+            return $que->result();
+        }
+        
+        function get_embedkecamatan_model($kecamatan_id){
+            
+            $db_jarlap = $this->load->database('pkl58_monitoring', TRUE);
+            $db_jarlap->select("embed_kecamatan");
+            $db_jarlap->from("kecamatan");
+            $db_jarlap->where("id_kecamatan = $kecamatan_id");
+            $que = $db_jarlap->get();
+            return $que->result();
+        }
+        
+        function get_embedkecamatanawal_model($kecamatan_id){
+            
+            $db_jarlap = $this->load->database('pkl58_monitoring', TRUE);
+            $db_jarlap->select("embed_kecamatan");
+            $db_jarlap->from("kecamatan");
+            $db_jarlap->where("id_kecamatan = $kecamatan_id");
+            $que = $db_jarlap->get();
+            return $que->result();
+        }
+        
+        function get_kabkot_model(){
+            $db_jarlap = $this->load->database('pkl58_monitoring', TRUE);
+            $db_jarlap->select("*");
+            $db_jarlap->from("kabkot");
+            $que = $db_jarlap->get();
+            return $que->result();
+        }
+        
+        function get_tablenamakabkot_model($kabkot_id){
+            $db_jarlap = $this->load->database('pkl58_monitoring', TRUE);
+            $db_jarlap->select("nama_kabkot");
+            $db_jarlap->from("kabkot");
+            $db_jarlap->where("id_kabkot = $kabkot_id");
+            $que = $db_jarlap->get();
+            return $que->result();
+        }
+        
+        function get_namakecamatanawal_model($kecamatan_id){
+            $db_jarlap = $this->load->database('pkl58_monitoring', TRUE);
+            $db_jarlap->select("nama_kecamatan");
+            $db_jarlap->from("kecamatan");
+            $db_jarlap->where("id_kecamatan = $kecamatan_id");
+            $que = $db_jarlap->get();
+            return $que->result();
+        }
+        
+        function get_namakecamatan_model($kecamatan_id){
+            $db_jarlap = $this->load->database('pkl58_monitoring', TRUE);
+            $db_jarlap->select("nama_kecamatan");
+            $db_jarlap->from("kecamatan");
+            $db_jarlap->where("id_kecamatan = $kecamatan_id");
+            $que = $db_jarlap->get();
+            return $que->result();
+		}
+//atttry		
+		function get_prodConfirmed_model($statusprod){
+			$db_jarlap = $this->load->database('pkl58_monitoring', TRUE);
+			$db_jarlap->select("produktivitas");
+			$db_jarlap->from("dummyproduktivitas");
+			$db_jarlap->where("statusConfirmed=$statusprod");
+			$que = $db_jarlap->get();
+            return $que->result();
+		}
+		
+		function get_prodTerkirim_model($statusprod){
+			$db_jarlap = $this->load->database('pkl58_monitoring', TRUE);
+			$db_jarlap->select("produktivitas");
+			$db_jarlap->from("dummyproduktivitas");
+			$db_jarlap->where("statusTerkirim=$statusprod");
+			$que = $db_jarlap->get();
+            return $que->result();
+		}
+
+		function get_outlier_model($statusprod){	
+						$que = $this->load->database('pkl58_monitoring', TRUE)->query("
+					SELECT
+								*
+					
+					FROM
+								dummyproduktivitas
+					WHERE
+								produktivitas>80
+					");
+			
+					$que = $que->result_array();
+					return $que;
+					}
+        
+        function get_progresscacahtotal_pencacahan_model(){
+            
+        }
+        
+        function get_progresscacahtotal_ubinan_model(){
+            
+        }
+        
+        function get_progressperkabkot_model(){
+            
+        }
+        
+        function get_tableunitterlistingkabkot_model($kabkot_id_new){
+//            $db_jarlap = $this->load->database('pkl58_odk', TRUE);
+//            $db_jarlap->select("COUNT(*) AS unit_terlisting");
+//            $db_jarlap->from("dummy_kode_bloksensus INNER JOIN backup_datart ON dummy_kode_bloksensus.id = backup_datart.kodeBs");
+//            $db_jarlap->where("dummy_kode_bloksensus.kabupaten LIKE '%$kabkot_id_new'  AND backup_datart.keberadaanRuta<>0");
+//            $que = $db_jarlap->get();
+//            return $que->result();
+            
+            $que = $this->load->database('pkl58_odk', TRUE)->query("
+		SELECT
+                    COUNT(*) AS unit_terlisting
+		
+		FROM
+                    dummy_kode_bloksensus INNER JOIN backup_datart ON dummy_kode_bloksensus.id = backup_datart.kodeBs
+                WHERE
+                    dummy_kode_bloksensus.kabupaten LIKE '%$kabkot_id_new'  AND backup_datart.keberadaanRuta<>0
+		");
+
+    	$que = $que->result_array();
+    	return $que;
+        }
+        
+        function get_tableptnkptercacahkabkot_model($kabkot_id_new){
+//            $db_jarlap = $this->load->database('pkl58_odk', TRUE);
+//            $db_jarlap->select("COUNT(*) AS unit_terlisting");
+//            $db_jarlap->from("dummy_kode_bloksensus INNER JOIN backup_datart ON dummy_kode_bloksensus.id = backup_datart.kodeBs");
+//            $db_jarlap->where("dummy_kode_bloksensus.kabupaten LIKE '%$kabkot_id_new'  AND backup_datart.keberadaanRuta<>0");
+//            $que = $db_jarlap->get();
+//            return $que->result();
+            
+//            $que = $this->load->database('pkl58_odk', TRUE)->query("
+//		SELECT
+//                    COUNT(*) AS unit_terlisting
+//		
+//		FROM
+//                    dummy_kode_bloksensus INNER JOIN backup_datart ON dummy_kode_bloksensus.id = backup_datart.kodeBs
+//                WHERE
+//                    dummy_kode_bloksensus.kabupaten LIKE '%$kabkot_id_new'  AND backup_datart.keberadaanRuta<>0
+//		");
+//
+//    	$que = $que->result_array();
+//    	return $que;
+        }
+        
+        function get_tableprogresscacahkabkot_model($kabkot_id_new){
+//            $db_jarlap = $this->load->database('pkl58_odk', TRUE);
+//            $db_jarlap->select("COUNT(*) AS unit_terlisting");
+//            $db_jarlap->from("dummy_kode_bloksensus INNER JOIN backup_datart ON dummy_kode_bloksensus.id = backup_datart.kodeBs");
+//            $db_jarlap->where("dummy_kode_bloksensus.kabupaten LIKE '%$kabkot_id_new'  AND backup_datart.keberadaanRuta<>0");
+//            $que = $db_jarlap->get();
+//            return $que->result();
+            
+//            $que = $this->load->database('pkl58_odk', TRUE)->query("
+//		SELECT
+//                    COUNT(*) AS unit_terlisting
+//		
+//		FROM
+//                    dummy_kode_bloksensus INNER JOIN backup_datart ON dummy_kode_bloksensus.id = backup_datart.kodeBs
+//                WHERE
+//                    dummy_kode_bloksensus.kabupaten LIKE '%$kabkot_id_new'  AND backup_datart.keberadaanRuta<>0
+//		");
+//
+//    	$que = $que->result_array();
+//    	return $que;
+        }
+        
+        function get_tableprogressubinankabkot_model($kabkot_id_new){
+//            $db_jarlap = $this->load->database('pkl58_odk', TRUE);
+//            $db_jarlap->select("COUNT(*) AS unit_terlisting");
+//            $db_jarlap->from("dummy_kode_bloksensus INNER JOIN backup_datart ON dummy_kode_bloksensus.id = backup_datart.kodeBs");
+//            $db_jarlap->where("dummy_kode_bloksensus.kabupaten LIKE '%$kabkot_id_new'  AND backup_datart.keberadaanRuta<>0");
+//            $que = $db_jarlap->get();
+//            return $que->result();
+            
+//            $que = $this->load->database('pkl58_odk', TRUE)->query("
+//		SELECT
+//                    COUNT(*) AS unit_terlisting
+//		
+//		FROM
+//                    dummy_kode_bloksensus INNER JOIN backup_datart ON dummy_kode_bloksensus.id = backup_datart.kodeBs
+//                WHERE
+//                    dummy_kode_bloksensus.kabupaten LIKE '%$kabkot_id_new'  AND backup_datart.keberadaanRuta<>0
+//		");
+//
+//    	$que = $que->result_array();
+//    	return $que;
+        }
+        
+        function get_tableubinantercacahkabkot_model($kabkot_id_new){
+//            $db_jarlap = $this->load->database('pkl58_odk', TRUE);
+//            $db_jarlap->select("COUNT(*) AS unit_terlisting");
+//            $db_jarlap->from("dummy_kode_bloksensus INNER JOIN backup_datart ON dummy_kode_bloksensus.id = backup_datart.kodeBs");
+//            $db_jarlap->where("dummy_kode_bloksensus.kabupaten LIKE '%$kabkot_id_new'  AND backup_datart.keberadaanRuta<>0");
+//            $que = $db_jarlap->get();
+//            return $que->result();
+            
+//            $que = $this->load->database('pkl58_odk', TRUE)->query("
+//		SELECT
+//                    COUNT(*) AS unit_terlisting
+//		
+//		FROM
+//                    dummy_kode_bloksensus INNER JOIN backup_datart ON dummy_kode_bloksensus.id = backup_datart.kodeBs
+//                WHERE
+//                    dummy_kode_bloksensus.kabupaten LIKE '%$kabkot_id_new'  AND backup_datart.keberadaanRuta<>0
+//		");
+//
+//    	$que = $que->result_array();
+//    	return $que;
+        }
+        
+        function get_tableunitterlistingkecamatan_model($kabkot_id_new,$kecamatan_id_new){
+//            $db_jarlap = $this->load->database('pkl58_odk', TRUE);
+//            $db_jarlap->select("COUNT(*) AS unit_terlisting");
+//            $db_jarlap->from("dummy_kode_bloksensus INNER JOIN backup_datart ON dummy_kode_bloksensus.id = backup_datart.kodeBs");
+//            $db_jarlap->where("dummy_kode_bloksensus.kabupaten LIKE '%$kabkot_id_new'  AND backup_datart.keberadaanRuta<>0");
+//            $que = $db_jarlap->get();
+//            return $que->result();
+            
+            $que = $this->load->database('pkl58_odk', TRUE)->query("
+		SELECT
+                    COUNT(*) AS unit_terlisting
+		
+		FROM
+                    dummy_kode_bloksensus INNER JOIN backup_datart ON dummy_kode_bloksensus.id = backup_datart.kodeBs
+                WHERE
+                    dummy_kode_bloksensus.kabupaten LIKE '%$kabkot_id_new' AND dummy_kode_bloksensus.kecamatan LIKE '%$kecamatan_id_new'  AND backup_datart.keberadaanRuta<>0
+		");
+
+    	$que = $que->result_array();
+    	return $que;
+        }
+        
+        function get_tableubinantercacahkecamatan_model($kabkot_id_new,$kecamatan_id_new){
+//            $db_jarlap = $this->load->database('pkl58_odk', TRUE);
+//            $db_jarlap->select("COUNT(*) AS unit_terlisting");
+//            $db_jarlap->from("dummy_kode_bloksensus INNER JOIN backup_datart ON dummy_kode_bloksensus.id = backup_datart.kodeBs");
+//            $db_jarlap->where("dummy_kode_bloksensus.kabupaten LIKE '%$kabkot_id_new'  AND backup_datart.keberadaanRuta<>0");
+//            $que = $db_jarlap->get();
+//            return $que->result();
+            
+//            $que = $this->load->database('pkl58_odk', TRUE)->query("
+//		SELECT
+//                    COUNT(*) AS unit_terlisting
+//		
+//		FROM
+//                    dummy_kode_bloksensus INNER JOIN backup_datart ON dummy_kode_bloksensus.id = backup_datart.kodeBs
+//                WHERE
+//                    dummy_kode_bloksensus.kabupaten LIKE '%$kabkot_id_new' AND dummy_kode_bloksensus.kecamatan LIKE '%$kecamatan_id_new'  AND backup_datart.keberadaanRuta<>0
+//		");
+//
+//    	$que = $que->result_array();
+//    	return $que;
+        }
+        
+        function get_tableprogressubinankecamatan_model($kabkot_id_new,$kecamatan_id_new){
+//            $db_jarlap = $this->load->database('pkl58_odk', TRUE);
+//            $db_jarlap->select("COUNT(*) AS unit_terlisting");
+//            $db_jarlap->from("dummy_kode_bloksensus INNER JOIN backup_datart ON dummy_kode_bloksensus.id = backup_datart.kodeBs");
+//            $db_jarlap->where("dummy_kode_bloksensus.kabupaten LIKE '%$kabkot_id_new'  AND backup_datart.keberadaanRuta<>0");
+//            $que = $db_jarlap->get();
+//            return $que->result();
+            
+//            $que = $this->load->database('pkl58_odk', TRUE)->query("
+//		SELECT
+//                    COUNT(*) AS unit_terlisting
+//		
+//		FROM
+//                    dummy_kode_bloksensus INNER JOIN backup_datart ON dummy_kode_bloksensus.id = backup_datart.kodeBs
+//                WHERE
+//                    dummy_kode_bloksensus.kabupaten LIKE '%$kabkot_id_new' AND dummy_kode_bloksensus.kecamatan LIKE '%$kecamatan_id_new'  AND backup_datart.keberadaanRuta<>0
+//		");
+//
+//    	$que = $que->result_array();
+//    	return $que;
+        }
+        
+        function get_tableprogresscacahkecamatan_model($kabkot_id_new,$kecamatan_id_new){
+//            $db_jarlap = $this->load->database('pkl58_odk', TRUE);
+//            $db_jarlap->select("COUNT(*) AS unit_terlisting");
+//            $db_jarlap->from("dummy_kode_bloksensus INNER JOIN backup_datart ON dummy_kode_bloksensus.id = backup_datart.kodeBs");
+//            $db_jarlap->where("dummy_kode_bloksensus.kabupaten LIKE '%$kabkot_id_new'  AND backup_datart.keberadaanRuta<>0");
+//            $que = $db_jarlap->get();
+//            return $que->result();
+            
+//            $que = $this->load->database('pkl58_odk', TRUE)->query("
+//		SELECT
+//                    COUNT(*) AS unit_terlisting
+//		
+//		FROM
+//                    dummy_kode_bloksensus INNER JOIN backup_datart ON dummy_kode_bloksensus.id = backup_datart.kodeBs
+//                WHERE
+//                    dummy_kode_bloksensus.kabupaten LIKE '%$kabkot_id_new' AND dummy_kode_bloksensus.kecamatan LIKE '%$kecamatan_id_new'  AND backup_datart.keberadaanRuta<>0
+//		");
+//
+//    	$que = $que->result_array();
+//    	return $que;
+        }
+        
+        function get_tableptnkptercacahkecamatan_model($kabkot_id_new,$kecamatan_id_new){
+//            $db_jarlap = $this->load->database('pkl58_odk', TRUE);
+//            $db_jarlap->select("COUNT(*) AS unit_terlisting");
+//            $db_jarlap->from("dummy_kode_bloksensus INNER JOIN backup_datart ON dummy_kode_bloksensus.id = backup_datart.kodeBs");
+//            $db_jarlap->where("dummy_kode_bloksensus.kabupaten LIKE '%$kabkot_id_new'  AND backup_datart.keberadaanRuta<>0");
+//            $que = $db_jarlap->get();
+//            return $que->result();
+            
+//            $que = $this->load->database('pkl58_odk', TRUE)->query("
+//		SELECT
+//                    COUNT(*) AS unit_terlisting
+//		
+//		FROM
+//                    dummy_kode_bloksensus INNER JOIN backup_datart ON dummy_kode_bloksensus.id = backup_datart.kodeBs
+//                WHERE
+//                    dummy_kode_bloksensus.kabupaten LIKE '%$kabkot_id_new' AND dummy_kode_bloksensus.kecamatan LIKE '%$kecamatan_id_new'  AND backup_datart.keberadaanRuta<>0
+//		");
+//
+//    	$que = $que->result_array();
+//    	return $que;
+        }
+        
+        //function get_tableksatercacahkabkot_model($kabkot_id){
+            //$db_jarlap = $this->load->database('pkl58_monitoring', TRUE);
+            //$db_jarlap->select("nama_kabkot");
+            //$db_jarlap->from("kabkot");
+            //$db_jarlap->where("id_kabkot = $kabkot_id");
+            //$que = $db_jarlap->get();
+            //return $que->result();
+            
+            
+        //}
+        
+         function get_allkecamatan_model($kabkot_id){
+            
+            $db_jarlap = $this->load->database('pkl58_monitoring', TRUE);
+            $db_jarlap->select("*");
+            $db_jarlap->from("kecamatan");
+            $db_jarlap->where(" id_kabkot = $kabkot_id ");
+            $que = $db_jarlap->get();
+            return $que->result();
+        }
+
+        function get_totalubinanjembrana_model($kabkot_id){
+            $que = $this->load->database('', TRUE)->query("
+		SELECT
+                FROM
+                WHERE
+            ");
+            $que = $que->result_array();
+    	    return $que;
+        }
+        function get_totalcacahjembrana_model($kabkot_id){
+            $que = $this->load->database('', TRUE)->query("
+		SELECT
+                FROM
+                WHERE
+            ");
+            $que = $que->result_array();
+    	    return $que;
+        }
+        
+        function get_totalubinantabanan_model($kabkot_id){
+            $que = $this->load->database('', TRUE)->query("
+		SELECT
+                FROM
+                WHERE
+            ");
+            $que = $que->result_array();
+    	    return $que;
+        }
+        function get_totalcacahtabanan_model($kabkot_id){
+            $que = $this->load->database('', TRUE)->query("
+		SELECT
+                FROM
+                WHERE
+            ");
+            $que = $que->result_array();
+    	    return $que;
+        }
+        
+        function get_totalubinanbadung_model($kabkot_id){
+            $que = $this->load->database('', TRUE)->query("
+		SELECT
+                FROM
+                WHERE
+            ");
+            $que = $que->result_array();
+    	    return $que;
+        }
+        function get_totalcacahbadung_model($kabkot_id){
+            $que = $this->load->database('', TRUE)->query("
+		SELECT
+                FROM
+                WHERE
+            ");
+            $que = $que->result_array();
+    	    return $que;
+        }
+        
+        function get_totalubinangianyar_model($kabkot_id){
+            $que = $this->load->database('', TRUE)->query("
+		SELECT
+                FROM
+                WHERE
+            ");
+            $que = $que->result_array();
+    	    return $que;
+        }
+        function get_totalcacahgianyar_model($kabkot_id){
+            $que = $this->load->database('', TRUE)->query("
+		SELECT
+                FROM
+                WHERE
+            ");
+            $que = $que->result_array();
+    	    return $que;
+        }
+        
+        function get_totalubinanklungkung_model($kabkot_id){
+            $que = $this->load->database('', TRUE)->query("
+		SELECT
+                FROM
+                WHERE
+            ");
+            $que = $que->result_array();
+    	    return $que;
+        }
+        function get_totalcacahklungkung_model($kabkot_id){
+            $que = $this->load->database('', TRUE)->query("
+		SELECT
+                FROM
+                WHERE
+            ");
+            $que = $que->result_array();
+    	    return $que;
+        }
+        
+        function get_totalubinanbangli_model($kabkot_id){
+            $que = $this->load->database('', TRUE)->query("
+		SELECT
+                FROM
+                WHERE
+            ");
+            $que = $que->result_array();
+    	    return $que;
+        }
+        function get_totalcacahbangli_model($kabkot_id){
+            $que = $this->load->database('', TRUE)->query("
+		SELECT
+                FROM
+                WHERE
+            ");
+            $que = $que->result_array();
+    	    return $que;
+        }
+        
+        function get_totalubinankarang_asem_model($kabkot_id){
+            $que = $this->load->database('', TRUE)->query("
+		SELECT
+                FROM
+                WHERE
+            ");
+            $que = $que->result_array();
+    	    return $que;
+        }
+        function get_totalcacahkarang_asem_model($kabkot_id){
+            $que = $this->load->database('', TRUE)->query("
+		SELECT
+                FROM
+                WHERE
+            ");
+            $que = $que->result_array();
+    	    return $que;
+        }
+        
+        function get_totalubinanbuleleng_model($kabkot_id){
+            $que = $this->load->database('', TRUE)->query("
+		SELECT
+                FROM
+                WHERE
+            ");
+            $que = $que->result_array();
+    	    return $que;
+        }
+        function get_totalcacahbuleleng_model($kabkot_id){
+            $que = $this->load->database('', TRUE)->query("
+		SELECT
+                FROM
+                WHERE
+            ");
+            $que = $que->result_array();
+    	    return $que;
+        }
+        
+        function get_totalubinandenpasar_model($kabkot_id){
+            $que = $this->load->database('', TRUE)->query("
+		SELECT
+                FROM
+                WHERE
+            ");
+            $que = $que->result_array();
+    	    return $que;
+        }
+        function get_totalcacahdenpasar_model($kabkot_id){
+            $que = $this->load->database('', TRUE)->query("
+		SELECT
+                FROM
+                WHERE
+            ");
+            $que = $que->result_array();
+    	    return $que;
+        }
+        
+         function get_tableprogresscacahkabkot_nim_model($kabkot_id_new){
+             $que = $this->load->database('pkl58_odk', TRUE)->query("
+		SELECT
+                    DISTINCT nim 
+		FROM
+                    dummy_kode_bloksensus
+                WHERE
+                    kabupaten LIKE '%$kabkot_id_new' 
+		");
+
+    	$que = $que->result_array();
+    	return $que;
+        }
+        
+        function get_tableprogresscacahkabkot_beban_model($kabkot_id_new){
+            $que = $this->load->database('pkl58_odk', TRUE)->query("
+		SELECT
+                    COUNT(*) AS beban
+		FROM
+                    dummy_kode_bloksensus INNER JOIN backup_datast ON dummy_kode_bloksensus.id = backup_datast.kodeBs
+                WHERE
+                    dummy_kode_bloksensus.kabupaten LIKE '%$kabkot_id_new' 
+		");
+
+    	$que = $que->result_array();
+    	return $que;
+        }
+        
+        function get_tableprogresscacahkabkot_tercacah_nim_model($nim){
+            $db_jarlap = $this->load->database('pkl58_kortimpcl', TRUE);
+            $db_jarlap->select("COUNT(nim) AS hasil");
+            $db_jarlap->from("notif");
+            $db_jarlap->where("nim = $nim AND status = 'Final'"); //status clear dan final belum ditambahkan
+            $que = $db_jarlap->get();
+            return $que->result_array();
+        }
+        
+        function get_tableprogresscacahkecamatan_nim_model($kabkot_id_new, $kecamatan_id_new){
+             $que = $this->load->database('pkl58_odk', TRUE)->query("
+		SELECT
+                    DISTINCT nim 
+		FROM
+                    dummy_kode_bloksensus
+                WHERE
+                    kabupaten LIKE '%$kabkot_id_new' AND kecamatan LIKE '%$kecamatan_id_new'
+		");
+
+    	$que = $que->result_array();
+    	return $que;
+        }
+        
+        function get_tableprogresscacahkecamatan_beban_model($kabkot_id_new, $kecamatan_id_new){
+            $que = $this->load->database('pkl58_odk', TRUE)->query("
+		SELECT
+                    COUNT(*) AS beban
+		FROM
+                    dummy_kode_bloksensus INNER JOIN backup_datast ON dummy_kode_bloksensus.id = backup_datast.kodeBs
+                WHERE
+                    dummy_kode_bloksensus.kabupaten LIKE '%$kabkot_id_new' AND dummy_kode_bloksensus.kecamatan LIKE '%$kecamatan_id_new'
+		");
+
+    	$que = $que->result_array();
+    	return $que;
+        }
+        
+        function get_tableprogresscacahkecamatan_tercacah_nim_model($nim){
+            $db_jarlap = $this->load->database('pkl58_kortimpcl', TRUE);
+            $db_jarlap->select("COUNT(nim) AS hasil");
+            $db_jarlap->from("notif");
+             $db_jarlap->where("nim = $nim AND status = 'Final'");
+             //status clear dan final belum ditambahkan
+            $que = $db_jarlap->get();
+            return $que->result_array();
+        }
+        
+        function get_tableprogresscacahtotal_totalbeban_model() {
+            $db_jarlap = $this->load->database('pkl58_odk', TRUE);
+            $db_jarlap->select("COUNT(*) AS beban");
+            $db_jarlap->from("backup_datast");
+            
+            $que = $db_jarlap->get();
+            return $que->result_array();
+            
+        }
+        
+        function get_tableprogresscacahtotal_totaltercacah_model() {
+            $db_jarlap = $this->load->database('pkl58_kortimpcl', TRUE);
+            $db_jarlap->select("COUNT(nim) AS hasil");
+            $db_jarlap->from("notif");
+            $db_jarlap->where("status = 'Final'");
+            $que = $db_jarlap->get();
+            return $que->result_array();
+        }
+        
 }

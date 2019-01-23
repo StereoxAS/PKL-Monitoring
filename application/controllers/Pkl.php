@@ -61,78 +61,15 @@ class Pkl extends CI_Controller {
          
          */
         
-        function get_embedkecamatanawal_control(){
-            $kabkot_id=$this->input->get('kabkot_id');
-           // $embed_kabkot = $this->Server_Model->get_embed_kabkott($idembed);
-            $kecamatan_id = ( $kabkot_id * 1000 ) +10;
-            $data_embedkecamatanawal = $this->Server_Model->get_embedkecamatanawal_model($kecamatan_id);
-            $this->output
-                    ->set_content_type('application/json')
-                    ->set_output(json_encode($data_embedkecamatanawal));
-        }
         
-        function get_embedkecamatan_control(){
-            $kecamatan_id=$this->input->get('kecamatan_id');
-           // $embed_kabkot = $this->Server_Model->get_embed_kabkott($idembed);
-            $data_embedkecamatan = $this->Server_Model->get_embedkecamatan_model($kecamatan_id);
-            $this->output
-                    ->set_content_type('application/json')
-                    ->set_output(json_encode($data_embedkecamatan));
-        }
-        
-        function get_embedkabkot_control(){
-            $kabkot_id=$this->input->get('kabkot_id');
-           // $embed_kabkot = $this->Server_Model->get_embed_kabkott($idembed);
-            $data_embedkabkot = $this->Server_Model->get_embedkabkot_model($kabkot_id);
-            $this->output
-                    ->set_content_type('application/json')
-                    ->set_output(json_encode($data_embedkabkot));
-        }
-        
-        function get_allkecamatan_control(){
-            $kabkot_id=$this->input->get('kabkot_id');
-            $data_allkecamatan = $this->Server_Model->get_allkecamatan_model($kabkot_id);
-            $this->output
-                    ->set_content_type('application/json')
-                    ->set_output(json_encode($data_allkecamatan));
-        }
-        
-        function get_tablenamakabkot_control(){
-            $kabkot_id=$this->input->get('kabkot_id');
-            $data_tablenamakabkotawal = $this->Server_Model->get_tablenamakabkot_model($kabkot_id);
-            $this->output
-                    ->set_content_type('application/json')
-                    ->set_output(json_encode($data_tablenamakabkotawal));
-        }
-        
-        function get_tablenamakecamatanawal_control(){
-            $kabkot_id=$this->input->get('kabkot_id');
-            $kecamatan_id = ($kabkot_id * 1000) + 10;
-            $data_tablenamakecamatanawal = $this->Server_Model->get_namakecamatanawal_model($kecamatan_id);
-            $this->output
-                    ->set_content_type('application/json')
-                    ->set_output(json_encode($data_tablenamakecamatanawal));
-        }
-        
-        function get_tablenamakecamatan_control(){
-            $kecamatan_id=$this->input->get('kecamatan_id');
-            $data_tablenamakecamatan = $this->Server_Model->get_namakecamatan_model($kecamatan_id);
-            $this->output
-                    ->set_content_type('application/json')
-                    ->set_output(json_encode($data_tablenamakecamatan));
-        }
-        
-        function get_tableksatercacahkabkot_control(){
-            $kabkot_id=$this->input->get('kabkot_id');
-            $data_tableksatercacahkankot = $this->Server_Model->get_tableksatercacahkabkot_model($kabkot_id);
-            $this->output
-                    ->set_content_type('application/json')
-                    ->set_output(json_encode($data_tableksatercacahkabkot));
-        }
+
+//        function get_progressperkabkot_control(){
+//            
+//        }
         
 	function dashboard(){
-		$data['autocomplete_nav'] = $this->set_autocomplete('pcl');
-		$data['beban_cacah'] = $this->Server_Model->get_beban_cacah();
+		//$data['autocomplete_nav'] = $this->set_autocomplete('pcl');
+		//$data['beban_cacah'] = $this->Server_Model->get_beban_cacah();
                 $data['all_kabkot'] = $this->Server_Model->get_kabkot_model();
                 /*$kakakoko = $this->input->post('kabkot_id');
                 $data['kkprint']=$kakakoko;
@@ -186,7 +123,7 @@ class Pkl extends CI_Controller {
 	function search_pcl($nim = NULL){
 		$data['autocomplete_nav'] = $this->set_autocomplete('pcl');
 		$data['nim'] = $nim;
-		$data['coba']=$this->Server_Model->get_autocomplete_pcl();
+		$data['coba']=$this->Server_Model->get_tabel_pcl();
 		//print_r($data['coba']);
 
 		$this->load->view('frames/page_head');

@@ -75,18 +75,90 @@ class mahasiswa_model extends CI_Model {
     }
 
 
-    public function verifikasi($nim,$password){
-        $db_jarlap = $this->load->database('pkl_sipadu_real', TRUE);
-
-        $kode = $db_jarlap->get_where('sipadu_mahasiswa', array('nim' => $nim,'password' => md5($password)))->num_rows();
-        if($kode != 1){
-            $kode = $db_jarlap->get_where('sipadu_dosen', array('email' => $nim,'password' => md5($password)))->num_rows();
-            if ($kode==1) {
-                $kode = 2;
+    public function verifikasi($nim, $email, $password){
+        $kode = 0;
+        
+        $daftar_akses_email_dosen = array("rinaha@stis.ac.id", "dwybagus@stis.ac.id", "silfi_fitriana@stis.ac.id", "16.9083@stis.ac.id",
+    "harwink@stis.ac.id","odry_syafwil@stis.ac.id","walujadi@stis.ac.id","suryanto@stis.ac.id","opan_97@stis.ac.id","budiasih@stis.ac.id",
+    "indra@stis.ac.id","haiyinah_wijaya@yahoo.com","dewip@stis.ac.id","waris@stis.ac.id","yulianto@stis.ac.id","jeffryrhs@stis.ac.id",
+    "setiadi@stis.ac.id","titik@stis.ac.id","sisi@stis.ac.id","hardius@stis.ac.id","dokhi@stis.ac.id","sriherwanto@stis.ac.id","erni@stis.ac.id",
+    "arcana@stis.ac.id","theo@stis.ac.id","retna@stis.ac.id","sitim@stis.ac.id","nurcahyo@stis.ac.id","anang@stis.ac.id","nurseto@stis.ac.id",
+    "m.ari@stis.ac.id","sukim@stis.ac.id","firdaus@stis.ac.id","sofyan@stis.ac.id","praze@stis.ac.id","agung@stis.ac.id","wahyudin@stis.ac.id",
+    "ernapasaribu@stis.ac.id","timbang@stis.ac.id","nasrudin@stis.ac.id","ak.monika@stis.ac.id","lia@stis.ac.id","neli@stis.ac.id","noviabudi@stis.ac.id",
+    "lizakurnia@stis.ac.id","setia.pramana@stis.ac.id","soegie@stis.ac.id","atis@stis.ac.id","byuniarto@stis.ac.id","budy@stis.ac.id","toza@stis.ac.id",
+    "robertk@stis.ac.id","winih@stis.ac.id","krismanti@stis.ac.id","ekaria@stis.ac.id","febri@stis.ac.id","azka@stis.ac.id","arywahyu@stis.ac.id",
+    "efridiah@stis.ac.id","raninoor@stis.ac.id","rifka.hakim@stis.ac.id","tria@stis.ac.id","siskarossa@stis.ac.id","aisyah.fy@stis.ac.id",
+    "risnij@stis.ac.id","faridr@stis.ac.id","ibnu@stis.ac.id","ikayuni@stis.ac.id","raysastri@stis.ac.id","takdir@stis.ac.id","gamaputra@stis.ac.id",
+    "rinirahani@stis.ac.id","sitimariyah@stis.ac.id","avi@stis.ac.id","lutfim@stis.ac.id", "vbnm@stis.ac.id");
+        
+        $daftar_akses_nim = array("16.9124", "16.9468", "16.9214", "16.8999", "16.9082", "16.9288", "16.9212", "16.9277", "16.9175", "16.9134", 
+            "16.9275", "16.9338", "16.9278", 
+            "16.9184", "16.9418", "16.9048", "16.9121", "16.9120", "16.9090", "16.9166", "16.9202", 
+            "16.9404", "16.9309", "16.8974", "16.9286", "16.9227", "16.9386", "16.9036", 
+            "16.1234");
+        
+        $table_mahasiswa = 'sipadu_mahasiswa';
+        $table_dosen = 'sipadu_dosen';
+        $where_mahasiswa = array (
+            'nim' => $nim
+        );
+        $where_dosen = array (
+            'email' => $email
+        );
+        $data_mahasiswa = $this->load->database('pkl58_sikoko', TRUE)->where($where_mahasiswa)->get($table_mahasiswa)->result();
+        $data_dosen = $this->load->database('pkl58_sikoko', TRUE)->where($where_dosen)->get($table_dosen)->result();
+        $hashed_password_mahasiswa = $data_mahasiswa['0']->password;
+        $hashed_password_dosen = $data_dosen['0']->password;
+       
+        for ($i = 1; $i < count($daftar_akses_nim); $i++) {
+            if($nim == $daftar_akses_nim[$i]){
+            $kode = $kode + 3;
             }
         }
-        return $kode;
-
+        
+        for ($i = 1; $i < count($daftar_akses_email_dosen); $i++) {
+            if($email == $daftar_akses_email_dosen[$i]){
+            $kode = $kode + 4;
+            }
+        }
+        
+        if ($kode == 3){
+            if (password_verify($password, $hashed_password_mahasiswa)) {
+                $kode = $kode - 2;
+                
+                } 
+        }
+        
+        if ($kode == 4){
+            if (password_verify($password, $hashed_password_dosen)) {
+                $kode = $kode - 2;
+                } 
+            }
+            
+//        $db_jarlap = $this->load->database('pkl58_sikoko', TRUE);
+//        $kode = $db_jarlap->get_where('sipadu_mahasiswa', array('nim' => $nim))->num_rows();
+        
+         
+            return $kode;
+        
+        
+        //,'password' => md5($password)
+        
+//        $db_jarlap2 = $this->load->database('pkl58_sikoko', TRUE);
+//            $db_jarlap2->select("password");
+//            $db_jarlap2->from("sipadu_mahasiswa");
+//            $db_jarlap2->where("nim = $nim");
+//            $hashed_password = $db_jarlap2->get();
+            
+            
+            
+        
+//        if($kode != 1){
+//            $kode = $db_jarlap->get_where('sipadu_dosen', array('email' => $nim))->num_rows();
+//            if ($kode==1) {
+//                $kode = 2;
+//            }
+//        }
     }
     public function get_rapat_administrasi(){
         if ( $this->session->userdata('nim') == '14.8191') {
@@ -137,9 +209,9 @@ public function get_detail_absensi($id){
     $Q->free_result();
 }
 public function cek_sekre($nim){
-    $db_jarlap = $this->load->database('pkl_sipadu_real', TRUE);
+    $db_jarlap = $this->load->database('pkl58_sikoko', TRUE);
     $SQL1 ="
-    SELECT nama, email, level, id_modul, id_seksi, id_subseksi, jabatan, password
+    SELECT nama, email, level, id_seksi, id_subseksi, password
     FROM sipadu_mahasiswa
     WHERE nim = '".$nim."'
     ";
@@ -396,9 +468,9 @@ public function savekode($nim,$kode) {
     $db_jarlap->update('mahasiswa',$koderes);
 }
 public function get_nip($email){
-    $db_jarlap = $this->load->database('pkl_sipadu_real', TRUE);
+    $db_jarlap = $this->load->database('pkl58_sikoko', TRUE);
     $SQL1 ="
-    SELECT nip
+    SELECT nama, nip
     FROM sipadu_dosen
     WHERE email = '".$email."'
     ";

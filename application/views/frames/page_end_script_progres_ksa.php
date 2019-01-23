@@ -11,54 +11,40 @@
     var currentTab;
     var interv;
     var interv2;
+	var JSONprogresKSA;
+	var urlProgressKSA = "http://26e7dd1e.ngrok.io/pklserver/api/monitoring/progress_ksa";
 
-    $(document).ready(function() 
-	{
+	
+	$(document).ready(function() {
 		$('.btn').tooltip();
         interv2 = setInterval(get_reload, 3000);
 
-        table = $('#tabel_progress_ksa').DataTable(
-		{
-            ajax: '<?php echo base_url() ?>' + 'server/get_detail_ksa', // CHANGE ME
+        table = $('#tabel_progress_ksa').DataTable({
+            ajax: '<?php echo base_url() ?>' + 'server/get_progress_ksa', // CHANGE ME
 			displayLength: 25,
-			oLanguage: 
-			{
-				oPaginate: 
-				{
-					sFirst		: "Pertama",
-					sLast		: "Terakhir",
-					sNext		: "Berikutnya",
-					sPrevious	: "Sebelumnya",
+			oLanguage: {
+				oPaginate: {
+					sFirst: "Pertama",
+					sLast: "Terakhir",
+					sNext: "Berikutnya",
+					sPrevious: "Sebelumnya",
 				},
-				sSearch			: "Cari",
-				sInfo			: "Menampilkan _START_ sampai _END_ dari _TOTAL_ hasil",
-				sInfoEmpty		: "Tidak ada hasil ditemukan",
-				sZeroRecords	: "Tidak ada hasil ditemukan",
-				sLengthMenu		: "Menampilkan _MENU_ hasil",
-				sInfoFiltered	: " (hasil filter dari _MAX_ hasil)",
-				sEmptyTable		: "Tidak ada data tersedia",
-				sLoadingRecords	: "Memuat data ..."
+				sSearch: "Cari",
+				sInfo: "Menampilkan _START_ sampai _END_ dari _TOTAL_ hasil",
+				sInfoEmpty: "Tidak ada hasil ditemukan",
+				sZeroRecords: "Tidak ada hasil ditemukan",
+				sLengthMenu: "Menampilkan _MENU_ hasil",
+				sInfoFiltered: " (hasil filter dari _MAX_ hasil)",
+				sEmptyTable: "Tidak ada data tersedia",
+				sLoadingRecords: "Memuat data ..."
 			},
             columns: [
-                {"data": "nim"},
-                {"data": "nama"},
+				{"data": "id_segmen"},
+                {"data": "nim_pcl"},
+				{"data": "nama_kab"},
                 {"data": "nama_kec"},
                 {"data": "nama_desa"},
-                // {"data": "id_status"},
-                {
-                    "data": "id_status",
-                    render:function (data, type, full, meta) 
-					{
-                        if (data == 0 || data == null) 
-						{
-                            return "Belum Disetujui";
-                        }
-						else
-						{
-                            return "Disetujui";
-                        }
-                    }
-                },
+                {"data": "status_segmen"},
             ],
             order: [[1, 'asc']],
             responsive: true
@@ -94,7 +80,7 @@
     $('.bar_div').on('click', '.cont', function(event){
         // var id = $(this).attr('id');
         var id = event.target.id;
-        table.ajax.url('<?php echo base_url() ?>' + 'server/get_detail_listing/' + id);
+        table.ajax.url('<?php echo base_url() ?>' + 'server/get_detail_ksa/' + id);
         table.ajax.reload();
         $('[href=\\#detail]').tab('show');
     });
@@ -104,4 +90,5 @@
 		$('.btn').tooltip('hide');
     })
 
+   
 </script>

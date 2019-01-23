@@ -25,7 +25,7 @@ body {
 	margin-top: 15px;
 }
 	.login-form > section a {
-		color: #f1f1f1;
+		color: #7d7d7d;
                 
 	}
 .login-form > section:first-child {
@@ -36,12 +36,12 @@ body {
 .login-form .panel {
 	background: rgba(50, 50, 50, 0.4) !important; 
 	border-radius: 0 !important;
-        border-color: #f1f1f1;
+        border-color: #7d7d7d;
 	-moz-border-radius: 0;
 	-webkit-border-radius: 0;
-	-webkit-box-shadow: 0 3px 3px 0 rgba(50, 50, 50, 0.2) !important;
-	   -moz-box-shadow: 0 3px 3px 0 rgba(50, 50, 50, 0.2) !important;
-	        box-shadow: 0 3px 3px 0 rgba(50, 50, 50, 0.2) !important;
+	-webkit-box-shadow: 0 3px 3px 0 rgba(50, 50, 50, 0.8) !important;
+	   -moz-box-shadow: 0 3px 3px 0 rgba(50, 50, 50, 0.8) !important;
+	        box-shadow: 0 3px 3px 0 rgba(50, 50, 50, 0.8) !important;
 }
 	.login-form .panel .panel-body {
 		padding: 25px !important;
@@ -50,15 +50,15 @@ body {
 	.login-form .panel .panel-footer {
 		padding: 15px 25px !important;
 		border-top: none !important;
-		background: #e5e5e5 !important;
+		background: #7d7d7d !important;
 	}
 		.login-form .panel .panel-footer a {
-			color: #898a8a !important;
+			color: #1e1e1e !important;
 		}
 	
 form[role=login] {
 	font: 13px/2.2em Lato, serif;
-	color: #3f3f3f;
+	color: #1e1e1e;
 }	
 	form[role=login] label {
 		font-size: 15px;
@@ -77,9 +77,9 @@ form[role=login] {
                 
 	}
 	form[role=login] input {
-		color: #3f3f3f; 
-		background: #898a8a; 
-		border: 1px solid #3f3f3f; 
+		color: #1e1e1e; 
+		background: #7d7d7d; 
+		border: 1px solid #1e1e1e; 
 		border-radius: 0;
 		-webkit-box-shadow: inset 0 2px 2px 0 rgba(150, 150, 150, .1);
 		   -moz-box-shadow: inset 0 2px 2px 0 rgba(150, 150, 150, .1);
@@ -92,7 +92,7 @@ form[role=login] {
 	
 .btn-default {
 	color: black;
-	background-color: #f1f1f1; 
+	background-color: #dadada; 
 	border: none;
 }
 
