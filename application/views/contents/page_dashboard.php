@@ -11,12 +11,12 @@
 
           <div class="col-lg-12">
             <div class="panel panel-default">
-              <div class="panel-heading">Peta Progress</div>
+              <div class="panel-heading">Progress Agregat Wilayah</div> <!--Peta Progress-->
 			  <div class="panel-body">
 			  <div class="col-lg-6">
                           <div>
                                 <p>
-                                Cari Kabupaten / Kota
+                                Cari Kab./Kota
                                 <!-- <form action ="" method="POST"> -->
                                 <select name="formKabkot" id="formKabkot">
                                     <option selected disabled value="">...</option>
@@ -39,7 +39,7 @@
                                     <table class="table table-bordered">
 					<thead>
 					  <tr>
-						<th>Kabupaten / Kota</th>
+						<th>Kab./Kota</th>
                                                 <th>Unit KSA Tercacah</th>
                                                 <th>Progress KSA</th>
                                                 <th>Unit Ubinan Tercacah</th>
@@ -61,14 +61,16 @@
                                 <table class="table table-bordered">
 					<thead>
 					  <tr>
-						<th>Unit Terlisting</th>
-						<th>Progress Cacah</th>
+						<th>Unit PTnKP Terupdate</th>
+                                                <th>Unit PTnKP Tercacah</th>
+						<th>Progress PTnKP</th>
 					  </tr>
 					</thead>
 					<tbody>
 					  <tr>
 						<td><div id="tableUnitterlistingkabkot">0</div></td>
-						<td><div id="tableProgresscacahkabkot">0%</div></td>
+						<td><div id="tablePtnkptercacahkabkot">0</div></td>
+                                                <td><div id="tableProgresscacahkabkot">0%</div></td>
 					  </tr>
 					</tbody>
 				  </table>
@@ -125,15 +127,15 @@
                                 <table class="table table-bordered">
 					<thead>
 					  <tr>
-						
-						<th>Unit Terlisting</th>
-						<th>Progress Cacah</th>
+						<th>Unit PTnKP Terupdate</th>
+                                                <th>Unit PTnKP Tercacah</th>
+						<th>Progress PTnKP</th>
 					  </tr>
 					</thead>
 					<tbody>
 					  <tr>
-						
 						<td><div id="tableUnitterlistingkecamatan">0</div></td>
+                                                <td><div id="tablePtnkptercacahkecamatan">0</div></td>
 						<td><div id="tableProgresscacahkecamatan">0%</div></td>
 					  </tr>
 					</tbody>
@@ -150,7 +152,7 @@
                 <div class="panel-heading">
 			<div class="row">
   					<div class="col-xs-9">
-  						Cacah Total Kab./Kota
+  						Progress Kab./Kota
   					</div>
                                             <!--
                                             <div class="col-sm-3">
@@ -158,7 +160,7 @@
                                             </div>
                                             -->
   					<div class="col-xs-3">
-                                            <button class="pull-right" data-toggle="tooltip" data-placement="top" title="Tampilkan" id="tampilkanTotalperkabkot"><i class="fa fa-refresh" style="color: black"></i></button> 
+                                            <button class="pull-right" data-toggle="tooltip" data-placement="top" title="Tampilkan" id="tampilkanTotalperkabkot"><i class="fa fa-external-link" style="color: black"></i></button> 
   					</div> 
   			</div>
 		</div>  
@@ -174,11 +176,11 @@
                                           </tr>
 					</thead>
 					<tbody>
-					  <tr>
+<!--					  <tr>
 						<td><div>Jembrana</div></td>
 						<td><div id="progressTotaljembrana">0</div></td>
 						
-					  </tr>
+					  </tr>-->
                                           <tr>
 						<td><div></div>Tabanan</td>
 						<td><div id="progressTotaltabanan">0</div></td>
@@ -199,7 +201,7 @@
 						<td><div id="progressTotalklungkung">0</div></td>
 						
 					  </tr>
-                                          <tr>
+<!--                                          <tr>
 						<td><div></div>Bangli</td>
 						<td><div id="progressTotalbangli">0</div></td>
 						
@@ -208,12 +210,12 @@
 						<td><div></div>Karang Asem</td>
 						<td><div id="progressTotalkarang_asem">0</div></td>
 						
-					  </tr>
-                                          <tr>
+					  </tr>-->
+<!--                                          <tr>
 						<td><div></div>Buleleng</td>
 						<td><div id="progressTotalbuleleng">0</div></td>
 						
-					  </tr>
+					  </tr>-->
                                           <tr>
 						<td><div></div>Denpasar</td>
 						<td><div id="progressTotaldenpasar">0</div></td>
@@ -247,7 +249,7 @@
               <div class="panel-heading">
 				  <div class="row">
     					<div class="col-xs-9">
-    						Progress Cacah Total
+    						Progress Total
     					</div>
                                         <!--
     					<div class="col-xs-3">
@@ -268,7 +270,7 @@
             
                     <div class="col-lg-4">
 			<div class="panel panel-default">
-                <div class="panel-heading">Sisa Waktu Pencacahan</div>
+                <div class="panel-heading">Sisa Waktu</div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">
 			    <span id="countDown"></span>

@@ -542,4 +542,138 @@
 
     </script>
     
-    
+            <script>
+                                //contohnya att try
+                                $(document).ready(function(){
+                                    $('#formVar').change(function(){
+                                        var statusprod = $(this).val();
+                                        // $('#tableNamakecamatan').empty();
+                                        $.ajax({
+                                            url: "<?php echo base_url() ?>Server/get_prod"+statusprod+"_control?statusprod="+"\""+statusprod+"\"",
+                                            method: "GET", <!-- type -->                                                                                   
+                                            success: function(data) {
+                                                var arrdat = [];
+                                                for(var i = 0; i<data.length ; i++){
+                                                    var a = parseInt(data[i].produktivitas);
+                                                    arrdat.push(a);
+                                                }
+
+                                                // $('#tableNamakecamatan').append(data[0].nama_kecamatan); <!-- data -->
+
+                var attribute1 = {
+                  y: arrdat,
+                  type: 'box',
+                  name: 'Whiskers and Outliers',
+                  marker: {
+                    color: 'rgb(0,0,0)'
+                  },
+                  boxpoints: 'Outliers'
+                };
+
+                var data = [attribute1];
+
+                var layout = {
+                  title: ''
+                };
+
+                Plotly.newPlot('myDiv', data, layout, {showSendToCloud: true});
+            }
+                                        });
+                                    });
+                                });
+            </script>
+
+<script type="text/javascript" language="javascript" src="http://localhost/58/web-monitoring/resources/js/jquery.dataTables.js"></script>
+<script type="text/javascript" language="javascript" src="http://localhost/58/web-monitoring/resources/js/dataTables.bootstrap.js"></script>
+<script type="text/javascript" language="javascript" src="http://localhost/58/web-monitoring/resources/js/dataTables.responsive.min.js"></script>
+
+<!-- Echarts JavaScripts -->
+<script src="http://localhost/58/web-monitoring/resources/vendor/echarts/echarts-all.js"></script>
+
+<script type="text/javascript">
+    var table;
+    var currentTab;
+    var interv;
+    var interv2;
+	var JSONprogresKSA;
+	var urlProgressKSA = "http://2c0c8c69.ngrok.io/pklserver/api/monitoring/progress_ksa";
+
+	
+	$(document).ready(function() {
+		$('.btn').tooltip();
+        interv2 = setInterval(get_reload, 3000);
+
+        table = $('#tabel_progress_ksa').DataTable({
+            ajax: 'http://localhost/58/web-monitoring/' + 'server/get_progress_ksa', // CHANGE ME
+			displayLength: 25,
+			oLanguage: {
+				oPaginate: {
+					sFirst: "Pertama",
+					sLast: "Terakhir",
+					sNext: "Berikutnya",
+					sPrevious: "Sebelumnya",
+				},
+				sSearch: "Cari",
+				sInfo: "Menampilkan _START_ sampai _END_ dari _TOTAL_ hasil",
+				sInfoEmpty: "Tidak ada hasil ditemukan",
+				sZeroRecords: "Tidak ada hasil ditemukan",
+				sLengthMenu: "Menampilkan _MENU_ hasil",
+				sInfoFiltered: " (hasil filter dari _MAX_ hasil)",
+				sEmptyTable: "Tidak ada data tersedia",
+				sLoadingRecords: "Memuat data ..."
+			},
+            columns: [
+				{"data": "id_segmen"},
+                {"data": "nim_pcl"},
+				{"data": "nama_kab"},
+                {"data": "nama_kec"},
+                
+                
+            ],
+            order: [[1, 'asc']],
+            responsive: true
+        });
+
+    });
+
+    function get_reload(){
+        $.ajax({
+            url: "http://localhost/58/web-monitoring//server/get_agregat_listing", //service
+            type: "GET",
+            dataType: "JSON",
+                success: function(result){
+
+                       for(var j = 0; j<7; j++){
+                        if(result['data'][j]['jumlah'] == null){
+                            result['data'][j]['jumlah'] = 0;
+                        }
+                        if(result['data'][j]['progress'] == null){
+                            result['data'][j]['progress'] = 0;
+                         }
+
+                        $("#hasil1_"+result['data'][j]['kode_kabupaten']).html(result['data'][j]['jumlah'] + " unit cacah");
+
+                        }
+
+                    }
+
+            });
+
+    }
+
+    $('.bar_div').on('click', '.cont', function(event){
+        // var id = $(this).attr('id');
+        var id = event.target.id;
+        table.ajax.url('http://localhost/58/web-monitoring/' + 'server/get_detail_ksa/' + id);
+        table.ajax.reload();
+        $('[href=\\#detail]').tab('show');
+    });
+
+    $('#reload').click(function () {
+        table.ajax.reload();
+		$('.btn').tooltip('hide');
+    })
+
+   
+</script>
+
