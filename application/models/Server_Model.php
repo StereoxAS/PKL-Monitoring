@@ -1044,9 +1044,13 @@ WHERE a.nim = c.nim AND a.kategori = b.id AND a.status = '3' AND (a.kategori = '
 	}
         
         function get_detail_ubinan(){
-                $que = $this->load->database('pkl58_monitoring', TRUE)->query("
-                SELECT u1.segmen, u1.nim, u1.id_kabupaten, u1.nama_kabupaten, u1.id_kecamatan, u1.nama_kecamatan 
-                FROM dummy_ubinan u1
+                $que = $this->load->database('pkl58_odk', TRUE)->query("
+                SELECT pkl58_odk.data_tanah.noSegmen, pkl58_odk.data_tanah.nim, pkl58_odk.dummy_kode_kecamatan.nama, pkl58_odk.dummy_kode_kelurahandesa.nama
+                FROM pkl58_odk.data_tanah
+                INNER JOIN pkl58_odk.dummy_kode_kecamatan ON pkl58_odk.data_tanah.kodeKecamatan = pkl58_odk.dummy_kode_kecamatan.id
+                INNER JOIN pkl58_odk.dummy_kode_kelurahandesa ON pkl58_odk.data_tanah.kodeKelurahandesa = pkl58_odk.dummy_kode_kelurahandesa.id
+                INNER JOIN pkl58_kortimpcl.notif ON pkl58_odk.data_tanah.nim = pkl58_kortimpcl.notif.nim
+                WHERE pkl58_kortimpcl.notif.form_id LIKE '%R2%'
                 ");
                 return $que->result();
         }
