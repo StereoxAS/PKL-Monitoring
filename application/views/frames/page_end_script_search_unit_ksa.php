@@ -151,12 +151,13 @@ $('#clear_all').click(function ()
 	{
 		window.setTimeout(function() 
 		{
+			// Nama marker di map
 			var marker = new google.maps.Marker(
 			{
 				position: position,
 				map: map,
 				animation: google.maps.Animation.DROP,
-				title: info['namaKrt']
+				title: "Segmen " + info['id_segmen']
 			});
 		  markers.push(marker);
 		  google.maps.event.addListener(marker,'click', (function(marker, info, infowindow)
@@ -164,9 +165,11 @@ $('#clear_all').click(function ()
 			  return function() 
 			  {
 				infowindow.setContent(
-					"<b>" + info['namaKrt'] + "</b>" +
+					"<b>" + info['id_segmen'] + "</b>" +
 					"<br>" +
-					"(akurasi : " + info['akurasi'] + ")"
+					"Lokasi Segmen &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: " + info['nama_desa'] + ", " + info['nama_kec'] +
+					"<br>" +
+					"Penanggung Jawab : " + info['nim_pcl']
 				);
 				// addInformation(info);
 				infowindow.open(map,marker);
@@ -177,13 +180,13 @@ $('#clear_all').click(function ()
 	
 	$("#tabel_unit_ksa").on('click', '#button_track_uc', function ()  
 	{
+		// Parameter  tujuan html ID buat Smooth Scroll
 		smoothScroll('#daftarUnitKSATop');
 		// var row_data = table.row($(this).parents('tr')).data();
 		var row_data = table.row( this ).data();
 		console.log( table.row( this ).data() );
 		console.log("ROW_DATA II: " + [row_data['focusedLatitude'], row_data['focusedLongitude']]);
 		drop_then_add(row_data);
-		// Parameter  tujuan html ID buat Smooth Scroll
 	});
 </script>
 
