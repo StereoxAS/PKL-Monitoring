@@ -432,7 +432,7 @@ class Server_Model extends CI_Model {
 		$db_jarlap = $this->load->database('pkl58_sikoko', TRUE);
 		 $SQL1="
 
-            SELECT b.kategori,a.golongan,a.pertanyaan,a.jawaban, a.timestamp,c.status, d.nama as nama_penanya, e.nama as nama_kortim FROM sipadu_daftar_pertanyaan a, sipadu_kategori_pertanyaan b, sipadu_status_pertanyaan c, sipadu_mahasiswa d, sipadu_mahasiswa e WHERE a.kategori=b.id AND a.status=c.id AND a.nim=d.nim AND a.nim_kortim=e.nim ORDER BY a.kategori DESC
+            SELECT b.kategori,a.golongan,a.pertanyaan,a.jawaban, a.timestamp,c.status, d.nama as nama_penanya, e.nama as nama_kortim, b.penanggung_jawab FROM sipadu_daftar_pertanyaan a, sipadu_kategori_pertanyaan b, sipadu_status_pertanyaan c, sipadu_mahasiswa d, sipadu_mahasiswa e WHERE a.kategori=b.id AND a.status=c.id AND a.nim=d.nim AND a.nim_kortim=e.nim ORDER BY a.kategori DESC
 
            
             ";
