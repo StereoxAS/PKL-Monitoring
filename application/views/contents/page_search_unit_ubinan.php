@@ -2,7 +2,7 @@
 <div id="page-wrapper">
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="page-header">Pencarian Unit Cacah</h1>
+            <h1 class="page-header">Pencarian Unit Ubinan</h1>
         </div>
         <!-- /.col-lg-12 -->
     </div>
@@ -32,11 +32,12 @@
 	                		<thead>
 	                			<tr>
 							<th style="vertical-align: middle" >Akurasi</th>
-							<th style="vertical-align: middle" >Latitude</th>
-							<th style="vertical-align: middle" >Longitude</th>
+                                                        <th style="vertical-align: middle" >Segmen</th>
 							<th style="vertical-align: middle" >Subsegmen</th>
 	                				<th style="vertical-align: middle" >NIM</th>
-							<th style="vertical-align: middle">Tracking</th>
+							<th style="vertical-align: middle" >Latitude</th>
+							<th style="vertical-align: middle" >Longitude</th>
+							<th style="vertical-align: middle" >Tracking</th>
 						</tr>
 	                		</thead>
 	                	</table>

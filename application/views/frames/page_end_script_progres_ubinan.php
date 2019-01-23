@@ -51,6 +51,13 @@
                         }
                     }
                 },
+//                {
+//                    "data": "progres",
+//                    render:function (data, type, full, meta){
+//                        jumlah/;
+//                        return 
+//                    }
+//                },
             ],
             order: [[1, 'asc']],
             responsive: true

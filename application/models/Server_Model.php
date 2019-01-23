@@ -1167,11 +1167,11 @@ WHERE a.nim = c.nim AND a.kategori = b.id AND a.status = '3' AND (a.kategori = '
     }
     
     function get_tabel_unit_ubinan(){
-        $que = $this->db->database('pkl58_monitoring', TRUE)->query("
-                    SELECT u2.id_segmen, u2.id_subsegmen, u2.nim
-                    FROM dummy_unit_ubinan u2
-                ");
-        return $que->result;
+        $que = $this->load->database('pkl58_odk', TRUE);
+        $que->select("kodeKecamatan, kodeKelurahandesa, noSegmen, kodeSubSegmen, strataPadi, longitude, latitude, nim");
+        $que->from("data_tanah");
+        $que = $que->get();
+        return $que->result();
     }
 	
 	function get_detail_ksa()
