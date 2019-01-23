@@ -120,7 +120,7 @@
 <!--<script src="<?php echo base_url() ?>resources/js/jquery-3.3.1.min.js"> </script> -->
  
                                 <!-- Progress total per kabkot -->
-                                <script>
+<!--                                <script>
                                 $(document).ready(function(){
                                     $('#tampilkanTotalperkabkot').click(function(){
                                         $('#progressTotaljembrana').empty();
@@ -133,7 +133,7 @@
                                         });
                                     });
                                 });
-                                </script>
+                                </script>-->
                                 <script>
                                 $(document).ready(function(){
                                     $('#tampilkanTotalperkabkot').click(function(){
@@ -190,7 +190,7 @@
                                     });
                                 });
                                 </script>
-                                <script>
+<!--                                <script>
                                 $(document).ready(function(){
                                     $('#tampilkanTotalperkabkot').click(function(){
                                         $('#progressTotalbangli').empty();
@@ -231,7 +231,7 @@
                                         });
                                     });
                                 });
-                                </script>
+                                </script>-->
                                 <script>
                                 $(document).ready(function(){
                                     $('#tampilkanTotalperkabkot').click(function(){
@@ -406,6 +406,7 @@
                                 
                                 
                                 <!-- script pereset kecamatan saat ganti kabkot -->
+                                
                                 <script>
                                 $(document).ready(function(){
                                     $('#formKabkot').change(function(){
@@ -439,6 +440,15 @@
                                         var angka_nol = 0;
                                         $('#tableUnitterlistingkecamatan').empty();
                                         $('#tableUnitterlistingkecamatan').append(angka_nol);
+                                    });
+                                });
+                                </script>
+                                <script>
+                                $(document).ready(function(){
+                                    $('#formKabkot').change(function(){
+                                        var angka_nol = 0;
+                                        $('#tablePtnkptercacahkecamatan').empty();
+                                        $('#tablePtnkptercacahkecamatan').append(angka_nol);
                                     });
                                 });
                                 </script>
@@ -491,6 +501,22 @@
                                     });
                                 });
                                 </script>
+                                <!-- PTnKP tercacah kabkot -->
+                                <script>
+                                $(document).ready(function(){
+                                    $('#formKabkot').change(function(){
+                                        var kabkot_id = $(this).val();
+                                        $('#tablePtnkptercacahkabkot').empty();
+                                        $.ajax({
+                                            url: "<?php echo base_url() ?>Server/get_tableptnkptercacahkabkot_control?kabkot_id="+kabkot_id,
+                                            method: "GET", <!-- type -->                                                                                   
+                                            success: function(data) {
+                                                $('#tablePtnkptercacahkabkot').append(data[0].unit_terlisting); <!-- data -->
+                                            }
+                                        });
+                                    });
+                                });
+                                </script>
                                 <!-- terlisting kecamatan -->
                                 <script>
                                 $(document).ready(function(){
@@ -508,6 +534,28 @@
                                             method: "GET", <!-- type -->                                                                                   
                                             success: function(data) {
                                                 $('#tableUnitterlistingkecamatan').append(data[0].unit_terlisting); <!-- data -->
+                                            }
+                                        });
+                                    });
+                                });
+                                </script>
+                                <!-- unit tercacah PTnKP kecamatan -->
+                                <script>
+                                $(document).ready(function(){
+                                    $('#formKecamatan').change(function(){
+                                        var kecamatan_id = $(this).val();
+                                        //var kabkot_id = $('formKabkot').val();
+                                        //var kabkot = "kabkot_id=";
+                                        //var kecamatan = "&kecamatan_id=";
+                                        //var gabungan_id = kabkot + kabkot_id + kecamatan + kecamatan_id;
+                                        //gabungan_id+="kabkot_id="+kabkot_id;
+                                        //gabungan_id+="&kecamatan_id="+kecamatan_id;
+                                        $('#tablePtnkptercacahkecamatan').empty();
+                                        $.ajax({
+                                            url: "<?php echo base_url() ?>Server/get_tableptnkptercacahkecamatan_control?kecamatan_id="+kecamatan_id,
+                                            method: "GET", <!-- type -->                                                                                   
+                                            success: function(data) {
+                                                $('#tablePtnkptercacahkecamatan').append(data[0].unit_terlisting); <!-- data -->
                                             }
                                         });
                                     });
@@ -580,4 +628,75 @@
                                     });
                                 });
                                 </script>
-                                
+                                <!-- table ubinan tercacah kabkot dari kabkot -->
+                                 <script>
+                                $(document).ready(function(){
+                                    $('#formKabkot').change(function(){
+                                        var kabkot_id = $(this).val();
+                                        $('#tableUbinantercacahkabkot').empty();
+                                        $.ajax({
+                                            url: "<?php echo base_url() ?>Server/get_tableubinantercacahkabkot_control?kabkot_id="+kabkot_id,
+                                            method: "GET", <!-- type -->                                                                                   
+                                            success: function(data) {
+                                                $('#tableUbinantercacahkabkot').append(data[]); <!-- data -->
+                                            }
+                                        });
+                                    });
+                                });
+                                </script>
+                                <!-- table progress ubinan kabkot dari kabkot -->
+                                <script>
+                                $(document).ready(function(){
+                                    $('#formKabkot').change(function(){
+                                        var kabkot_id = $(this).val();
+                                        $('#tableProgressubinankabkot').empty();
+                                        $.ajax({
+                                            url: "<?php echo base_url() ?>Server/get_tableprogressubinankabkot_control?kabkot_id="+kabkot_id,
+                                            method: "GET", <!-- type -->                                                                                   
+                                            success: function(data) {
+                                                var html = `${data}%`
+                                                $('#tableProgressubinankabkot').append(html); <!-- data -->
+                                            }
+                                        });
+                                    });
+                                });
+                                </script>
+                                <!-- Ubinan tercacah kecamatan -->
+                                <script>
+                                $(document).ready(function(){
+                                    $('#formKecamatan').change(function(){
+                                        var kecamatan_id = $(this).val();
+                                        //var kabkot_id = $('formKabkot').val();
+                                        //var kabkot = "kabkot_id=";
+                                        //var kecamatan = "&kecamatan_id=";
+                                        //var gabungan_id = kabkot + kabkot_id + kecamatan + kecamatan_id;
+                                        //gabungan_id+="kabkot_id="+kabkot_id;
+                                        //gabungan_id+="&kecamatan_id="+kecamatan_id;
+                                        $('#tableUbinantercacahkecamatan').empty();
+                                        $.ajax({
+                                            url: "<?php echo base_url() ?>Server/get_tableubinantercacahkecamatan_control?kecamatan_id="+kecamatan_id,
+                                            method: "GET", <!-- type -->                                                                                   
+                                            success: function(data) {
+                                                $('#tableUbinantercacahkecamatan').append(data[0].unit_terlisting); <!-- data -->
+                                            }
+                                        });
+                                    });
+                                });
+                                </script>
+                                <!-- table progress ubinan kecamatan -->
+                                <script>
+                                $(document).ready(function(){
+                                    $('#formKecamatan').change(function(){
+                                        var kabkot_id = $(this).val();
+                                        $('#tableProgressubinankecamatan').empty();
+                                        $.ajax({
+                                            url: "<?php echo base_url() ?>Server/get_tableprogressubinankecamatan_control?kabkot_id="+kecamatan_id,
+                                            method: "GET", <!-- type -->                                                                                   
+                                            success: function(data) {
+                                                var html = `${data}%`
+                                                $('#tableProgressubinankecamatan').append(html); <!-- data -->
+                                            }
+                                        });
+                                    });
+                                });
+                                </script>

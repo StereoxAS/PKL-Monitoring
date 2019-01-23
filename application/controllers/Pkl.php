@@ -68,8 +68,8 @@ class Pkl extends CI_Controller {
 //        }
         
 	function dashboard(){
-		$data['autocomplete_nav'] = $this->set_autocomplete('pcl');
-		$data['beban_cacah'] = $this->Server_Model->get_beban_cacah();
+		//$data['autocomplete_nav'] = $this->set_autocomplete('pcl');
+		//$data['beban_cacah'] = $this->Server_Model->get_beban_cacah();
                 $data['all_kabkot'] = $this->Server_Model->get_kabkot_model();
                 /*$kakakoko = $this->input->post('kabkot_id');
                 $data['kkprint']=$kakakoko;

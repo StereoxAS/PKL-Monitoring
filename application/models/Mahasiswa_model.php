@@ -470,7 +470,7 @@ public function savekode($nim,$kode) {
 public function get_nip($email){
     $db_jarlap = $this->load->database('pkl58_sikoko', TRUE);
     $SQL1 ="
-    SELECT nip
+    SELECT nama, nip
     FROM sipadu_dosen
     WHERE email = '".$email."'
     ";

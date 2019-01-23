@@ -29,7 +29,7 @@ class Login extends CI_Controller {
             $this->session->set_userdata('nim',$nim);
             $this->session->unset_userdata('nama');
             $this->session->unset_userdata('email');
-            $this->session->set_userdata('sekre',$sekre[0]['level']);
+           // $this->session->set_userdata('sekre',$sekre[0]['level']);
             $this->session->set_userdata('nama',$sekre[0]['nama']);
 //            $this->session->set_userdata('email',$sekre[0]['email']);
 //            $this->session->set_userdata('id_modul',$sekre[0]['id_modul']);
@@ -41,7 +41,8 @@ class Login extends CI_Controller {
         } else if($verifikasi==2){
             $dosen = $this->mahasiswa_model->get_nip($email);  //$email          
             $this->session->set_userdata('email',$email);    //$email
-            $this->session->set_userdata('nim',$email);       //$dosen[0]['nip']         
+            $this->session->set_userdata('nim',$dosen[0]['nip']);       //$dosen[0]['nip']   
+            $this->session->set_userdata('nama',$dosen[0]['nama']);
             redirect('Pkl');
         }else {
             redirect('login');

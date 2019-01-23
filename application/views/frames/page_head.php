@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>PKL 58 STIS</title>
+    <title>WEB MONITORING PKL 58</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="<?php echo base_url()?>resources/vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
