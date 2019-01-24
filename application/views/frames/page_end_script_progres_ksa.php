@@ -9,13 +9,12 @@
 <script type="text/javascript">
     var table;
     var currentTab;
-    var interv;
-    var interv2;
+    var interval;
 
 	
 	$(document).ready(function() {
 		$('.btn').tooltip();
-        interv2 = setInterval(get_reload, 3000);
+        interval = setInterval(get_reload, 3000);
 
         table = $('#tabel_progress_ksa').DataTable({
             ajax: '<?php echo base_url() ?>' + 'server/get_progress_ksa', // refers ke Controller > Server > get_progress_ksa > Web Service dari KSA

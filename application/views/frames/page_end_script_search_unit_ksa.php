@@ -12,9 +12,13 @@
 	var markers = [];
 	var bounds = new google.maps.LatLngBounds();
 	var infowindow = new google.maps.InfoWindow();
+	var table;
+	var focusedLatitude = -8.6726769;
+	var focusedLongitude = 115.1542326;
+	
+	// unused vars, delete jgn lupa
 	var currentLocation;
 	var autocomplete;
-	var table;
 	var currentTab;
 	var interv2;
 	var temp_nim;
@@ -24,13 +28,12 @@
 	var get_nama;
 	var lat;
 	var lon;
-	var focusedLatitude = -8.6726769;
-	var focusedLongitude = 115.1542326;
+	
 
 	function init_map() {
 		map = new google.maps.Map(document.getElementById('gmap'), 
 		{
-			zoom: 10,
+			zoom: 16,
 			center: {lat: focusedLatitude, lng: focusedLongitude}, // default map location
 			mapTypeId: google.maps.MapTypeId.ROADMAP
 		});
@@ -78,12 +81,12 @@
 					{
 						if (full['log_segmen'] != null && full['lat_segmen'] != null) 
 						{
-							return "<td class='text-center'><center><button id='button_track_uc' type='button' class='btn btn-primary btn-xs'>Tampilkan di peta</button></center></td>"
+							//Bootstrap button css. btn = button, btn-info = button jenis info, btn-block = ukuran span button
+							return "<td><button id='button_track_uc' type='button' class='btn btn-info btn-sm btn-block'>Tampilkan di Peta</button></td>"
 						} else 
 						{
-							return "Lokasi tidak tersedia";
+							return "Lokasi tidak Valid";
 						}
-						// return full['akurasi'];
 					}
 				},
 			],
@@ -98,8 +101,12 @@
 								searchable: false
 							},
 							{
-								targets: [1,2,3,4,5],
-								width: "12.5%",
+								targets: [0,1,2,3,5,6,7,8],
+								width: "12%",
+							},
+							{
+								targets: [4],
+								width: "20%",
 							}
 						],
 			responsive: true
@@ -164,32 +171,28 @@ $('#clear_all').click(function ()
 		  {
 			  return function() 
 			  {
+				// informasi marker pada map
 				infowindow.setContent(
-					"<b>" + info['id_segmen'] + "</b>" +
+					"<b> Segmen " + info['id_segmen'] + "</b>" +
 					"<br>" +
 					"Lokasi Segmen &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: " + info['nama_desa'] + ", " + info['nama_kec'] +
 					"<br>" +
 					"Penanggung Jawab : " + info['nim_pcl']
 				);
-				// addInformation(info);
 				infowindow.open(map,marker);
 				};
 			})(marker, info, infowindow));
 		}, timeout);
 	}
 	
-	$("#tabel_unit_ksa").on('click', '#button_track_uc', function ()  
+	// "Tampilkan pada Peta" onClick listener
+	$("#tabel_unit_ksa").on('click', 'tr', function ()  
 	{
+		// var row_data = table.row($(this).parents('tr')).data(); // obsolete
+		var row_data = table.row( this ).data();
+		console.log( table.row( this ).data() ); // debug tr data
+		drop_then_add(row_data);
 		// Parameter  tujuan html ID buat Smooth Scroll
 		smoothScroll('#daftarUnitKSATop');
-		// var row_data = table.row($(this).parents('tr')).data();
-		var row_data = table.row( this ).data();
-		console.log( table.row( this ).data() );
-		console.log("ROW_DATA II: " + [row_data['focusedLatitude'], row_data['focusedLongitude']]);
-		drop_then_add(row_data);
 	});
-</script>
-
-<script>
-	
 </script>
