@@ -16,20 +16,6 @@
 	var focusedLatitude = -8.6726769;
 	var focusedLongitude = 115.1542326;
 	
-	// unused vars, delete jgn lupa
-	var currentLocation;
-	var autocomplete;
-	var currentTab;
-	var interv2;
-	var temp_nim;
-	var temp_nama;
-	var hasil;
-	var get_data;
-	var get_nama;
-	var lat;
-	var lon;
-	
-
 	function init_map() {
 		map = new google.maps.Map(document.getElementById('gmap'), 
 		{
