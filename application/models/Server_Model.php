@@ -1084,16 +1084,15 @@ WHERE a.nim = c.nim AND a.kategori = b.id AND a.status = '3' AND (a.kategori = '
 
 		return $queKSA->result();
 	}
-        
+ 
         function get_detail_ubinan(){
                 $que = $this->load->database('pkl58_odk', TRUE)->query("
-                SELECT pkl58_odk.data_tanah.noSegmen, pkl58_odk.data_tanah.nim, pkl58_odk.dummy_kode_kecamatan.nama,
-                pkl58_odk.dummy_kode_kelurahandesa.nama
-                FROM pkl58_odk.data_tanah 
-                INNER JOIN pkl58_odk.dummy_kode_kecamatan ON pkl58_odk.data_tanah.kodeKecamatan = pkl58_odk.dummy_kode_kecamatan.id
-                INNER JOIN pkl58_odk.dummy_kode_kelurahandesa ON pkl58_odk.data_tanah.kodeKelurahandesa = pkl58_odk.dummy_kode_kelurahandesa.id
-                INNER JOIN pkl58_kortimpcl.notif ON pkl58_odk.data_tanah.nim = pkl58_kortimpcl.notif.nim
-                WHERE pkl58_kortimpcl.notif.form_id LIKE '%R2%'
+                SELECT dt.noSegmen, dt.nim, dkk.nama, dkd.nama as namadesa                                                 
+                FROM pkl58_odk.data_tanah dt
+                LEFT JOIN pkl58_odk.dummy_kode_kecamatan dkk ON dt.kodeKecamatan = dkk.id
+                LEFT JOIN pkl58_odk.dummy_kode_kelurahandesa dkd ON dt.kodeKelurahandesa = dkd.id
+                LEFT JOIN pkl58_kortimpcl.notif ON dt.nim = pkl58_kortimpcl.notif.nim
+                WHERE pkl58_kortimpcl.notif.form_id LIKE '%R2%' AND pkl58_kortimpcl.notif.status = 'Final'
                 ");
                 return $que->result();
         }

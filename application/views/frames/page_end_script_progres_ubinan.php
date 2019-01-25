@@ -37,10 +37,10 @@
 				sLoadingRecords: "Memuat data ..."
 			},
             columns: [
-                {"data": "tan.noSegmen"},
-                {"data": "tan.nim"},
-                {"data": "kec.nama"},
-                {"data": "kel.nama"},
+                {"data": "noSegmen"},
+                {"data": "nim"},
+                {"data": "nama"},
+                {"data": "namadesa"},
                 {
                     "data": "jumlah",
                     render:function (data, type, full, meta) {
@@ -57,7 +57,7 @@
                         jumlah/;
                         return 
                     }
-                },
+                }
             ],
             order: [[1, 'asc']],
             responsive: true
