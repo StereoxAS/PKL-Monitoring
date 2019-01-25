@@ -59,7 +59,7 @@
 				sLoadingRecords: "Memuat data ..."
 			},
 			columns: [
-				{data: "akurasi"},
+				//{data: "akurasi"},
                                 {data: "noSegmen"},
 				{data: "kodeSubSegmen",},
 				{data: "nim",},
@@ -77,17 +77,17 @@
 				},
 			],
 			order: [[1, 'asc']],
-			columnDefs: [
-							{
-								targets: [0],
-								visible: false,
-								searchable: false
-							},
-							{
-								width: "12.5%",
-								targets: [1,2,3,4,5],
-							}
-						],
+//			columnDefs: [
+//							{
+//								targets: [0],
+//								visible: false,
+//								searchable: false
+//							},
+//							{
+//								width: "12.5%",
+//								targets: [1,2,3,4,5],
+//							}
+//						],
 			responsive: true
 		});
 
