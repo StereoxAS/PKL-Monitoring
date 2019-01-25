@@ -43,6 +43,11 @@
                 {"data": "nama_desa"},
                 {"data": "status_segmen"},
             ],
+			columnDefs: [
+				{
+					className: 'dt-body-justify'
+				}
+			],
             order: [[1, 'asc']],
             responsive: true
         });

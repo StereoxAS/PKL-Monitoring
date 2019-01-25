@@ -89,10 +89,12 @@
 							{
 								targets: [0,1,2,3,5,6,7,8],
 								width: "12%",
+								className: 'dt-body-center',
 							},
 							{
 								targets: [4],
 								width: "20%",
+								className: 'dt-body-center',
 							}
 						],
 			responsive: true
@@ -134,7 +136,7 @@ $('#clear_all').click(function ()
 	function drop_then_add(unit_cacah) 
 	{
 		var position = new google.maps.LatLng(parseFloat(unit_cacah['lat_segmen']), parseFloat(unit_cacah['log_segmen']));
-		map.setZoom(16);
+		map.setZoom(14);
 		addMarkerWithTimeout(position, unit_cacah, 1000);
 		bounds.extend(position);
 		map.fitBounds(bounds);
