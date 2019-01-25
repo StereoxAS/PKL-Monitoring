@@ -31,7 +31,7 @@
                         	<table width="100%" class="table table-striped table-bordered table-hover" id="tabel_unit_ubinan">
 	                		<thead>
 	                			<tr>
-							<th style="vertical-align: middle" >Akurasi</th>
+<!--							<th style="vertical-align: middle" >Akurasi</th>-->
 							<th style="vertical-align: middle" >Segmen</th>
 							<th style="vertical-align: middle" >Subsegmen</th>
 							<th style="vertical-align: middle" >NIM</th>
