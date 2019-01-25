@@ -28,7 +28,7 @@
 	function init_map() {
 		map = new google.maps.Map(document.getElementById('gmap'), {
 			zoom: 10,
-			center: {lat: -2.7410513, lng: 106.4405872}, // default Babel
+			center: {lat: -8.3184499, lng: 114.9497427}, // default Babel
 			mapTypeId: google.maps.MapTypeId.ROADMAP
 		});
 		bounds = new google.maps.LatLngBounds();
@@ -40,7 +40,7 @@
 		init_map();
 
 		table = $('#tabel_unit_cacah').DataTable({
-			ajax: '<?php echo base_url() ?>' + 'server/get_tabel_unit_cacah', // CHANGE ME
+			ajax: '<?php echo base_url() ?>' + 'index.php/server/get_tabel_unit_cacah', // CHANGE ME
 			displayLength: 25,
 			oLanguage: {
 				oPaginate: {
@@ -74,17 +74,7 @@
 				{
 					data: "alamat",
 				},
-				{
-					data: "jumlahArt",
-				},
-				{
-					data: "jumlahArt324",
-				},
-				{
-					data: "jumlahArtBalita",
-				},
-				{
-					data: null,
+				{	data: null,
 						render:function (data, type, full, meta) {
 							if (full['longitude'] != null && full['latitude'] != null) {
 								return "<td class='text-center'><center><button id='button_track_uc' type='button' class='btn btn-primary btn-xs'>Tampilkan di peta</button></center></td>"
@@ -93,7 +83,7 @@
 							}
 							// return full['akurasi'];
 						}
-				},
+				}
 			],
 			order: [[1, 'asc']],
 			columnDefs: [
@@ -103,8 +93,8 @@
 								searchable: false
 							},
 							{
-								width: "12.5%",
-								targets: [3,4,5,6,7,8,9,10],
+								width: "18.5%",
+								targets: [3,4,5,6,7],
 							}
 						],
 			responsive: true
