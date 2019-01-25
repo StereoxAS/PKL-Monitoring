@@ -511,7 +511,7 @@
                                             url: "<?php echo base_url() ?>Server/get_tableptnkptercacahkabkot_control?kabkot_id="+kabkot_id,
                                             method: "GET", <!-- type -->                                                                                   
                                             success: function(data) {
-                                                $('#tablePtnkptercacahkabkot').append(data[0].unit_terlisting); <!-- data -->
+                                                $('#tablePtnkptercacahkabkot').append(data); <!-- data -->
                                             }
                                         });
                                     });
@@ -555,7 +555,7 @@
                                             url: "<?php echo base_url() ?>Server/get_tableptnkptercacahkecamatan_control?kecamatan_id="+kecamatan_id,
                                             method: "GET", <!-- type -->                                                                                   
                                             success: function(data) {
-                                                $('#tablePtnkptercacahkecamatan').append(data[0].unit_terlisting); <!-- data -->
+                                                $('#tablePtnkptercacahkecamatan').append(data); <!-- data -->
                                             }
                                         });
                                     });
@@ -620,7 +620,6 @@
                                             url: "<?php echo base_url() ?>Server/get_tableksatercacahdanprogresskecamatan_control?kecamatan_id="+kecamatan_id,
                                             method: "GET", <!-- type -->                                                                                   
                                             success: function(data) {
-                                            
                                                 var html = `${data['progress']}%`;
                                                 $('#tableProgressksakecamatan').append(html); <!-- data -->
                                             }
@@ -638,7 +637,7 @@
                                             url: "<?php echo base_url() ?>Server/get_tableubinantercacahkabkot_control?kabkot_id="+kabkot_id,
                                             method: "GET", <!-- type -->                                                                                   
                                             success: function(data) {
-                                                $('#tableUbinantercacahkabkot').append(data[]); <!-- data -->
+                                                $('#tableUbinantercacahkabkot').append(data); <!-- data -->
                                             }
                                         });
                                     });
@@ -677,7 +676,7 @@
                                             url: "<?php echo base_url() ?>Server/get_tableubinantercacahkecamatan_control?kecamatan_id="+kecamatan_id,
                                             method: "GET", <!-- type -->                                                                                   
                                             success: function(data) {
-                                                $('#tableUbinantercacahkecamatan').append(data[0].unit_terlisting); <!-- data -->
+                                                $('#tableUbinantercacahkecamatan').append(data); <!-- data -->
                                             }
                                         });
                                     });
@@ -687,10 +686,10 @@
                                 <script>
                                 $(document).ready(function(){
                                     $('#formKecamatan').change(function(){
-                                        var kabkot_id = $(this).val();
+                                        var kecamatan_id = $(this).val();
                                         $('#tableProgressubinankecamatan').empty();
                                         $.ajax({
-                                            url: "<?php echo base_url() ?>Server/get_tableprogressubinankecamatan_control?kabkot_id="+kecamatan_id,
+                                            url: "<?php echo base_url() ?>Server/get_tableprogressubinankecamatan_control?kecamatan_id="+kecamatan_id,
                                             method: "GET", <!-- type -->                                                                                   
                                             success: function(data) {
                                                 var html = `${data}%`

@@ -633,15 +633,15 @@ function get_list_masalah_narasumber($kode=0) { // Database kedua
             $kabkot_id=$this->input->get('kabkot_id');
             $tercacahdanprogress_ksa_kabkot = array();
 
-            $url_ksa="http://2c0c8c69.ngrok.io/pklserver/api/Monitoring/kab_progress";
+            $url_ksa="http://103.195.91.170/ksa-pkl58.com/public_html/pklserver/index.php/api/Monitoring/kab_progress";
             $data_tableksatercacahdanprogresskabkot = file_get_contents($url_ksa);
             $data_tableksatercacahdanprogresskabkot_decode = json_decode($data_tableksatercacahdanprogresskabkot, true); // Turns it into an array, change the last argument to false to make it an object
             for($i=0; $i < count($data_tableksatercacahdanprogresskabkot_decode); $i++){
 				if ($data_tableksatercacahdanprogresskabkot_decode[$i]['id_kab']=$kabkot_id) {
                                         $tercacahdanprogress_ksa_kabkot['tercacah'] = $data_tableksatercacahdanprogresskabkot_decode[$i]['jumlah_segmen_selesai'];
 					$tercacahdanprogress_ksa_kabkot['progress'] = $data_tableksatercacahdanprogresskabkot_decode[$i]['progres_segmen'];
-					break;
-					};};
+					//break;
+					}}
             $tercacahdanprogress_ksa_kabkot['progress'] = round($tercacahdanprogress_ksa_kabkot['progress'],2);
             //$character = json_decode($json);
             //echo $character->name;
@@ -654,15 +654,15 @@ function get_list_masalah_narasumber($kode=0) { // Database kedua
         function get_tableksatercacahdanprogresskecamatan_control(){
             $kecamatan_id=$this->input->get('kecamatan_id');
             $tercacahdanprogress_ksa_kecamatan = array();
-            $url_ksa="http://2c0c8c69.ngrok.io/pklserver/api/Monitoring/kec_progress";
+            $url_ksa="http://103.195.91.170/ksa-pkl58.com/public_html/pklserver/index.php/api/Monitoring/kec_progress";
             $data_tableksatercacahdanprogresskecamatan = file_get_contents($url_ksa);
             $data_tableksatercacahdanprogresskecamatan_decode = json_decode($data_tableksatercacahdanprogresskecamatan, true); // Turns it into an array, change the last argument to false to make it an object
             for($i=0; $i < count($data_tableksatercacahdanprogresskecamatan_decode); $i++){
-				if ($data_tableksatercacahdanprogresskecamatan_decode[$i]['id_kec']=$kecamatan_id) {
+				if ($data_tableksatercacahdanprogresskecamatan_decode[$i]['id_kec']= $kecamatan_id) {
                                         $tercacahdanprogress_ksa_kecamatan['tercacah'] = $data_tableksatercacahdanprogresskecamatan_decode[$i]['jumlah_segmen_selesai'];
 					$tercacahdanprogress_ksa_kecamatan['progress'] = $data_tableksatercacahdanprogresskecamatan_decode[$i]['progres_segmen'];
-					break;
-					};};
+					//break;
+					}}
             $tercacahdanprogress_ksa_kecamatan['progress'] = round($tercacahdanprogress_ksa_kecamatan['progress'],2);
             //$character = json_decode($json);
             //echo $character->name;
@@ -682,12 +682,27 @@ function get_list_masalah_narasumber($kode=0) { // Database kedua
         }
         
          function get_tableptnkptercacahkabkot_control(){
+           
+            //$data_tableptnkptercacahkabkot = $this->Server_Model->get_tableptnkptercacahkabkot_model($kabkot_id_new);
             $kabkot_id=$this->input->get('kabkot_id');
             $kabkot_id_new = $kabkot_id - 5100;
-            $data_tableptnkptercacahkabkot = $this->Server_Model->get_tableptnkptercacahkabkot_model($kabkot_id_new);
+            $data_tableptnkptercacahkabkot = 0;
+            $akumulasi_tercacah_nim = array();
+            //$data_tableubinantercacahkabkot = $this->Server_Model->get_tableubinantercacahkabkot_model($kabkot_id_new);
+            $data_tableptnkptercacahkabkot = 0;
+            $data_tableptnkptercacahkabkot_nim = $this->Server_Model->get_tableptnkptercacahkabkot_nim_model($kabkot_id_new);
+            for($i=0; $i < count($data_tableptnkptercacahkabkot_nim); $i++){
+                $akumulasi_tercacah_nim[$i]=$this->Server_Model->get_tableptnkptercacahkabkot_tercacah_nim_model($data_tableptnkptercacahkabkot_nim[$i]['nim']);
+                //$data_tableprogresscacahkabkot_tercacah = $data_tableprogresscacahkabkot_tercacah + intval($akumulasi_tercacah_nim[0]['hasil']);
+                    };
+            for($i=0; $i < count($akumulasi_tercacah_nim); $i++){
+                                $data_tableptnkptercacahkabkot = $data_tableptnkptercacahkabkot + intval($akumulasi_tercacah_nim[$i][0]['hasil']);
+				//$data_tableprogresscacahkabkot_tercacah = $data_tableprogresscacahkabkot_tercacah + intval($akumulasi_tercacah_nim[0]['hasil']);
+				};
             $this->output
                     ->set_content_type('application/json')
                     ->set_output(json_encode($data_tableptnkptercacahkabkot));
+        
         }
         
         function get_tableprogresscacahkabkot_control(){
@@ -705,14 +720,16 @@ function get_list_masalah_narasumber($kode=0) { // Database kedua
             $data_tableprogresscacahkabkot_nim = $this->Server_Model->get_tableprogresscacahkabkot_nim_model($kabkot_id_new);
             $data_tableprogresscacahkabkot_beban = $this->Server_Model->get_tableprogresscacahkabkot_beban_model($kabkot_id_new);
             for($i=0; $i < count($data_tableprogresscacahkabkot_nim); $i++){
-                                $akumulasi_tercacah_nim[$i]=$this->Server_Model->get_tableprogresscacahkabkot_tercacah_nim_model(intval($data_tableprogresscacahkabkot_nim[$i]['nim']));
+                                $akumulasi_tercacah_nim[$i]=$this->Server_Model->get_tableprogresscacahkabkot_tercacah_nim_model($data_tableprogresscacahkabkot_nim[$i]['nim']);
 				//$data_tableprogresscacahkabkot_tercacah = $data_tableprogresscacahkabkot_tercacah + intval($akumulasi_tercacah_nim[0]['hasil']);
 				};
             for($i=0; $i < count($akumulasi_tercacah_nim); $i++){
-                                $data_tableprogresscacahkabkot = $data_tableprogresscacahkabkot + intval($akumulasi_tercacah_nim[$i]);
+                                $data_tableprogresscacahkabkot = $data_tableprogresscacahkabkot + intval($akumulasi_tercacah_nim[$i][0]['hasil']);
 				//$data_tableprogresscacahkabkot_tercacah = $data_tableprogresscacahkabkot_tercacah + intval($akumulasi_tercacah_nim[0]['hasil']);
 				};
             $data_tableprogresscacahkabkot = $data_tableprogresscacahkabkot / intval($data_tableprogresscacahkabkot_beban[0]['beban']);
+            $data_tableprogresscacahkabkot = $data_tableprogresscacahkabkot * 100;
+            $data_tableprogresscacahkabkot = round($data_tableprogresscacahkabkot,2);
             //$data_tableprogresscacahkabkot_tercacah=intval($akumulasi_tercacah_nim[0])+intval($akumulasi_tercacah_nim[1]);
             //$data_tableprogresscacahkabkot=($data_tableprogresscacahkabkot_tercacah / $data_tabeprogresscacahkabkot_beban[0]['beban'])*100;
             //$data_tableprogresscacahkabkot=round($data_tableprogresscacahkabkot,2);
@@ -722,9 +739,25 @@ function get_list_masalah_narasumber($kode=0) { // Database kedua
         }
         
         function get_tableprogressubinankabkot_control(){
+            //$data_tableprogressubinankabkot = $this->Server_Model->get_tableprogressubinankabkot_model($kabkot_id_new);
             $kabkot_id=$this->input->get('kabkot_id');
             $kabkot_id_new = $kabkot_id - 5100;
-            $data_tableprogressubinankabkot = $this->Server_Model->get_tableprogressubinankabkot_model($kabkot_id_new);
+            $akumulasi_tercacah_nim = array();
+            //$data_tableubinantercacahkabkot = $this->Server_Model->get_tableubinantercacahkabkot_model($kabkot_id_new);
+            $data_tableubinantercacahkabkot = 0;
+            //$data_tableprogressubinankabkot = 0;
+            $data_tableubinantercacahkabkot_nim = $this->Server_Model->get_tableubinantercacahkabkot_nim_model($kabkot_id_new);
+            $data_tableubinantercacahkabkot_beban = $this->Server_Model->get_tableubinantercacahkabkot_beban_model($kabkot_id_new);
+            for($i=0; $i < count($data_tableubinantercacahkabkot_nim); $i++){
+                $akumulasi_tercacah_nim[$i]=$this->Server_Model->get_tableubinantercacahkabkot_tercacah_nim_model($data_tableubinantercacahkabkot_nim[$i]['nim']);
+                //$data_tableprogresscacahkabkot_tercacah = $data_tableprogresscacahkabkot_tercacah + intval($akumulasi_tercacah_nim[0]['hasil']);
+                    };
+            for($i=0; $i < count($akumulasi_tercacah_nim); $i++){
+                                $data_tableubinantercacahkabkot = $data_tableubinantercacahkabkot + intval($akumulasi_tercacah_nim[$i][0]['hasil']);
+				//$data_tableprogresscacahkabkot_tercacah = $data_tableprogresscacahkabkot_tercacah + intval($akumulasi_tercacah_nim[0]['hasil']);
+				};
+            $data_tableprogressubinankabkot = $data_tableubinantercacahkabkot / intval($data_tableubinantercacahkabkot_beban[0]['beban']);
+            $data_tableprogressubinankabkot = round($data_tableprogressubinankabkot,2);
             $this->output
                     ->set_content_type('application/json')
                     ->set_output(json_encode($data_tableprogressubinankabkot));
@@ -733,7 +766,18 @@ function get_list_masalah_narasumber($kode=0) { // Database kedua
         function get_tableubinantercacahkabkot_control(){
             $kabkot_id=$this->input->get('kabkot_id');
             $kabkot_id_new = $kabkot_id - 5100;
-            $data_tableubinantercacahkabkot = $this->Server_Model->get_tableubinantercacahkabkot_model($kabkot_id_new);
+            $akumulasi_tercacah_nim = array();
+            //$data_tableubinantercacahkabkot = $this->Server_Model->get_tableubinantercacahkabkot_model($kabkot_id_new);
+            $data_tableubinantercacahkabkot = 0;
+            $data_tableubinantercacahkabkot_nim = $this->Server_Model->get_tableubinantercacahkabkot_nim_model($kabkot_id_new);
+            for($i=0; $i < count($data_tableubinantercacahkabkot_nim); $i++){
+                $akumulasi_tercacah_nim[$i]=$this->Server_Model->get_tableubinantercacahkabkot_tercacah_nim_model($data_tableubinantercacahkabkot_nim[$i]['nim']);
+                //$data_tableprogresscacahkabkot_tercacah = $data_tableprogresscacahkabkot_tercacah + intval($akumulasi_tercacah_nim[0]['hasil']);
+                    };
+            for($i=0; $i < count($akumulasi_tercacah_nim); $i++){
+                                $data_tableubinantercacahkabkot = $data_tableubinantercacahkabkot + intval($akumulasi_tercacah_nim[$i][0]['hasil']);
+				//$data_tableprogresscacahkabkot_tercacah = $data_tableprogresscacahkabkot_tercacah + intval($akumulasi_tercacah_nim[0]['hasil']);
+				};
             $this->output
                     ->set_content_type('application/json')
                     ->set_output(json_encode($data_tableubinantercacahkabkot));
@@ -756,35 +800,58 @@ function get_list_masalah_narasumber($kode=0) { // Database kedua
         }
         
         function get_tableubinantercacahkecamatan_control(){
-            //$kabkot_id=$this->input->get('kabkot_id');
-            $kecamatan_id=$this->input->get('kecamatan_id');
+            //$data_tableubinantercacahkecamatan = $this->Server_Model->get_tableubinantercacahkecamatan_model($kabkot_id_new,$kecamatan_id_new);
+           $kecamatan_id=$this->input->get('kecamatan_id');
             $kabkot_id = $kecamatan_id / 1000;
             $kabkot_id_floor = floor($kabkot_id);
             $kabkot_id_new = $kabkot_id_floor - 5100;
-            //$kabkot_id_new = $kabkot_id - 5100;
-            //$pengurang_kecamatan = $kabkot_id * 1000;
             $kecamatan_id_new = $kecamatan_id - ($kabkot_id_floor * 1000);
-            //$kecamatan_id_new = $kecamatan_id - 5100;
-            $data_tableubinantercacahkecamatan = $this->Server_Model->get_tableubinantercacahkecamatan_model($kabkot_id_new,$kecamatan_id_new);
+            $akumulasi_tercacah_nim = array();
+            //$data_tableubinantercacahkabkot = $this->Server_Model->get_tableubinantercacahkabkot_model($kabkot_id_new);
+            $data_tableubinantercacahkecamatan = 0;
+            $data_tableubinantercacahkecamatan_nim = $this->Server_Model->get_tableubinantercacahkecamatan_nim_model($kabkot_id_new,$kecamatan_id_new);
+            for($i=0; $i < count($data_tableubinantercacahkecamatan_nim); $i++){
+                $akumulasi_tercacah_nim[$i]=$this->Server_Model->get_tableubinantercacahkecamatan_tercacah_nim_model($data_tableubinantercacahkecamatan_nim[$i]['nim']);
+                //$data_tableprogresscacahkabkot_tercacah = $data_tableprogresscacahkabkot_tercacah + intval($akumulasi_tercacah_nim[0]['hasil']);
+                    };
+            for($i=0; $i < count($akumulasi_tercacah_nim); $i++){
+                                $data_tableubinantercacahkecamatan = $data_tableubinantercacahkecamatan + intval($akumulasi_tercacah_nim[$i][0]['hasil']);
+				//$data_tableprogresscacahkabkot_tercacah = $data_tableprogresscacahkabkot_tercacah + intval($akumulasi_tercacah_nim[0]['hasil']);
+				};
             $this->output
                     ->set_content_type('application/json')
                     ->set_output(json_encode($data_tableubinantercacahkecamatan));
         }
         
         function get_tableprogressubinankecamatan_control(){
-            //$kabkot_id=$this->input->get('kabkot_id');
+            //$data_tableprogressubinankecamatan = $this->Server_Model->get_tableprogressubinankecamatan_model($kabkot_id_new,$kecamatan_id_new);
+            
             $kecamatan_id=$this->input->get('kecamatan_id');
             $kabkot_id = $kecamatan_id / 1000;
             $kabkot_id_floor = floor($kabkot_id);
             $kabkot_id_new = $kabkot_id_floor - 5100;
-            //$kabkot_id_new = $kabkot_id - 5100;
-            //$pengurang_kecamatan = $kabkot_id * 1000;
             $kecamatan_id_new = $kecamatan_id - ($kabkot_id_floor * 1000);
-            //$kecamatan_id_new = $kecamatan_id - 5100;
-            $data_tableprogressubinankecamatan = $this->Server_Model->get_tableprogressubinankecamatan_model($kabkot_id_new,$kecamatan_id_new);
+            $akumulasi_tercacah_nim = array();
+            //$data_tableubinantercacahkabkot = $this->Server_Model->get_tableubinantercacahkabkot_model($kabkot_id_new);
+            $data_tableprogressubinankecamatan = 0;
+            $data_tableprogressubinankecamatan_nim = $this->Server_Model->get_tableubinantercacahkecamatan_nim_model($kabkot_id_new,$kecamatan_id_new);
+            $data_tableprogressubinankecamatan_beban = $this->Server_Model->get_tableubinantercacahkecamatan_beban_model($kabkot_id_new,$kecamatan_id_new);
+            for($i=0; $i < count($data_tableprogressubinankecamatan_nim); $i++){
+                $akumulasi_tercacah_nim[$i]=$this->Server_Model->get_tableubinantercacahkecamatan_tercacah_nim_model($data_tableprogressubinankecamatan_nim[$i]['nim']);
+                //$data_tableprogresscacahkabkot_tercacah = $data_tableprogresscacahkabkot_tercacah + intval($akumulasi_tercacah_nim[0]['hasil']);
+                    };
+            for($i=0; $i < count($akumulasi_tercacah_nim); $i++){
+                                $data_tableprogressubinankecamatan = $data_tableprogressubinankecamatan + intval($akumulasi_tercacah_nim[$i][0]['hasil']);
+				//$data_tableprogresscacahkabkot_tercacah = $data_tableprogresscacahkabkot_tercacah + intval($akumulasi_tercacah_nim[0]['hasil']);
+				};
+            $data_tableprogressubinankecamatan = $data_tableprogressubinankecamatan / intval($data_tableprogressubinankecamatan_beban[0]['beban']);
+            $data_tableprogressubinankecamatan = $data_tableprogressubinankecamatan * 100;
+            $data_tableprogressubinankecamatan = round($data_tableprogressubinankecamatan,2);
             $this->output
                     ->set_content_type('application/json')
                     ->set_output(json_encode($data_tableprogressubinankecamatan));
+            
+           
         }
         
         function get_tableprogresscacahkecamatan_control(){
@@ -821,6 +888,8 @@ function get_list_masalah_narasumber($kode=0) { // Database kedua
 				//$data_tableprogresscacahkabkot_tercacah = $data_tableprogresscacahkabkot_tercacah + intval($akumulasi_tercacah_nim[0]['hasil']);
 				};
             $data_tableprogresscacahkecamatan = $data_tableprogresscacahkecamatan / intval($data_tableprogresscacahkecamatan_beban[0]['beban']);
+            $data_tableprogresscacahkecamatan = $data_tableprogresscacahkecamatan * 100;
+            $ $data_tableprogresscacahkecamatan=round( $data_tableprogresscacahkecamatan,2);
             //$data_tableprogresscacahkabkot_tercacah=intval($akumulasi_tercacah_nim[0])+intval($akumulasi_tercacah_nim[1]);
             //$data_tableprogresscacahkabkot=($data_tableprogresscacahkabkot_tercacah / $data_tabeprogresscacahkabkot_beban[0]['beban'])*100;
             //$data_tableprogresscacahkabkot=round($data_tableprogresscacahkabkot,2);
@@ -830,16 +899,27 @@ function get_list_masalah_narasumber($kode=0) { // Database kedua
         }
         
         function get_tableptnkptercacahkecamatan_control(){
-            //$kabkot_id=$this->input->get('kabkot_id');
+            
+            //$data_tableptnkptercacahkecamatan = $this->Server_Model->get_tableptnkptercacahkecamatan_model($kabkot_id_new,$kecamatan_id_new);
+            
             $kecamatan_id=$this->input->get('kecamatan_id');
             $kabkot_id = $kecamatan_id / 1000;
             $kabkot_id_floor = floor($kabkot_id);
             $kabkot_id_new = $kabkot_id_floor - 5100;
-            //$kabkot_id_new = $kabkot_id - 5100;
-            //$pengurang_kecamatan = $kabkot_id * 1000;
             $kecamatan_id_new = $kecamatan_id - ($kabkot_id_floor * 1000);
-            //$kecamatan_id_new = $kecamatan_id - 5100;
-            $data_tableptnkptercacahkecamatan = $this->Server_Model->get_tableptnkptercacahkecamatan_model($kabkot_id_new,$kecamatan_id_new);
+            $data_tableptnkptercacahkecamatan = 0;
+            $akumulasi_tercacah_nim = array();
+            //$data_tableubinantercacahkabkot = $this->Server_Model->get_tableubinantercacahkabkot_model($kabkot_id_new);
+            $data_tableptnkptercacahkecamatan = 0;
+            $data_tableptnkptercacahkecamatan_nim = $this->Server_Model->get_tableptnkptercacahkecamatan_nim_model($kabkot_id_new,$kecamatan_id_new);
+            for($i=0; $i < count($data_tableptnkptercacahkecamatan_nim); $i++){
+                $akumulasi_tercacah_nim[$i]=$this->Server_Model->get_tableptnkptercacahkecamatan_tercacah_nim_model($data_tableptnkptercacahkecamatan_nim[$i]['nim']);
+                //$data_tableprogresscacahkabkot_tercacah = $data_tableprogresscacahkabkot_tercacah + intval($akumulasi_tercacah_nim[0]['hasil']);
+                    };
+            for($i=0; $i < count($akumulasi_tercacah_nim); $i++){
+                                $data_tableptnkptercacahkecamatan = $data_tableptnkptercacahkecamatan + intval($akumulasi_tercacah_nim[$i][0]['hasil']);
+				//$data_tableprogresscacahkabkot_tercacah = $data_tableprogresscacahkabkot_tercacah + intval($akumulasi_tercacah_nim[0]['hasil']);
+				};
             $this->output
                     ->set_content_type('application/json')
                     ->set_output(json_encode($data_tableptnkptercacahkecamatan));
@@ -902,30 +982,68 @@ function get_list_masalah_narasumber($kode=0) { // Database kedua
         
         function get_progresstotaltabanan_control(){
             $kabkot_id=5102;
+            $kabkot_id_new = $kabkot_id - 5100;
             $progress_ksa_kabkot=0;
             $progress_ubinan_kabkot=0;
             $progress_cacah_kabkot=0;
             $progress_total=0;
-            $url_ksa="http://2c0c8c69.ngrok.io/pklserver/api/Monitoring/kab_progress";
+            
+            $url_ksa="http://103.195.91.170/ksa-pkl58.com/public_html/pklserver/index.php/api/Monitoring/kab_progress";
             $data_progress_ksa_kabkot = file_get_contents($url_ksa);
             $data_progress_ksa_kabkot_decode = json_decode($data_progress_ksa_kabkot, true); // Turns it into an array, change the last argument to false to make it an object
             for($i=0; $i < count($data_progress_ksa_kabkot_decode); $i++){
 				if ($data_progress_ksa_kabkot_decode[$i]['id_kab']=$kabkot_id) {
                                         $progress_ksa_kabkot = intval($data_progress_ksa_kabkot_decode[$i]['progres_segmen']);
-					break;
-					};};
-            
-            $kabkot_id_new=$kabkot_id - 5100;
+					//break;
+					}}
+            //$progress_ksa_kabkot = round($progress_ksa_kabkot,2);                            
+                                        
             $akumulasi_tercacah_nim = array();
+            //$data_tableubinantercacahkabkot = $this->Server_Model->get_tableubinantercacahkabkot_model($kabkot_id_new);
+            $data_tableubinantercacahkabkot = 0;
+            //$data_tableprogressubinankabkot = 0;
+            $data_tableubinantercacahkabkot_nim = $this->Server_Model->get_tableubinantercacahkabkot_nim_model($kabkot_id_new);
+            $data_tableubinantercacahkabkot_beban = $this->Server_Model->get_tableubinantercacahkabkot_beban_model($kabkot_id_new);
+            for($i=0; $i < count($data_tableubinantercacahkabkot_nim); $i++){
+                $akumulasi_tercacah_nim[$i]=$this->Server_Model->get_tableubinantercacahkabkot_tercacah_nim_model($data_tableubinantercacahkabkot_nim[$i]['nim']);
+                //$data_tableprogresscacahkabkot_tercacah = $data_tableprogresscacahkabkot_tercacah + intval($akumulasi_tercacah_nim[0]['hasil']);
+                    };
+            for($i=0; $i < count($akumulasi_tercacah_nim); $i++){
+                                $data_tableubinantercacahkabkot = $data_tableubinantercacahkabkot + intval($akumulasi_tercacah_nim[$i][0]['hasil']);
+				//$data_tableprogresscacahkabkot_tercacah = $data_tableprogresscacahkabkot_tercacah + intval($akumulasi_tercacah_nim[0]['hasil']);
+				};
+            $progress_ubinan_kabkot = $data_tableubinantercacahkabkot / intval($data_tableubinantercacahkabkot_beban[0]['beban']);
+            $progress_ubinan_kabkot = $progress_ubinan_kabkot * 100;
+            //$progress_ubinan_kabkot = round($progress_ubinan_kabkot,2);
+                                   
+            //$data_tableprogresscacahkabkot=0;
+            $akumulasi_tercacah_nim = array();
+            //$data_tableprogresscacahkabkot_tercacah;
             $data_tableprogresscacahkabkot_nim = $this->Server_Model->get_tableprogresscacahkabkot_nim_model($kabkot_id_new);
             $data_tableprogresscacahkabkot_beban = $this->Server_Model->get_tableprogresscacahkabkot_beban_model($kabkot_id_new);
             for($i=0; $i < count($data_tableprogresscacahkabkot_nim); $i++){
-                                $akumulasi_tercacah_nim[$i]=$this->Server_Model->get_tableprogresscacahkabkot_tercacah_nim_model(intval($data_tableprogresscacahkabkot_nim[$i]['nim']));
+                                $akumulasi_tercacah_nim[$i]=$this->Server_Model->get_tableprogresscacahkabkot_tercacah_nim_model($data_tableprogresscacahkabkot_nim[$i]['nim']);
+				//$data_tableprogresscacahkabkot_tercacah = $data_tableprogresscacahkabkot_tercacah + intval($akumulasi_tercacah_nim[0]['hasil']);
 				};
             for($i=0; $i < count($akumulasi_tercacah_nim); $i++){
-                                $progress_cacah_kabkot += intval($akumulasi_tercacah_nim[$i]);
+                                $progress_cacah_kabkot = $progress_cacah_kabkot + intval($akumulasi_tercacah_nim[$i][0]['hasil']);
+				//$data_tableprogresscacahkabkot_tercacah = $data_tableprogresscacahkabkot_tercacah + intval($akumulasi_tercacah_nim[0]['hasil']);
 				};
             $progress_cacah_kabkot = $progress_cacah_kabkot / intval($data_tableprogresscacahkabkot_beban[0]['beban']);
+            $progress_cacah_kabkot = $progress_cacah_kabkot * 100;
+            //$progress_cacah_kabkot = round($progress_cacah_kabkot,2);
+                                     
+//            $kabkot_id_new=$kabkot_id - 5100;
+//            $akumulasi_tercacah_nim = array();
+//            $data_tableprogresscacahkabkot_nim = $this->Server_Model->get_tableprogresscacahkabkot_nim_model($kabkot_id_new);
+//            $data_tableprogresscacahkabkot_beban = $this->Server_Model->get_tableprogresscacahkabkot_beban_model($kabkot_id_new);
+//            for($i=0; $i < count($data_tableprogresscacahkabkot_nim); $i++){
+//                                $akumulasi_tercacah_nim[$i]=$this->Server_Model->get_tableprogresscacahkabkot_tercacah_nim_model(intval($data_tableprogresscacahkabkot_nim[$i]['nim']));
+//				};
+//            for($i=0; $i < count($akumulasi_tercacah_nim); $i++){
+//                                $progress_cacah_kabkot += intval($akumulasi_tercacah_nim[$i]);
+//				};
+//            $progress_cacah_kabkot = $progress_cacah_kabkot / intval($data_tableprogresscacahkabkot_beban[0]['beban']);
            
             
             $progress_total= ($progress_ksa_kabkot + $progress_ubinan_kabkot + $progress_cacah_kabkot)/3;
@@ -934,7 +1052,6 @@ function get_list_masalah_narasumber($kode=0) { // Database kedua
                     ->set_content_type('application/json')
                     ->set_output(json_encode($progress_total));
                                         
-            
             }
         
         function get_progresstotalbadung_control(){
