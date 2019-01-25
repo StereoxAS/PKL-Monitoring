@@ -3,13 +3,13 @@
 <head>
 
     <meta charset="utf-8">
-    <link rel="icon" href="<?php echo base_url()?>resources/images/logo_pkl56_small.png" class="img-circle" type="image/ico"/>
+    <link rel="icon" href="<?php echo base_url();?>resources/images/icon2.png" class="img-circle" type="image/ico"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>PKL 58 STIS</title>
+    <title>WEB MONITORING PKL 58</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="<?php echo base_url()?>resources/vendor/bootstrap/css/bootstrap.css" rel="stylesheet">

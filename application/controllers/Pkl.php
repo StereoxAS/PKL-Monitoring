@@ -47,15 +47,9 @@ class Pkl extends CI_Controller {
 		return $autocomplete;
 	}
         
-        function get_embed_kabkot($idembed){
-            $embed_kabkot;
-           // $embed_kabkot = $this->Server_Model->get_embed_kabkott($idembed);
-        }
         
-        function get_embed_kecamatan($idembed){
-            $embed_kecamatan;
-           // $embed_kabkot = $this->Server_Model->get_embed_kecamatann($idembed);
-        }
+        
+        
         /*
         function get_kabkot(){
             $result = $this->Server_Model->get_kabkot_model();
@@ -66,12 +60,20 @@ class Pkl extends CI_Controller {
         }
          
          */
+        
+        
 
+//        function get_progressperkabkot_control(){
+//            
+//        }
+        
 	function dashboard(){
-		$data['autocomplete_nav'] = $this->set_autocomplete('pcl');
-		$data['beban_cacah'] = $this->Server_Model->get_beban_cacah();
+		//$data['autocomplete_nav'] = $this->set_autocomplete('pcl');
+		//$data['beban_cacah'] = $this->Server_Model->get_beban_cacah();
                 $data['all_kabkot'] = $this->Server_Model->get_kabkot_model();
-                $data['all_kecamatan'] = $this->Server_Model->get_kecamatan_model();
+                /*$kakakoko = $this->input->post('kabkot_id');
+                $data['kkprint']=$kakakoko;
+                $data['all_kecamatan'] = $this->Server_Model->get_kecamatan_model($kakakoko); */
                
                 /* $idembedd;
                 $data['embedkabkot'] = $this->get_embed_kabkot($idembedd);
@@ -117,14 +119,30 @@ class Pkl extends CI_Controller {
 		$this->load->view('frames/page_end_script_search_unit_cacah', $data);
 		$this->load->view('frames/page_end');
 	}
+	
+	function search_unit_ksa(){
+		$data['autocomplete_nav'] = $this->set_autocomplete('pcl');
+		// echo json_encode($data['autocomplete']);
+		$this->load->view('frames/page_head');
+		$this->load->view('frames/nav', $data);
+
+		$this->load->view('contents/page_search_unit_ksa');
+
+		$this->load->view('frames/wrapper_end');
+		$this->load->view('frames/page_end_js');
+		$this->load->view('frames/page_end_script_search_unit_ksa', $data);
+		$this->load->view('frames/page_end');
+	}
 
 	function search_pcl($nim = NULL){
 		$data['autocomplete_nav'] = $this->set_autocomplete('pcl');
 		$data['nim'] = $nim;
+		$data['coba']=$this->Server_Model->get_tabel_pcl();
+		//print_r($data['coba']);
 
 		$this->load->view('frames/page_head');
 		$this->load->view('frames/nav', $data);
-
+	//	print_r($data);
 		$this->load->view('contents/page_search_pcl');
 
 		$this->load->view('frames/wrapper_end');
@@ -132,6 +150,20 @@ class Pkl extends CI_Controller {
 		$this->load->view('frames/page_end_script_search_pcl', $data);
 		$this->load->view('frames/page_end');
 	}
+        
+        function search_unit_ubinan($nim = NULL){
+                $data['autocomplete_nav'] = $this->set_autocomplete('pcl');
+
+		$this->load->view('frames/page_head');
+		$this->load->view('frames/nav', $data);
+
+		$this->load->view('contents/page_search_unit_ubinan');
+
+		$this->load->view('frames/wrapper_end');
+		$this->load->view('frames/page_end_js');
+		$this->load->view('frames/page_end_script_search_unit_ubinan', $data);
+		$this->load->view('frames/page_end');
+        }
 
 	// MENU PROGRESS PENCACAHAN
 	function progres_cacah($id_kabupaten = NULL){
@@ -157,7 +189,7 @@ class Pkl extends CI_Controller {
          
                 $this->load->view('frames/wrapper_end');
                 $this->load->view('frames/page_end_js');
-//                $this->load->view('frames/page_end_script_progres_ubinan');
+                $this->load->view('frames/page_end_script_progres_ubinan', $data);
                 $this->load->view('frames/page_end');
         }
 
@@ -177,6 +209,8 @@ class Pkl extends CI_Controller {
 	// MENU MONITORING MASALAH
 	function monitoring_masalah(){
 		$data['autocomplete_nav'] = $this->set_autocomplete('pcl');
+		$data['masalah1'] = $this->Server_Model->get_list_masalah();
+	
 		$this->load->view('frames/page_head');
 		$this->load->view('frames/nav', $data);
 
@@ -203,17 +237,17 @@ class Pkl extends CI_Controller {
 	}
 	
 	// MENU KSA (NEW)
-	function monitoring_ksa($id_kabupaten = NULL){
+	function progress_ksa($id_kabupaten = NULL){
 		$data['autocomplete_nav'] = $this->set_autocomplete('pcl');
 		$data['id_kabupaten'] = $id_kabupaten; // id_kabupaten apabila halaman dipanggil dari progres agregat listing
 		$this->load->view('frames/page_head');
 		$this->load->view('frames/nav', $data);
 
-		$this->load->view('contents/page_progres_listing_table');
+		$this->load->view('contents/page_progress_ksa');
 
 		$this->load->view('frames/wrapper_end');
 		$this->load->view('frames/page_end_js');
-		$this->load->view('frames/page_end_script_progres_listing', $data);
+		$this->load->view('frames/page_end_script_progres_ksa', $data);
 		$this->load->view('frames/page_end');
 	}
 

@@ -31,20 +31,21 @@
                         	<table width="100%" class="table table-striped table-bordered table-hover" id="tabel_unit_cacah">
 	                		<thead>
 	                			<tr>
-									<th style="vertical-align: middle" rowspan="2">Akurasi</th>
-									<th style="vertical-align: middle" rowspan="2">Latitude</th>
-									<th style="vertical-align: middle" rowspan="2">Longitude</th>
-									<th style="vertical-align: middle" rowspan="2">Wilayah</th>
+							<th style="vertical-align: middle" rowspan="2">Akurasi</th>
+							<th style="vertical-align: middle" rowspan="2">Latitude</th>
+							<th style="vertical-align: middle" rowspan="2">Longitude</th>
+							<th style="vertical-align: middle" rowspan="2">Wilayah</th>
 	                				<th style="vertical-align: middle" rowspan="2">NIM</th>
 	                				<th style="vertical-align: middle" rowspan="2">Nama KRT</th>
-                                    <th style="vertical-align: middle" rowspan="2">Alamat</th>
-                                    <th colspan="3" class="text-center">ART</th>
-									<th style="vertical-align: middle" rowspan="2">Tracking</th>
-								</tr>
-								<tr>
+                                                        <th style="vertical-align: middle" rowspan="2">Alamat</th>
+                                                        
+                                                        <th colspan="3" class="text-center">ART</th>
+							<th style="vertical-align: middle" rowspan="2">Tracking</th>
+						</tr>
+						<tr>
 	                				<th>Balita</th>
-									<th>3-24</th>
-									<th>Total</th>
+							<th>3-24</th>
+							<th>Total</th>
 	                			</tr>
 	                		</thead>
 	                	</table>
