@@ -17,7 +17,7 @@
         interv2 = setInterval(get_reload, 3000);
 
         table = $('#tabel_progress_listing').DataTable({
-            ajax: '<?php echo base_url() ?>' + 'index.php/server/get_detail_listing', // CHANGE ME
+            ajax: '<?php echo base_url() ?>' + 'server/get_detail_listing', // CHANGE ME
 			displayLength: 25,
 			oLanguage: {
 				oPaginate: {
@@ -61,7 +61,7 @@
 
     function get_reload(){
         $.ajax({
-            url: "<?php echo base_url(); ?>index.php/server/get_agregat_listing", //service
+            url: "<?php echo base_url(); ?>server/get_agregat_listing", //service
             type: "GET",
             dataType: "JSON",
                 success: function(result){

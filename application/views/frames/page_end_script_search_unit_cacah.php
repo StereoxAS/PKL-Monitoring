@@ -40,7 +40,7 @@
 		init_map();
 
 		table = $('#tabel_unit_cacah').DataTable({
-			ajax: '<?php echo base_url() ?>' + 'index.php/server/get_tabel_unit_cacah', // CHANGE ME
+			ajax: '<?php echo base_url() ?>' + 'server/get_tabel_unit_cacah', // CHANGE ME
 			displayLength: 25,
 			oLanguage: {
 				oPaginate: {
