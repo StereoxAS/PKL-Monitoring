@@ -300,7 +300,7 @@ class Server_Model extends CI_Model {
 							(
 								SELECT COUNT(DISTINCT(n.unique_id_instance)) as jumlah, n.nim
 								FROM  pkl58_kortimpcl.notif n 
-								WHERE  status_isian='Clear' And form_id='R3'
+								WHERE  status = 'Final' And form_id LIKE '%R3%'
 								GROUP BY n.nim 
 							) t2
 						ON t1.nim = t2.nim
@@ -1087,8 +1087,9 @@ WHERE a.nim = c.nim AND a.kategori = b.id AND a.status = '3' AND (a.kategori = '
         
         function get_detail_ubinan(){
                 $que = $this->load->database('pkl58_odk', TRUE)->query("
-                SELECT pkl58_odk.data_tanah.noSegmen, pkl58_odk.data_tanah.nim, pkl58_odk.dummy_kode_kecamatan.nama, pkl58_odk.dummy_kode_kelurahandesa.nama
-                FROM pkl58_odk.data_tanah
+                SELECT pkl58_odk.data_tanah.noSegmen, pkl58_odk.data_tanah.nim, pkl58_odk.dummy_kode_kecamatan.nama,
+                pkl58_odk.dummy_kode_kelurahandesa.nama
+                FROM pkl58_odk.data_tanah 
                 INNER JOIN pkl58_odk.dummy_kode_kecamatan ON pkl58_odk.data_tanah.kodeKecamatan = pkl58_odk.dummy_kode_kecamatan.id
                 INNER JOIN pkl58_odk.dummy_kode_kelurahandesa ON pkl58_odk.data_tanah.kodeKelurahandesa = pkl58_odk.dummy_kode_kelurahandesa.id
                 INNER JOIN pkl58_kortimpcl.notif ON pkl58_odk.data_tanah.nim = pkl58_kortimpcl.notif.nim

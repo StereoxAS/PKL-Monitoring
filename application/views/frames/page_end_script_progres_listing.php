@@ -61,7 +61,7 @@
 
     function get_reload(){
         $.ajax({
-            url: "<?php echo base_url(); ?>index.php/server/get_agregat_listing", //service
+            url: "<?php echo base_url(); ?>server/get_agregat_listing", //service
             type: "GET",
             dataType: "JSON",
                 success: function(result){

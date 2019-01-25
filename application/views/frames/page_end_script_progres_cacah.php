@@ -42,7 +42,7 @@
             interv2 = setInterval(get_aggregate, 3000);
 
             table = $('#tabel_progress_cacah').DataTable({
-                ajax: "<?php echo base_url() ?>" + "index.php/server/get_detail_cacah/", // CHANGE ME
+                ajax: "<?php echo base_url() ?>" + "server/get_detail_cacah/", // CHANGE ME
 				displayLength: 25,
 				oLanguage: {
 					oPaginate: {
