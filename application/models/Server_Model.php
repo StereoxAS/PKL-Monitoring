@@ -432,7 +432,7 @@ class Server_Model extends CI_Model {
 		$db_jarlap = $this->load->database('pkl58_sikoko', TRUE);
 		 $SQL1="
 
-            SELECT b.kategori,a.golongan,a.pertanyaan,a.jawaban, a.timestamp,c.status, d.nama as nama_penanya, e.nama as nama_kortim FROM sipadu_daftar_pertanyaan a, sipadu_kategori_pertanyaan b, sipadu_status_pertanyaan c, sipadu_mahasiswa d, sipadu_mahasiswa e WHERE a.kategori=b.id AND a.status=c.id AND a.nim=d.nim AND a.nim_kortim=e.nim ORDER BY a.kategori DESC
+            SELECT b.kategori,a.golongan,a.pertanyaan,a.jawaban, a.timestamp,c.status, d.nama as nama_penanya, e.nama as nama_kortim, b.penanggung_jawab FROM sipadu_daftar_pertanyaan a, sipadu_kategori_pertanyaan b, sipadu_status_pertanyaan c, sipadu_mahasiswa d, sipadu_mahasiswa e WHERE a.kategori=b.id AND a.status=c.id AND a.nim=d.nim AND a.nim_kortim=e.nim ORDER BY a.kategori DESC
 
            
             ";
@@ -1022,11 +1022,11 @@ WHERE a.nim = c.nim AND a.kategori = b.id AND a.status = '3' AND (a.kategori = '
     }
     
     function get_tabel_unit_ubinan(){
-        $que = $this->db->database('pkl58_monitoring', TRUE)->query("
-                    SELECT u2.id_segmen, u2.id_subsegmen, u2.nim
-                    FROM dummy_unit_ubinan u2
-                ");
-        return $que->result;
+        $que = $this->load->database('pkl58_odk', TRUE);
+        $que->select("kodeKecamatan, kodeKelurahandesa, noSegmen, kodeSubSegmen, strataPadi, longitude, latitude, nim");
+        $que->from("data_tanah");
+        $que = $que->get();
+        return $que->result();
     }
 	
 	function get_detail_ksa()
@@ -1044,9 +1044,13 @@ WHERE a.nim = c.nim AND a.kategori = b.id AND a.status = '3' AND (a.kategori = '
 	}
         
         function get_detail_ubinan(){
-                $que = $this->load->database('pkl58_monitoring', TRUE)->query("
-                SELECT u1.segmen, u1.nim, u1.id_kabupaten, u1.nama_kabupaten, u1.id_kecamatan, u1.nama_kecamatan 
-                FROM dummy_ubinan u1
+                $que = $this->load->database('pkl58_odk', TRUE)->query("
+                SELECT pkl58_odk.data_tanah.noSegmen, pkl58_odk.data_tanah.nim, pkl58_odk.dummy_kode_kecamatan.nama, pkl58_odk.dummy_kode_kelurahandesa.nama
+                FROM pkl58_odk.data_tanah
+                INNER JOIN pkl58_odk.dummy_kode_kecamatan ON pkl58_odk.data_tanah.kodeKecamatan = pkl58_odk.dummy_kode_kecamatan.id
+                INNER JOIN pkl58_odk.dummy_kode_kelurahandesa ON pkl58_odk.data_tanah.kodeKelurahandesa = pkl58_odk.dummy_kode_kelurahandesa.id
+                INNER JOIN pkl58_kortimpcl.notif ON pkl58_odk.data_tanah.nim = pkl58_kortimpcl.notif.nim
+                WHERE pkl58_kortimpcl.notif.form_id LIKE '%R2%'
                 ");
                 return $que->result();
         }

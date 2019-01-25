@@ -1355,7 +1355,7 @@ function get_list_masalah_narasumber($kode=0) { // Database kedua
 		function get_progressksa()
 		{
 			$progress_ksa_ws = 0;
-			$url_ksa_ws = "http://0f3957d8.ngrok.io/pklserver/api/monitoring/progress_ksa";
+			$url_ksa_ws = "http://103.195.91.170/ksa-pkl58.com/public_html/pklserver/index.php/api/Monitoring/progress_ksa";
 			$data_ksa_ws1 = file_get_contents($url_ksa_ws);
 			$data_ksa_ws2 = json_decode($data_ksa_ws2, true);
 			echo $data_ksa_ws2;
@@ -1363,7 +1363,7 @@ function get_list_masalah_narasumber($kode=0) { // Database kedua
 		function get_progress_ksa()
 		{
 			header('Content-Type: application/json');
-			$url_ksa_ws = "http://26e7dd1e.ngrok.io/pklserver/api/monitoring/progress_ksa.json";
+			$url_ksa_ws = "http://103.195.91.170/ksa-pkl58.com/public_html/pklserver/index.php/api/Monitoring/progress_ksa";
 			
 			$data = file_get_contents($url_ksa_ws);
             $data_decode = json_decode($data, true); // Turns it into an array, change the last

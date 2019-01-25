@@ -60,22 +60,18 @@
 			},
 			columns: [
 				{data: "akurasi"},
-				{data: "latitude"},
+                                {data: "noSegmen"},
+				{data: "kodeSubSegmen",},
+				{data: "nim",},
+                                {data: "latitude"},
 				{data: "longitude"},
-				{
-					data: "id_subsegmen",
-				},
-				{
-					data: "nim",
-				},
-				{
-					data: null,
-						render:function (data, type, full, meta) {
-							if (full['longitude'] != null && full['latitude'] != null) {
-								return "<td class='text-center'><center><button id='button_track_uc' type='button' class='btn btn-primary btn-xs'>Tampilkan di peta</button></center></td>"
-							} else {
-								return "Lokasi tidak tersedia";
-							}
+				{data: null,
+                                    render:function (data, type, full, meta) {
+					if (full['longitude'] != null && full['latitude'] != null) {
+                                            return "<td class='text-center'><center><button id='button_track_uc' type='button' class='btn btn-primary btn-xs'>Tampilkan di peta</button></center></td>"
+						} else {
+                                                    return "Lokasi tidak tersedia";
+						}
 							// return full['akurasi'];
 						}
 				},
@@ -83,13 +79,13 @@
 			order: [[1, 'asc']],
 			columnDefs: [
 							{
-								targets: [0,1,2],
+								targets: [0],
 								visible: false,
 								searchable: false
 							},
 							{
 								width: "12.5%",
-								targets: [3,4,5],
+								targets: [1,2,3,4,5],
 							}
 						],
 			responsive: true
@@ -154,7 +150,7 @@ $('#clear_all').click(function () {
 </script>
 
 <script>
-	$("#tabel_unit_cacah").on('click', '#button_track_uc', function ()  {
+	$("#tabel_unit_ubinan").on('click', '#button_track_uc', function ()  {
 		var row_data = table.row($(this).parents('tr')).data();
 		console.log([row_data['latitude'], row_data['longitude']]);
 		drop_then_add(row_data);

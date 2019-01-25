@@ -37,10 +37,10 @@
 				sLoadingRecords: "Memuat data ..."
 			},
             columns: [
-                {"data": "segmen"},
-                {"data": "nim"},
-                {"data": "nama_kabupaten"},
-                {"data": "nama_kecamatan"},
+                {"data": "tan.noSegmen"},
+                {"data": "tan.nim"},
+                {"data": "kec.nama"},
+                {"data": "kel.nama"},
                 {
                     "data": "jumlah",
                     render:function (data, type, full, meta) {
@@ -51,6 +51,13 @@
                         }
                     }
                 },
+//                {
+//                    "data": "progres",
+//                    render:function (data, type, full, meta){
+//                        jumlah/;
+//                        return 
+//                    }
+//                },
             ],
             order: [[1, 'asc']],
             responsive: true

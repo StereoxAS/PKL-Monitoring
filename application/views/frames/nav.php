@@ -93,7 +93,7 @@
                             <a href="<?php echo base_url('pkl/search_unit_cacah')?>">Daftar Unit Cacah</a>
                         </li>
                         <li>
-                            <a href="<?php echo base_url('pkl/search_unit_cacah')?>">Daftar Unit KSA</a>
+                            <a href="<?php echo base_url('pkl/search_unit_ksa')?>">Daftar Unit KSA</a>
                         </li>
                         <li>
                             <a href="<?php echo base_url('pkl/search_unit_ubinan')?>">Daftar Unit Ubinan</a>
