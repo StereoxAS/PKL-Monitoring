@@ -1087,12 +1087,23 @@ WHERE a.nim = c.nim AND a.kategori = b.id AND a.status = '3' AND (a.kategori = '
  
         function get_detail_ubinan(){
                 $que = $this->load->database('pkl58_odk', TRUE)->query("
-                SELECT dt.noSegmen, dt.nim, dkk.nama, dkd.nama as namadesa                                                 
+                SELECT *, ubin, ubin/beban_ubin AS progress
+                FROM(
+                SELECT dt.noSegmen, dt.nim, dkk.nama, dkd.nama as namadesa                                                
                 FROM pkl58_odk.data_tanah dt
-                LEFT JOIN pkl58_odk.dummy_kode_kecamatan dkk ON dt.kodeKecamatan = dkk.id
-                LEFT JOIN pkl58_odk.dummy_kode_kelurahandesa dkd ON dt.kodeKelurahandesa = dkd.id
-                LEFT JOIN pkl58_kortimpcl.notif ON dt.nim = pkl58_kortimpcl.notif.nim
-                WHERE pkl58_kortimpcl.notif.form_id LIKE '%R2%' AND pkl58_kortimpcl.notif.status = 'Final'
+                INNER JOIN pkl58_odk.dummy_kode_kecamatan dkk ON dt.kodeKecamatan = dkk.id AND dt.kodeKabupaten = dkk.kabupaten
+                INNER JOIN pkl58_odk.dummy_kode_kelurahandesa dkd ON dt.kodeKelurahandesa = dkd.id
+                AND dt.kodeKecamatan = dkd.kecamatan AND dt.kodeKabupaten = dkd.kabupaten) t1
+                JOIN (SELECT COUNT(DISTINCT(n.unique_id_instance)) as ubin, n.nim
+                           FROM  pkl58_kortimpcl.notif n 
+			   WHERE  status = 'Final' And form_id LIKE '%R2%'
+			   GROUP BY n.nim 
+			   ) ubin
+			   ON t1.nim = ubin.nim
+		JOIN (SELECT COUNT(DISTINCT(dt.kodeSubSegmen)) as beban_ubin, dt.nim
+			    FROM pkl58_odk.data_tanah dt
+			    GROUP BY dt.nim) beban_ubin
+		            ON beban_ubin.nim = ubin.nim
                 ");
                 return $que->result();
         }

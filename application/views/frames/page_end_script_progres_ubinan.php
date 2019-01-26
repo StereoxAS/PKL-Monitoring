@@ -41,23 +41,8 @@
                 {"data": "nim"},
                 {"data": "nama"},
                 {"data": "namadesa"},
-                {
-                    "data": "jumlah",
-                    render:function (data, type, full, meta) {
-                        if (data == null) {
-                            return 0;
-                        }else{
-                            return data;
-                        }
-                    }
-                },
-                {
-                    "data": "progress",
-                    render:function (data, type, full, meta){
-                        jumlah/;
-                        return 
-                    }
-                }
+                {"data": "ubin"},
+                {"data": "progress"}
             ],
             order: [[1, 'asc']],
             responsive: true

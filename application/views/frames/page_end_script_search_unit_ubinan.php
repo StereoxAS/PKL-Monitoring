@@ -12,23 +12,15 @@
 	var markers = [];
 	var bounds = new google.maps.LatLngBounds();
 	var infowindow = new google.maps.InfoWindow();
-	var currentLocation;
-	var autocomplete;
 	var table;
-	var currentTab;
-	var interv2;
-	var temp_nim;
-	var temp_nama;
-	var hasil;
-	var get_data;
-	var get_nama;
-	var lat;
-	var lon;
-
+	var focusedLatitude = -8.6726769;
+	var focusedLongitude = 115.1542326;
+	
 	function init_map() {
-		map = new google.maps.Map(document.getElementById('gmap'), {
-			zoom: 10,
-			center: {lat: -2.7410513, lng: 106.4405872}, // default Babel
+		map = new google.maps.Map(document.getElementById('gmap'), 
+		{
+			zoom: 16,
+			center: {lat: focusedLatitude, lng: focusedLongitude}, // default map location
 			mapTypeId: google.maps.MapTypeId.ROADMAP
 		});
 		bounds = new google.maps.LatLngBounds();
@@ -137,9 +129,9 @@ $('#clear_all').click(function () {
 		  google.maps.event.addListener(marker,'click', (function(marker, info, infowindow){
 			  return function() {
 				infowindow.setContent(
-					"<b>" + info['namaKrt'] + "</b>" +
+					"<b> SubSegmen " + info['kodeSubSegmen'] + "</b>" +
 					"<br>" +
-					"(akurasi : " + info['akurasi'] + ")"
+					"Penanggung Jawab : " + info['nim']
 				);
 				// addInformation(info);
 				infowindow.open(map,marker);
